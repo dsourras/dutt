@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta
@@ -135,12 +135,8 @@
     }
 
     @keyframes float {
-      0%, 100% {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-      50% {
-        transform: translate3d(0, -18px, 0) scale(1.06);
-      }
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(0, -18px, 0) scale(1.06); }
     }
 
     .nav {
@@ -194,8 +190,37 @@
       background: rgba(255,255,255,0.06);
     }
 
-    .nav-cta {
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       flex: 0 0 auto;
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      min-width: 48px;
+    }
+
+    .lang-btn.active {
+      background: rgba(255,255,255,0.12);
+      color: var(--text);
     }
 
     .btn {
@@ -237,11 +262,6 @@
       color: var(--text);
     }
 
-    .btn-dark {
-      background: rgba(255,255,255,0.08);
-      color: var(--text);
-    }
-
     .btn-block {
       width: 100%;
     }
@@ -278,11 +298,6 @@
       align-items: center;
     }
 
-    .hero-copy {
-      position: relative;
-      z-index: 2;
-    }
-
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -294,7 +309,6 @@
       color: #dbe3f2;
       font-size: 0.92rem;
       margin-bottom: 20px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.02) inset;
       max-width: 100%;
     }
 
@@ -309,15 +323,9 @@
     }
 
     @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(149,255,184,0.7);
-      }
-      70% {
-        box-shadow: 0 0 0 12px rgba(149,255,184,0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(149,255,184,0);
-      }
+      0% { box-shadow: 0 0 0 0 rgba(149,255,184,0.7); }
+      70% { box-shadow: 0 0 0 12px rgba(149,255,184,0); }
+      100% { box-shadow: 0 0 0 0 rgba(149,255,184,0); }
     }
 
     h1 {
@@ -345,14 +353,9 @@
       color: var(--muted);
     }
 
-    .cta-row {
-      margin-top: 30px;
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .mini-stats {
+    .cta-row,
+    .mini-stats,
+    .download-buttons {
       margin-top: 26px;
       display: flex;
       gap: 14px;
@@ -404,12 +407,8 @@
     }
 
     @keyframes phoneFloat {
-      0%, 100% {
-        transform: perspective(1200px) rotateY(-8deg) rotateX(5deg) translateY(0);
-      }
-      50% {
-        transform: perspective(1200px) rotateY(-5deg) rotateX(3deg) translateY(-10px);
-      }
+      0%, 100% { transform: perspective(1200px) rotateY(-8deg) rotateX(5deg) translateY(0); }
+      50% { transform: perspective(1200px) rotateY(-5deg) rotateX(3deg) translateY(-10px); }
     }
 
     .phone::before {
@@ -496,18 +495,8 @@
       box-shadow: 0 0 0 8px rgba(255,255,255,0.05);
     }
 
-    .pickup {
-      background: #6eff9a;
-      top: 30%;
-      left: 24%;
-    }
-
-    .dropoff {
-      background: #ff6b87;
-      top: 56%;
-      right: 24%;
-    }
-
+    .pickup { background: #6eff9a; top: 30%; left: 24%; }
+    .dropoff { background: #ff6b87; top: 56%; right: 24%; }
     .driver {
       background: #79b9ff;
       top: 42%;
@@ -516,21 +505,11 @@
     }
 
     @keyframes moveDriver {
-      0% {
-        transform: translate(0, 0);
-      }
-      25% {
-        transform: translate(26px, -18px);
-      }
-      50% {
-        transform: translate(58px, 12px);
-      }
-      75% {
-        transform: translate(18px, 32px);
-      }
-      100% {
-        transform: translate(0, 0);
-      }
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(26px, -18px); }
+      50% { transform: translate(58px, 12px); }
+      75% { transform: translate(18px, 32px); }
+      100% { transform: translate(0, 0); }
     }
 
     .ride-sheet {
@@ -623,18 +602,35 @@
       font-size: 1.05rem;
     }
 
-    .feature-grid {
-      margin-top: 30px;
+    .feature-grid,
+    .split,
+    .apps-grid,
+    .form-wrap,
+    .contact-grid {
+      margin-top: 28px;
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
     }
 
+    .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .split,
+    .apps-grid,
+    .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .form-wrap { grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr); }
+
+    .feature-card,
+    .info-card,
+    .app-card,
+    .form-card,
+    .form-side,
+    .contact-card {
+      padding: 28px;
+      overflow: hidden;
+    }
+
     .feature-card {
-      padding: 24px;
       min-height: 220px;
       position: relative;
-      overflow: hidden;
     }
 
     .feature-card::after {
@@ -684,22 +680,6 @@
       overflow-wrap: anywhere;
     }
 
-    .split {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .info-card,
-    .app-card,
-    .form-card,
-    .form-side,
-    .contact-card {
-      padding: 28px;
-      overflow: hidden;
-    }
-
     .ticker {
       margin-top: 18px;
       overflow: hidden;
@@ -716,7 +696,6 @@
       padding: 12px 14px;
       animation: ticker 26s linear infinite;
       white-space: nowrap;
-      max-width: none;
     }
 
     .ticker-track span {
@@ -726,41 +705,8 @@
     }
 
     @keyframes ticker {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    .apps-grid {
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .download-buttons {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .store-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 52px;
-    }
-
-    .form-wrap {
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-      gap: 18px;
-      align-items: start;
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .driver-form {
@@ -841,14 +787,7 @@
       overflow-wrap: anywhere;
     }
 
-    .contact-grid {
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .contact-card a.email-link {
+    .email-link {
       color: #ffffff;
       font-weight: 650;
       display: inline-block;
@@ -898,7 +837,6 @@
       font-size: clamp(2rem, 4vw, 3rem);
       letter-spacing: -0.04em;
       line-height: 1;
-      text-wrap: balance;
     }
 
     .final-cta p {
@@ -915,12 +853,7 @@
 
     .footer-line {
       height: 1px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,0.10),
-        transparent
-      );
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
       margin-bottom: 18px;
     }
 
@@ -944,14 +877,6 @@
       transform: translateY(0);
     }
 
-    .mobile-only {
-      display: none !important;
-    }
-
-    .desktop-only {
-      display: initial;
-    }
-
     @media (max-width: 1100px) {
       .hero-grid,
       .feature-grid,
@@ -971,12 +896,8 @@
       }
 
       @keyframes phoneFloat {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-8px);
-        }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
       }
     }
 
@@ -997,16 +918,11 @@
     @media (max-width: 760px) {
       :root {
         --radius: 24px;
-        --radius-sm: 18px;
       }
 
       .wrap,
       .nav-inner {
         width: min(100% - 20px, var(--container));
-      }
-
-      .nav {
-        position: sticky;
       }
 
       .nav-inner {
@@ -1017,18 +933,19 @@
         height: 46px;
       }
 
-      .nav-cta .btn {
-        min-height: 44px;
-        padding: 12px 16px;
-        font-size: 0.92rem;
+      .nav-right {
+        gap: 8px;
       }
 
-      .desktop-only {
-        display: none !important;
+      .nav-right .btn {
+        min-height: 42px;
+        padding: 10px 14px;
+        font-size: 0.9rem;
       }
 
-      .mobile-only {
-        display: initial !important;
+      .lang-btn {
+        padding: 7px 10px;
+        min-width: 42px;
       }
 
       .hero {
@@ -1039,19 +956,8 @@
         padding: 26px 0;
       }
 
-      .hero-grid {
-        gap: 22px;
-      }
-
-      .eyebrow {
-        font-size: 0.84rem;
-        padding: 9px 12px;
-        margin-bottom: 16px;
-      }
-
       h1 {
         font-size: clamp(2.45rem, 12vw, 3.55rem);
-        line-height: 0.96;
       }
 
       .hero p,
@@ -1064,7 +970,6 @@
       .contact-card p,
       .final-cta p {
         font-size: 0.97rem;
-        line-height: 1.72;
       }
 
       .feature-card,
@@ -1133,26 +1038,6 @@
         border-radius: 20px;
       }
 
-      .ride-head {
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 12px;
-      }
-
-      .ride-head strong {
-        font-size: 0.96rem;
-      }
-
-      .tag-live {
-        font-size: 0.75rem;
-        padding: 7px 9px;
-      }
-
-      .line-item {
-        font-size: 0.88rem;
-        gap: 10px;
-      }
-
       .line-item span:last-child {
         max-width: 62%;
       }
@@ -1160,15 +1045,10 @@
       .confirm-btn {
         padding: 14px;
         font-size: 0.94rem;
-        border-radius: 16px;
       }
 
       .row {
         grid-template-columns: 1fr;
-      }
-
-      .ticker-track {
-        animation-duration: 34s;
       }
 
       .footer-row {
@@ -1191,21 +1071,8 @@
         min-height: 70px;
       }
 
-      .nav-cta .btn {
-        padding: 10px 14px;
-        min-height: 42px;
-      }
-
-      .hero {
-        padding-top: 24px;
-      }
-
       h1 {
         font-size: clamp(2.2rem, 11.5vw, 3rem);
-      }
-
-      .hero p {
-        margin-top: 18px;
       }
 
       .section-title {
@@ -1223,21 +1090,9 @@
         border-radius: 20px;
       }
 
-      .icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 14px;
-        margin-bottom: 14px;
-      }
-
       .phone {
         border-radius: 28px;
         padding: 8px;
-      }
-
-      .phone::before {
-        height: 24px;
-        top: 6px;
       }
 
       .screen {
@@ -1246,10 +1101,6 @@
 
       .map-card {
         min-height: 200px;
-      }
-
-      .line-item {
-        font-size: 0.85rem;
       }
 
       .line-item span:last-child {
@@ -1262,32 +1113,14 @@
         padding: 13px 14px;
         border-radius: 14px;
       }
-
-      .field textarea {
-        min-height: 130px;
-      }
-
-      .small-note {
-        font-size: 0.84rem;
-      }
-
-      .ticker-track {
-        font-size: 0.9rem;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
         animation: none !important;
         transition: none !important;
       }
-
       .reveal {
         opacity: 1;
         transform: none;
@@ -1308,14 +1141,19 @@
       </a>
 
       <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#apps">Apps</a>
-        <a href="#drivers">Drivers</a>
-        <a href="#contact">Contact</a>
+        <a href="#features" data-i18n="navFeatures">Features</a>
+        <a href="#apps" data-i18n="navApps">Apps</a>
+        <a href="#drivers" data-i18n="navDrivers">Drivers</a>
+        <a href="#contact" data-i18n="navContact">Contact</a>
       </div>
 
-      <div class="nav-cta">
-        <a href="#drivers" class="btn btn-secondary">Driver signup</a>
+      <div class="nav-right">
+        <div class="lang-switcher" aria-label="Language switcher">
+          <button class="lang-btn active" type="button" data-lang="en">EN</button>
+          <button class="lang-btn" type="button" data-lang="el">GR</button>
+        </div>
+
+        <a href="#drivers" class="btn btn-secondary" data-i18n="navSignup">Driver signup</a>
       </div>
     </div>
   </nav>
@@ -1323,18 +1161,18 @@
   <main class="wrap">
     <section class="hero">
       <div class="hero-grid">
-        <div class="hero-copy reveal">
+        <div class="reveal">
           <div class="eyebrow">
             <span class="pulse"></span>
-            Same-hour delivery, reimagined
+            <span data-i18n="eyebrow">Same-hour delivery, reimagined</span>
           </div>
 
           <h1>
-            Move your city
-            <span class="gradient">in minutes.</span>
+            <span data-i18n="heroTitle1">Move your city</span>
+            <span class="gradient" data-i18n="heroTitle2">in minutes.</span>
           </h1>
 
-          <p>
+          <p data-i18n="heroText">
             dutt is the next-generation same-hour delivery platform for urban
             logistics, built for speed, clarity, and premium user experience.
             Instant requests, real-time tracking, and a modern network of
@@ -1342,14 +1180,14 @@
           </p>
 
           <div class="cta-row">
-            <a href="#apps" class="btn btn-primary">Download the app</a>
-            <a href="#drivers" class="btn btn-secondary">Become a driver</a>
+            <a href="#apps" class="btn btn-primary" data-i18n="heroBtn1">Download the app</a>
+            <a href="#drivers" class="btn btn-secondary" data-i18n="heroBtn2">Become a driver</a>
           </div>
 
           <div class="mini-stats">
-            <div class="mini-pill">⚡ Fast dispatch logic</div>
-            <div class="mini-pill">📍 Live order tracking</div>
-            <div class="mini-pill">🏙 Built city by city</div>
+            <div class="mini-pill" data-i18n="pill1">⚡ Fast dispatch logic</div>
+            <div class="mini-pill" data-i18n="pill2">📍 Live order tracking</div>
+            <div class="mini-pill" data-i18n="pill3">🏙 Built city by city</div>
           </div>
         </div>
 
@@ -1359,7 +1197,7 @@
               <div class="screen">
                 <div class="screen-top">
                   <span>9:41</span>
-                  <span>dutt live</span>
+                  <span data-i18n="phoneTop">dutt live</span>
                 </div>
 
                 <div class="screen-body">
@@ -1373,26 +1211,26 @@
 
                   <div class="ride-sheet">
                     <div class="ride-head">
-                      <strong>Delivery in progress</strong>
-                      <div class="tag-live">Live</div>
+                      <strong data-i18n="rideTitle">Delivery in progress</strong>
+                      <div class="tag-live" data-i18n="liveTag">Live</div>
                     </div>
 
                     <div class="line-item">
-                      <span>Pickup</span>
-                      <span>Auto Parts Hub</span>
+                      <span data-i18n="pickupLabel">Pickup</span>
+                      <span data-i18n="pickupValue">Auto Parts Hub</span>
                     </div>
 
                     <div class="line-item">
-                      <span>Dropoff</span>
-                      <span>Downtown Garage</span>
+                      <span data-i18n="dropoffLabel">Dropoff</span>
+                      <span data-i18n="dropoffValue">Downtown Garage</span>
                     </div>
 
                     <div class="line-item">
-                      <span>ETA</span>
-                      <span>12 min</span>
+                      <span data-i18n="etaLabel">ETA</span>
+                      <span data-i18n="etaValue">12 min</span>
                     </div>
 
-                    <button class="confirm-btn" type="button">Track order</button>
+                    <button class="confirm-btn" type="button" data-i18n="trackBtn">Track order</button>
                   </div>
                 </div>
               </div>
@@ -1403,8 +1241,8 @@
     </section>
 
     <section class="section reveal" id="features">
-      <h2 class="section-title">A premium logistics experience.</h2>
-      <p class="section-text">
+      <h2 class="section-title" data-i18n="featuresTitle">A premium logistics experience.</h2>
+      <p class="section-text" data-i18n="featuresText">
         Built to feel modern, fast, and trustworthy from the first second.
         dutt combines sleek product design with a delivery engine focused on
         instant city movement.
@@ -1413,8 +1251,8 @@
       <div class="feature-grid">
         <div class="feature-card glass-card">
           <div class="icon">⚡</div>
-          <h3>Instant dispatch</h3>
-          <p>
+          <h3 data-i18n="f1t">Instant dispatch</h3>
+          <p data-i18n="f1d">
             Orders enter a real-time delivery flow designed for fast assignment
             and clean operational control.
           </p>
@@ -1422,8 +1260,8 @@
 
         <div class="feature-card glass-card">
           <div class="icon">🗺</div>
-          <h3>Live tracking</h3>
-          <p>
+          <h3 data-i18n="f2t">Live tracking</h3>
+          <p data-i18n="f2d">
             Customers follow each delivery on a premium-style interface with
             location awareness and progress clarity.
           </p>
@@ -1431,8 +1269,8 @@
 
         <div class="feature-card glass-card">
           <div class="icon">🏙</div>
-          <h3>City-based scaling</h3>
-          <p>
+          <h3 data-i18n="f3t">City-based scaling</h3>
+          <p data-i18n="f3d">
             The platform is structured to operate city by city, making growth
             cleaner, smarter, and operationally stronger.
           </p>
@@ -1440,8 +1278,8 @@
 
         <div class="feature-card glass-card">
           <div class="icon">📦</div>
-          <h3>Flexible use cases</h3>
-          <p>
+          <h3 data-i18n="f4t">Flexible use cases</h3>
+          <p data-i18n="f4d">
             Ideal for urgent city logistics, business deliveries, fast local
             movement, and same-hour requests where time matters.
           </p>
@@ -1449,8 +1287,8 @@
 
         <div class="feature-card glass-card">
           <div class="icon">✨</div>
-          <h3>Premium product feel</h3>
-          <p>
+          <h3 data-i18n="f5t">Premium product feel</h3>
+          <p data-i18n="f5d">
             Minimal, smooth, and modern. Every screen is designed to feel closer
             to a high-end tech platform than a basic delivery site.
           </p>
@@ -1458,8 +1296,8 @@
 
         <div class="feature-card glass-card">
           <div class="icon">🚗</div>
-          <h3>Independent driver network</h3>
-          <p>
+          <h3 data-i18n="f6t">Independent driver network</h3>
+          <p data-i18n="f6d">
             Powered by independent drivers to create flexibility, speed, and
             scalable local execution.
           </p>
@@ -1470,8 +1308,8 @@
     <section class="section reveal">
       <div class="split">
         <div class="info-card glass-card">
-          <h3>For customers and businesses</h3>
-          <p>
+          <h3 data-i18n="bizTitle">For customers and businesses</h3>
+          <p data-i18n="bizText">
             dutt gives users a clean, immediate way to move items across the city
             without friction. Request fast, follow live, and stay in control from
             pickup to delivery.
@@ -1479,32 +1317,32 @@
 
           <div class="ticker">
             <div class="ticker-track" aria-hidden="true">
-              <span>Same-hour delivery</span>
+              <span data-i18n="ticker1">Same-hour delivery</span>
               <span>•</span>
-              <span>Real-time movement</span>
+              <span data-i18n="ticker2">Real-time movement</span>
               <span>•</span>
-              <span>Fast urban logistics</span>
+              <span data-i18n="ticker3">Fast urban logistics</span>
               <span>•</span>
-              <span>Independent drivers</span>
+              <span data-i18n="ticker4">Independent drivers</span>
               <span>•</span>
-              <span>Premium UX</span>
+              <span data-i18n="ticker5">Premium UX</span>
               <span>•</span>
-              <span>Same-hour delivery</span>
+              <span data-i18n="ticker1b">Same-hour delivery</span>
               <span>•</span>
-              <span>Real-time movement</span>
+              <span data-i18n="ticker2b">Real-time movement</span>
               <span>•</span>
-              <span>Fast urban logistics</span>
+              <span data-i18n="ticker3b">Fast urban logistics</span>
               <span>•</span>
-              <span>Independent drivers</span>
+              <span data-i18n="ticker4b">Independent drivers</span>
               <span>•</span>
-              <span>Premium UX</span>
+              <span data-i18n="ticker5b">Premium UX</span>
             </div>
           </div>
         </div>
 
         <div class="info-card glass-card">
-          <h3>For independent drivers</h3>
-          <p>
+          <h3 data-i18n="driverInfoTitle">For independent drivers</h3>
+          <p data-i18n="driverInfoText">
             A modern platform experience built around speed, flexibility, and
             clean workflow. dutt is designed to support fast local delivery
             operations with a product-first mindset.
@@ -1514,16 +1352,16 @@
     </section>
 
     <section class="section reveal" id="apps">
-      <h2 class="section-title">Download the apps.</h2>
-      <p class="section-text">
+      <h2 class="section-title" data-i18n="appsTitle">Download the apps.</h2>
+      <p class="section-text" data-i18n="appsText">
         One clean place for both platforms. Put your final store links below
         whenever the apps go live.
       </p>
 
       <div class="apps-grid">
         <div class="app-card glass-card">
-          <h3>Android app</h3>
-          <p>
+          <h3 data-i18n="androidTitle">Android app</h3>
+          <p data-i18n="androidText">
             Give Android users a direct path to install dutt and start using the
             platform immediately.
           </p>
@@ -1533,7 +1371,8 @@
               href="https://play.google.com/store"
               target="_blank"
               rel="noopener noreferrer"
-              class="btn btn-primary store-badge"
+              class="btn btn-primary"
+              data-i18n="androidBtn"
             >
               Get it on Google Play
             </a>
@@ -1541,8 +1380,8 @@
         </div>
 
         <div class="app-card glass-card">
-          <h3>iPhone app</h3>
-          <p>
+          <h3 data-i18n="iosTitle">iPhone app</h3>
+          <p data-i18n="iosText">
             Give iOS users a premium direct path to the App Store version of dutt.
           </p>
 
@@ -1551,7 +1390,8 @@
               href="https://www.apple.com/app-store/"
               target="_blank"
               rel="noopener noreferrer"
-              class="btn btn-primary store-badge"
+              class="btn btn-primary"
+              data-i18n="iosBtn"
             >
               Download on the App Store
             </a>
@@ -1561,16 +1401,16 @@
     </section>
 
     <section class="section reveal" id="drivers">
-      <h2 class="section-title">Join as a driver.</h2>
-      <p class="section-text">
+      <h2 class="section-title" data-i18n="joinTitle">Join as a driver.</h2>
+      <p class="section-text" data-i18n="joinText">
         Interested drivers can submit an application and your team can contact
         them directly.
       </p>
 
       <div class="form-wrap">
         <div class="form-card glass-card">
-          <h3>Driver application form</h3>
-          <p>
+          <h3 data-i18n="formTitle">Driver application form</h3>
+          <p data-i18n="formIntro">
             Fill out the form below and send your application directly to the
             dutt team.
           </p>
@@ -1588,139 +1428,115 @@
 
             <div class="row">
               <div class="field">
-                <label for="fullName">Full name</label>
-                <input
-                  type="text"
-                  id="fullName"
-                  name="Full Name"
-                  required
-                  autocomplete="name"
-                />
+                <label for="fullName" data-i18n="labelName">Full name</label>
+                <input type="text" id="fullName" name="Full Name" required autocomplete="name" />
               </div>
 
               <div class="field">
-                <label for="phone">Phone</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="Phone"
-                  required
-                  autocomplete="tel"
-                />
+                <label for="phone" data-i18n="labelPhone">Phone</label>
+                <input type="tel" id="phone" name="Phone" required autocomplete="tel" />
               </div>
             </div>
 
             <div class="row">
               <div class="field">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="Email"
-                  required
-                  autocomplete="email"
-                />
+                <label for="email" data-i18n="labelEmail">Email</label>
+                <input type="email" id="email" name="Email" required autocomplete="email" />
               </div>
 
               <div class="field">
-                <label for="city">City</label>
-                <input
-                  type="text"
-                  id="city"
-                  name="City"
-                  required
-                  autocomplete="address-level2"
-                />
+                <label for="city" data-i18n="labelCity">City</label>
+                <input type="text" id="city" name="City" required autocomplete="address-level2" />
               </div>
             </div>
 
             <div class="row">
               <div class="field">
-                <label for="vehicle">Vehicle type</label>
+                <label for="vehicle" data-i18n="labelVehicle">Vehicle type</label>
                 <select id="vehicle" name="Vehicle Type" required>
-                  <option value="">Select one</option>
-                  <option>Motorbike</option>
-                  <option>Car</option>
-                  <option>Van</option>
-                  <option>Bicycle</option>
-                  <option>Other</option>
+                  <option value="" data-i18n="vehiclePlaceholder">Select one</option>
+                  <option data-i18n="vehicle1">Motorbike</option>
+                  <option data-i18n="vehicle2">Car</option>
+                  <option data-i18n="vehicle3">Van</option>
+                  <option data-i18n="vehicle4">Bicycle</option>
+                  <option data-i18n="vehicle5">Other</option>
                 </select>
               </div>
 
               <div class="field">
-                <label for="availability">Availability</label>
+                <label for="availability" data-i18n="labelAvailability">Availability</label>
                 <input
                   type="text"
                   id="availability"
                   name="Availability"
                   placeholder="e.g. Full-time / Part-time / Evenings"
+                  data-i18n-placeholder="availabilityPlaceholder"
                 />
               </div>
             </div>
 
             <div class="field">
-              <label for="experience">Experience / short message</label>
+              <label for="experience" data-i18n="labelMessage">Experience / short message</label>
               <textarea
                 id="experience"
                 name="Message"
                 placeholder="Tell us a few things about your availability, delivery experience, and area."
+                data-i18n-placeholder="messagePlaceholder"
               ></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block">
+            <button type="submit" class="btn btn-primary btn-block" data-i18n="sendBtn">
               Send application
             </button>
 
-            <div class="small-note">
+            <div class="small-note" data-i18n="formNote">
               The first time you test the form, FormSubmit will send a confirmation
-              email to <strong>info@dutt.gr</strong>. Open it once and confirm,
-              so all future submissions are delivered normally.
+              email to info@dutt.gr. Open it once and confirm, so all future
+              submissions are delivered normally.
             </div>
           </form>
         </div>
 
         <div class="form-side glass-card">
-          <h3>Why drive with dutt</h3>
-          <p>
+          <h3 data-i18n="whyTitle">Why drive with dutt</h3>
+          <p data-i18n="whyText">
             Build a cleaner, faster, more premium delivery experience with a
             platform designed around operational clarity and modern UX.
           </p>
 
           <div class="bullet-list">
-            <div class="bullet">⚡ Fast local delivery flow</div>
-            <div class="bullet">📍 Modern real-time platform experience</div>
-            <div class="bullet">🏙 City-focused operations</div>
-            <div class="bullet">🚗 Flexible independent driver model</div>
+            <div class="bullet" data-i18n="why1">⚡ Fast local delivery flow</div>
+            <div class="bullet" data-i18n="why2">📍 Modern real-time platform experience</div>
+            <div class="bullet" data-i18n="why3">🏙 City-focused operations</div>
+            <div class="bullet" data-i18n="why4">🚗 Flexible independent driver model</div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section reveal" id="contact">
-      <h2 class="section-title">Contact the team.</h2>
-      <p class="section-text">
+      <h2 class="section-title" data-i18n="contactTitle">Contact the team.</h2>
+      <p class="section-text" data-i18n="contactText">
         For partnerships, driver inquiries, and business communication, use the
         contact details below.
       </p>
 
       <div class="contact-grid">
         <div class="contact-card glass-card">
-          <h3>Email</h3>
-          <p>
-            The main contact inbox for dutt.
-          </p>
+          <h3 data-i18n="contactEmailTitle">Email</h3>
+          <p data-i18n="contactEmailText">The main contact inbox for dutt.</p>
           <a class="email-link" href="mailto:info@dutt.gr">info@dutt.gr</a>
         </div>
 
         <div class="contact-card glass-card">
-          <h3>Quick access</h3>
-          <p>
+          <h3 data-i18n="quickTitle">Quick access</h3>
+          <p data-i18n="quickText">
             Jump directly to the driver application form or download the app from
             the section above.
           </p>
           <div class="download-buttons">
-            <a href="#drivers" class="btn btn-secondary">Driver application</a>
-            <a href="#apps" class="btn btn-secondary">App downloads</a>
+            <a href="#drivers" class="btn btn-secondary" data-i18n="quickBtn1">Driver application</a>
+            <a href="#apps" class="btn btn-secondary" data-i18n="quickBtn2">App downloads</a>
           </div>
         </div>
       </div>
@@ -1730,8 +1546,8 @@
       <div class="final-cta glass-card">
         <div class="final-cta-inner">
           <div>
-            <h2>The future of city delivery starts here.</h2>
-            <p>
+            <h2 data-i18n="ctaTitle">The future of city delivery starts here.</h2>
+            <p data-i18n="ctaText">
               dutt is building a sharper, faster, more premium same-hour delivery
               platform. Download the app, join as a driver, or contact the team
               to learn more.
@@ -1739,8 +1555,8 @@
           </div>
 
           <div class="cta-row">
-            <a href="#apps" class="btn btn-primary">Download the app</a>
-            <a href="#drivers" class="btn btn-secondary">Become a driver</a>
+            <a href="#apps" class="btn btn-primary" data-i18n="ctaBtn1">Download the app</a>
+            <a href="#drivers" class="btn btn-secondary" data-i18n="ctaBtn2">Become a driver</a>
           </div>
         </div>
       </div>
@@ -1749,8 +1565,8 @@
     <footer>
       <div class="footer-line"></div>
       <div class="footer-row">
-        <div>© 2026 dutt. All rights reserved.</div>
-        <div>Same-hour delivery platform</div>
+        <div data-i18n="footer1">© 2026 dutt. All rights reserved.</div>
+        <div data-i18n="footer2">Same-hour delivery platform</div>
       </div>
     </footer>
   </main>
@@ -1759,15 +1575,253 @@
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
+          if (entry.isIntersecting) entry.target.classList.add("visible");
         });
       },
       { threshold: 0.14 }
     );
 
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    const translations = {
+      en: {
+        navFeatures: "Features",
+        navApps: "Apps",
+        navDrivers: "Drivers",
+        navContact: "Contact",
+        navSignup: "Driver signup",
+        eyebrow: "Same-hour delivery, reimagined",
+        heroTitle1: "Move your city",
+        heroTitle2: "in minutes.",
+        heroText: "dutt is the next-generation same-hour delivery platform for urban logistics, built for speed, clarity, and premium user experience. Instant requests, real-time tracking, and a modern network of independent drivers.",
+        heroBtn1: "Download the app",
+        heroBtn2: "Become a driver",
+        pill1: "⚡ Fast dispatch logic",
+        pill2: "📍 Live order tracking",
+        pill3: "🏙 Built city by city",
+        phoneTop: "dutt live",
+        rideTitle: "Delivery in progress",
+        liveTag: "Live",
+        pickupLabel: "Pickup",
+        pickupValue: "Auto Parts Hub",
+        dropoffLabel: "Dropoff",
+        dropoffValue: "Downtown Garage",
+        etaLabel: "ETA",
+        etaValue: "12 min",
+        trackBtn: "Track order",
+        featuresTitle: "A premium logistics experience.",
+        featuresText: "Built to feel modern, fast, and trustworthy from the first second. dutt combines sleek product design with a delivery engine focused on instant city movement.",
+        f1t: "Instant dispatch",
+        f1d: "Orders enter a real-time delivery flow designed for fast assignment and clean operational control.",
+        f2t: "Live tracking",
+        f2d: "Customers follow each delivery on a premium-style interface with location awareness and progress clarity.",
+        f3t: "City-based scaling",
+        f3d: "The platform is structured to operate city by city, making growth cleaner, smarter, and operationally stronger.",
+        f4t: "Flexible use cases",
+        f4d: "Ideal for urgent city logistics, business deliveries, fast local movement, and same-hour requests where time matters.",
+        f5t: "Premium product feel",
+        f5d: "Minimal, smooth, and modern. Every screen is designed to feel closer to a high-end tech platform than a basic delivery site.",
+        f6t: "Independent driver network",
+        f6d: "Powered by independent drivers to create flexibility, speed, and scalable local execution.",
+        bizTitle: "For customers and businesses",
+        bizText: "dutt gives users a clean, immediate way to move items across the city without friction. Request fast, follow live, and stay in control from pickup to delivery.",
+        ticker1: "Same-hour delivery",
+        ticker2: "Real-time movement",
+        ticker3: "Fast urban logistics",
+        ticker4: "Independent drivers",
+        ticker5: "Premium UX",
+        ticker1b: "Same-hour delivery",
+        ticker2b: "Real-time movement",
+        ticker3b: "Fast urban logistics",
+        ticker4b: "Independent drivers",
+        ticker5b: "Premium UX",
+        driverInfoTitle: "For independent drivers",
+        driverInfoText: "A modern platform experience built around speed, flexibility, and clean workflow. dutt is designed to support fast local delivery operations with a product-first mindset.",
+        appsTitle: "Download the apps.",
+        appsText: "One clean place for both platforms. Put your final store links below whenever the apps go live.",
+        androidTitle: "Android app",
+        androidText: "Give Android users a direct path to install dutt and start using the platform immediately.",
+        androidBtn: "Get it on Google Play",
+        iosTitle: "iPhone app",
+        iosText: "Give iOS users a premium direct path to the App Store version of dutt.",
+        iosBtn: "Download on the App Store",
+        joinTitle: "Join as a driver.",
+        joinText: "Interested drivers can submit an application and your team can contact them directly.",
+        formTitle: "Driver application form",
+        formIntro: "Fill out the form below and send your application directly to the dutt team.",
+        labelName: "Full name",
+        labelPhone: "Phone",
+        labelEmail: "Email",
+        labelCity: "City",
+        labelVehicle: "Vehicle type",
+        vehiclePlaceholder: "Select one",
+        vehicle1: "Motorbike",
+        vehicle2: "Car",
+        vehicle3: "Van",
+        vehicle4: "Bicycle",
+        vehicle5: "Other",
+        labelAvailability: "Availability",
+        availabilityPlaceholder: "e.g. Full-time / Part-time / Evenings",
+        labelMessage: "Experience / short message",
+        messagePlaceholder: "Tell us a few things about your availability, delivery experience, and area.",
+        sendBtn: "Send application",
+        formNote: "The first time you test the form, FormSubmit will send a confirmation email to info@dutt.gr. Open it once and confirm, so all future submissions are delivered normally.",
+        whyTitle: "Why drive with dutt",
+        whyText: "Build a cleaner, faster, more premium delivery experience with a platform designed around operational clarity and modern UX.",
+        why1: "⚡ Fast local delivery flow",
+        why2: "📍 Modern real-time platform experience",
+        why3: "🏙 City-focused operations",
+        why4: "🚗 Flexible independent driver model",
+        contactTitle: "Contact the team.",
+        contactText: "For partnerships, driver inquiries, and business communication, use the contact details below.",
+        contactEmailTitle: "Email",
+        contactEmailText: "The main contact inbox for dutt.",
+        quickTitle: "Quick access",
+        quickText: "Jump directly to the driver application form or download the app from the section above.",
+        quickBtn1: "Driver application",
+        quickBtn2: "App downloads",
+        ctaTitle: "The future of city delivery starts here.",
+        ctaText: "dutt is building a sharper, faster, more premium same-hour delivery platform. Download the app, join as a driver, or contact the team to learn more.",
+        ctaBtn1: "Download the app",
+        ctaBtn2: "Become a driver",
+        footer1: "© 2026 dutt. All rights reserved.",
+        footer2: "Same-hour delivery platform"
+      },
+      el: {
+        navFeatures: "Χαρακτηριστικά",
+        navApps: "Εφαρμογές",
+        navDrivers: "Διανομείς",
+        navContact: "Επικοινωνία",
+        navSignup: "Αίτηση διανομέα",
+        eyebrow: "Same-hour delivery, επανασχεδιασμένο",
+        heroTitle1: "Μετακίνησε την πόλη σου",
+        heroTitle2: "σε λίγα λεπτά.",
+        heroText: "Το dutt είναι η νέας γενιάς πλατφόρμα same-hour delivery για αστικές μεταφορές, σχεδιασμένη για ταχύτητα, καθαρή εμπειρία και premium αισθητική. Άμεσο αίτημα, ζωντανή παρακολούθηση και ένα σύγχρονο δίκτυο ανεξάρτητων διανομέων.",
+        heroBtn1: "Κατέβασε την εφαρμογή",
+        heroBtn2: "Γίνε διανομέας",
+        pill1: "⚡ Γρήγορη ανάθεση παραγγελιών",
+        pill2: "📍 Ζωντανή παρακολούθηση",
+        pill3: "🏙 Ανάπτυξη ανά πόλη",
+        phoneTop: "dutt live",
+        rideTitle: "Η παράδοση εξελίσσεται",
+        liveTag: "Ζωντανά",
+        pickupLabel: "Παραλαβή",
+        pickupValue: "Auto Parts Hub",
+        dropoffLabel: "Παράδοση",
+        dropoffValue: "Downtown Garage",
+        etaLabel: "Χρόνος",
+        etaValue: "12 λεπτά",
+        trackBtn: "Παρακολούθηση",
+        featuresTitle: "Μια premium εμπειρία αστικών παραδόσεων.",
+        featuresText: "Σχεδιασμένο για να δείχνει σύγχρονο, γρήγορο και αξιόπιστο από το πρώτο δευτερόλεπτο. Το dutt συνδυάζει κομψό product design με έναν delivery engine που εστιάζει στην άμεση κίνηση μέσα στην πόλη.",
+        f1t: "Άμεση ανάθεση",
+        f1d: "Οι παραγγελίες μπαίνουν σε μια real-time ροή παράδοσης σχεδιασμένη για γρήγορη ανάθεση και καθαρό λειτουργικό έλεγχο.",
+        f2t: "Ζωντανή παρακολούθηση",
+        f2d: "Οι πελάτες παρακολουθούν κάθε παράδοση μέσα από ένα premium interface με καθαρή εικόνα τοποθεσίας και προόδου.",
+        f3t: "Ανάπτυξη ανά πόλη",
+        f3d: "Η πλατφόρμα είναι δομημένη να λειτουργεί ανά πόλη, ώστε η ανάπτυξη να είναι πιο καθαρή, πιο έξυπνη και πιο δυνατή λειτουργικά.",
+        f4t: "Ευέλικτες χρήσεις",
+        f4d: "Ιδανικό για επείγουσες αστικές μεταφορές, εταιρικές παραδόσεις, γρήγορη τοπική κίνηση και same-hour αιτήματα όπου ο χρόνος μετράει.",
+        f5t: "Premium αίσθηση προϊόντος",
+        f5d: "Μινιμαλιστικό, ομαλό και σύγχρονο. Κάθε οθόνη είναι σχεδιασμένη ώστε να θυμίζει high-end tech platform και όχι ένα απλό delivery site.",
+        f6t: "Δίκτυο ανεξάρτητων διανομέων",
+        f6d: "Υποστηρίζεται από ανεξάρτητους διανομείς για περισσότερη ευελιξία, ταχύτητα και κλιμακούμενη τοπική εκτέλεση.",
+        bizTitle: "Για πελάτες και επιχειρήσεις",
+        bizText: "Το dutt δίνει στους χρήστες έναν καθαρό και άμεσο τρόπο να μετακινούν αντικείμενα μέσα στην πόλη χωρίς τριβές. Ζήτα γρήγορα, παρακολούθησε ζωντανά και μείνε σε έλεγχο από την παραλαβή μέχρι την παράδοση.",
+        ticker1: "Same-hour delivery",
+        ticker2: "Κίνηση σε πραγματικό χρόνο",
+        ticker3: "Γρήγορα αστικά logistics",
+        ticker4: "Ανεξάρτητοι διανομείς",
+        ticker5: "Premium UX",
+        ticker1b: "Same-hour delivery",
+        ticker2b: "Κίνηση σε πραγματικό χρόνο",
+        ticker3b: "Γρήγορα αστικά logistics",
+        ticker4b: "Ανεξάρτητοι διανομείς",
+        ticker5b: "Premium UX",
+        driverInfoTitle: "Για ανεξάρτητους διανομείς",
+        driverInfoText: "Μια σύγχρονη εμπειρία πλατφόρμας χτισμένη πάνω στην ταχύτητα, την ευελιξία και την καθαρή ροή εργασίας. Το dutt έχει σχεδιαστεί για να υποστηρίζει γρήγορες τοπικές παραδόσεις με product-first φιλοσοφία.",
+        appsTitle: "Κατέβασε τις εφαρμογές.",
+        appsText: "Ένα καθαρό σημείο και για τις δύο πλατφόρμες. Βάλε τα τελικά store links μόλις οι εφαρμογές γίνουν live.",
+        androidTitle: "Android εφαρμογή",
+        androidText: "Δώσε στους χρήστες Android έναν άμεσο τρόπο να εγκαταστήσουν το dutt και να ξεκινήσουν αμέσως.",
+        androidBtn: "Λήψη από Google Play",
+        iosTitle: "iPhone εφαρμογή",
+        iosText: "Δώσε στους χρήστες iOS έναν premium άμεσο δρόμο προς την App Store έκδοση του dutt.",
+        iosBtn: "Λήψη από App Store",
+        joinTitle: "Γίνε διανομέας.",
+        joinText: "Οι ενδιαφερόμενοι διανομείς μπορούν να στείλουν αίτηση και η ομάδα σας να επικοινωνήσει απευθείας μαζί τους.",
+        formTitle: "Φόρμα αίτησης διανομέα",
+        formIntro: "Συμπλήρωσε την παρακάτω φόρμα και στείλε την αίτησή σου απευθείας στην ομάδα του dutt.",
+        labelName: "Ονοματεπώνυμο",
+        labelPhone: "Τηλέφωνο",
+        labelEmail: "Email",
+        labelCity: "Πόλη",
+        labelVehicle: "Τύπος οχήματος",
+        vehiclePlaceholder: "Επίλεξε",
+        vehicle1: "Μηχανάκι",
+        vehicle2: "Αυτοκίνητο",
+        vehicle3: "Βαν",
+        vehicle4: "Ποδήλατο",
+        vehicle5: "Άλλο",
+        labelAvailability: "Διαθεσιμότητα",
+        availabilityPlaceholder: "π.χ. Πλήρης απασχόληση / Μερική / Απογευματινά",
+        labelMessage: "Εμπειρία / σύντομο μήνυμα",
+        messagePlaceholder: "Γράψε μας λίγα πράγματα για τη διαθεσιμότητά σου, την εμπειρία σου στις παραδόσεις και την περιοχή σου.",
+        sendBtn: "Αποστολή αίτησης",
+        formNote: "Την πρώτη φορά που θα δοκιμάσεις τη φόρμα, το FormSubmit θα στείλει email επιβεβαίωσης στο info@dutt.gr. Άνοιξέ το μία φορά και επιβεβαίωσέ το, ώστε όλες οι επόμενες αιτήσεις να παραδίδονται κανονικά.",
+        whyTitle: "Γιατί να οδηγήσεις με το dutt",
+        whyText: "Χτίσε μια πιο καθαρή, πιο γρήγορη και πιο premium εμπειρία παράδοσης με μια πλατφόρμα σχεδιασμένη γύρω από λειτουργική καθαρότητα και σύγχρονο UX.",
+        why1: "⚡ Γρήγορη τοπική ροή παραδόσεων",
+        why2: "📍 Σύγχρονη real-time εμπειρία πλατφόρμας",
+        why3: "🏙 Λειτουργία με επίκεντρο την πόλη",
+        why4: "🚗 Ευέλικτο μοντέλο ανεξάρτητου διανομέα",
+        contactTitle: "Επικοινωνία με την ομάδα.",
+        contactText: "Για συνεργασίες, ερωτήσεις διανομέων και επαγγελματική επικοινωνία, χρησιμοποίησε τα παρακάτω στοιχεία.",
+        contactEmailTitle: "Email",
+        contactEmailText: "Το βασικό email επικοινωνίας του dutt.",
+        quickTitle: "Γρήγορη πρόσβαση",
+        quickText: "Πήγαινε κατευθείαν στη φόρμα διανομέα ή στην ενότητα λήψης εφαρμογών.",
+        quickBtn1: "Αίτηση διανομέα",
+        quickBtn2: "Λήψη εφαρμογών",
+        ctaTitle: "Το μέλλον των αστικών παραδόσεων ξεκινά εδώ.",
+        ctaText: "Το dutt χτίζει μια πιο κοφτερή, πιο γρήγορη και πιο premium πλατφόρμα same-hour delivery. Κατέβασε την εφαρμογή, γίνε διανομέας ή επικοινώνησε με την ομάδα για να μάθεις περισσότερα.",
+        ctaBtn1: "Κατέβασε την εφαρμογή",
+        ctaBtn2: "Γίνε διανομέας",
+        footer1: "© 2026 dutt. Με κάθε επιφύλαξη νόμιμου δικαιώματος.",
+        footer2: "Πλατφόρμα same-hour delivery"
+      }
+    };
+
+    function setLanguage(lang) {
+      const dict = translations[lang] || translations.en;
+
+      document.documentElement.lang = lang;
+      localStorage.setItem("dutt_lang", lang);
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) {
+          el.textContent = dict[key];
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (dict[key] !== undefined) {
+          el.setAttribute("placeholder", dict[key]);
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+      btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+    });
+
+    setLanguage(localStorage.getItem("dutt_lang") || "en");
   </script>
 </body>
 </html>
