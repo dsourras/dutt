@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUTT | Move Anything, Anytime</title>
+  <meta name="description" content="DUTT is an on-demand delivery platform for fast local and business deliveries across Greece." />
+  <meta property="og:title" content="DUTT | Move Anything, Anytime" />
+  <meta property="og:description" content="Fast on-demand deliveries for businesses and everyday needs." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b0b0f" />
+  <style>
+    :root {
+      --bg: #0b0b0f;
+      --bg-soft: #13131a;
+      --card: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
+      --text: #f5f7fb;
+      --muted: #b3b8c5;
+      --accent: #ff8a1f;
+      --accent-2: #ffd08a;
+      --white: #ffffff;
+      --success: #77d99b;
+      --shadow: 0 25px 60px rgba(0,0,0,0.35);
+      --radius: 24px;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255,138,31,0.18), transparent 22%),
+        radial-gradient(circle at left 20%, rgba(255,255,255,0.04), transparent 18%),
+        linear-gradient(180deg, #09090d 0%, #0e0e13 45%, #0b0b0f 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--accent-2);
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(11,11,15,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: lowercase;
+      font-size: 26px;
+    }
+
+    .brand-mark {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), #ffb053);
+      box-shadow: 0 0 18px rgba(255,138,31,0.6);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .nav-links a:hover,
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: 0.25s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #ff9f40);
+      color: #111;
+      box-shadow: 0 16px 30px rgba(255,138,31,0.28);
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.07);
+    }
+
+    .hero {
+      padding: 86px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 18px 0 18px;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 780px;
+    }
+
+    .hero p {
+      max-width: 680px;
+      font-size: clamp(17px, 2vw, 21px);
+      color: var(--muted);
+      margin: 0 0 28px;
+    }
+
+    .hero-stats {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .phone {
+      position: relative;
+      max-width: 420px;
+      margin-left: auto;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 34px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 34px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,138,31,0.7), rgba(255,255,255,0.15), rgba(255,138,31,0.15));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .phone-screen {
+      background: linear-gradient(180deg, #11131a 0%, #0d0f14 100%);
+      border-radius: 24px;
+      padding: 20px;
+      min-height: 620px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phone-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(255,255,255,0.86);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .mock-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .mock-map {
+      height: 205px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255,138,31,0.35), transparent 14%),
+        linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        #161922;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .road, .road-2 {
+      position: absolute;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+    }
+
+    .road { width: 220px; height: 18px; top: 86px; left: 22px; transform: rotate(18deg); }
+    .road-2 { width: 180px; height: 14px; top: 64px; right: 18px; transform: rotate(-34deg); }
+
+    .pin, .pin-alt {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.09);
+    }
+
+    .pin { background: var(--accent); top: 58px; left: 74px; }
+    .pin-alt { background: #7ab8ff; bottom: 42px; right: 72px; }
+
+    .route {
+      position: absolute;
+      left: 88px;
+      top: 72px;
+      width: 170px;
+      height: 90px;
+      border: 3px dashed rgba(255,208,138,0.7);
+      border-color: rgba(255,208,138,0.75) transparent transparent transparent;
+      border-radius: 160px 160px 0 0;
+      transform: rotate(10deg);
+    }
+
+    .mini-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .mini-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .section {
+      padding: 52px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-2);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 50px);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .grid-3,
+    .grid-4,
+    .business-grid,
+    .steps,
+    .faq-grid,
+    .footer-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .business-grid { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .faq-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1.2fr 0.8fr 0.8fr; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3, .card h4 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p, .card li {
+      color: var(--muted);
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(255,138,31,0.22), rgba(255,138,31,0.08));
+      border: 1px solid rgba(255,138,31,0.25);
+      color: var(--accent-2);
+      font-weight: 700;
+    }
+
+    ul.clean {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    ul.clean li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 10px;
+    }
+
+    .steps .card {
+      position: relative;
+      padding-top: 68px;
+    }
+
+    .step-no {
+      position: absolute;
+      left: 24px;
+      top: 20px;
+      font-size: 13px;
+      color: var(--accent-2);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .cta {
+      padding: 28px;
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(255,138,31,0.14), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h3 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin: 0 0 10px;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+    }
+
+    .cta p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 640px;
+      font-size: 18px;
+    }
+
+    .faq-item details {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item p { color: var(--muted); margin: 14px 0 0; }
+
+    footer {
+      padding: 50px 0 36px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 56px;
+    }
+
+    .footer-brand p, .footer-col p, .footer-note {
+      color: var(--muted);
+      margin: 10px 0 0;
+    }
+
+    .footer-title {
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--white);
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .footer-bottom {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .muted { color: var(--muted); }
+    .accent { color: var(--accent-2); }
+
+    @media (max-width: 1060px) {
+      .hero-grid,
+      .business-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3,
+      .steps,
+      .faq-grid { grid-template-columns: 1fr; }
+
+      .phone {
+        margin: 8px auto 0;
+      }
+
+      .cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        min-height: 72px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+
+      .hero-stats,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .btn-group {
+        width: 100%;
+      }
+
+      .phone-screen {
+        min-height: 560px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#top" class="brand" aria-label="DUTT home">
+        <span class="brand-mark"></span>
+        <span>dutt</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#how">How it works</a>
+        <a href="#business">For business</a>
+        <a href="#drivers">Drivers</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="btn-group">
+        <a class="btn btn-secondary" href="#drivers">Become a driver</a>
+        <a class="btn btn-primary" href="#cta">Get started</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="pill">On-demand platform for local and business deliveries</div>
+          <h1>Move anything, anytime.</h1>
+          <p>
+            DUTT is a fast on-demand delivery platform built for modern city logistics.
+            From urgent business runs to everyday local deliveries, everything moves in real time.
+          </p>
+          <div class="btn-group">
+            <a class="btn btn-primary" href="#cta">Book a delivery</a>
+            <a class="btn btn-secondary" href="#how">See how it works</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>Fast</strong>
+              <span>Designed for urgent same-city movement</span>
+            </div>
+            <div class="stat">
+              <strong>Flexible</strong>
+              <span>Built for personal and business use</span>
+            </div>
+            <div class="stat">
+              <strong>Local</strong>
+              <span>Focused on city-by-city reliability</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="phone" aria-label="DUTT app preview">
+          <div class="phone-screen">
+            <div class="phone-top">
+              <span>14:40</span>
+              <span>DUTT live</span>
+            </div>
+
+            <div class="mock-card">
+              <div class="mini-row">
+                <strong>Pickup in progress</strong>
+                <span class="mini-pill">ETA 14 min</span>
+              </div>
+              <p class="muted">From pharmacy to office • tracked live</p>
+            </div>
+
+            <div class="mock-map">
+              <div class="road"></div>
+              <div class="road-2"></div>
+              <div class="pin"></div>
+              <div class="pin-alt"></div>
+              <div class="route"></div>
+            </div>
+
+            <div class="mock-card" style="margin-top: 14px;">
+              <div class="mini-row">
+                <strong>Business delivery</strong>
+                <span class="mini-pill">Priority</span>
+              </div>
+              <p class="muted">Auto parts • same city • paid online</p>
+            </div>
+
+            <div class="mock-card">
+              <div class="mini-row">
+                <strong>Live updates</strong>
+                <span class="mini-pill">Real time</span>
+              </div>
+              <p class="muted">Track movement from pickup to drop-off without calling anyone.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Built for speed</div>
+          <h2>A platform for the way cities move now.</h2>
+          <p>
+            DUTT is not just another delivery brand. It is a modern platform that connects local demand with fast city execution.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">01</div>
+            <h3>Everyday deliveries</h3>
+            <p>Send documents, parcels, forgotten items, pharmacy orders, flowers, gifts and more inside your city.</p>
+          </article>
+          <article class="card">
+            <div class="icon">02</div>
+            <h3>Business logistics</h3>
+            <p>Perfect for urgent B2B runs such as auto parts, office deliveries, shop restocks and time-sensitive local movement.</p>
+          </article>
+          <article class="card">
+            <div class="icon">03</div>
+            <h3>Live experience</h3>
+            <p>From order creation to final drop-off, customers stay informed with a cleaner, faster and more transparent flow.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">How it works</div>
+          <h2>Simple on the surface. Powerful underneath.</h2>
+          <p>Built to feel easy for the customer, while handling the hard parts of city movement in the background.</p>
+        </div>
+        <div class="steps">
+          <article class="card">
+            <div class="step-no">Step 01</div>
+            <h3>Create your order</h3>
+            <p>Choose pickup and drop-off details, add important notes and confirm your delivery in seconds.</p>
+          </article>
+          <article class="card">
+            <div class="step-no">Step 02</div>
+            <h3>Track it live</h3>
+            <p>Follow the route in real time, stay informed and know exactly where your order is.</p>
+          </article>
+          <article class="card">
+            <div class="step-no">Step 03</div>
+            <h3>Delivered, clearly</h3>
+            <p>Get status updates and a cleaner delivery experience from start to finish.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="business">
+      <div class="container business-grid">
+        <div class="section-head" style="margin-bottom:0;">
+          <div class="eyebrow">For business</div>
+          <h2>Local movement for businesses that cannot wait.</h2>
+          <p>
+            DUTT is built for businesses that need city logistics to feel fast, simple and dependable.
+          </p>
+          <ul class="clean">
+            <li>Urgent same-city deliveries</li>
+            <li>Useful for shops, offices, pharmacies, workshops and service businesses</li>
+            <li>Designed for repeat use and operational speed</li>
+            <li>Clear, modern experience for both business and customer sides</li>
+          </ul>
+        </div>
+        <div class="grid-4">
+          <article class="card">
+            <div class="icon">B1</div>
+            <h4>Auto parts</h4>
+            <p>Fast same-city movement for workshops and suppliers.</p>
+          </article>
+          <article class="card">
+            <div class="icon">B2</div>
+            <h4>Documents</h4>
+            <p>Urgent paperwork and office transfers without delay.</p>
+          </article>
+          <article class="card">
+            <div class="icon">B3</div>
+            <h4>Retail support</h4>
+            <p>Restocks, customer orders and last-minute local runs.</p>
+          </article>
+          <article class="card">
+            <div class="icon">B4</div>
+            <h4>Time-sensitive items</h4>
+            <p>When speed matters, local execution matters more.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="drivers">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">For drivers</div>
+          <h2>Join a platform built for modern local work.</h2>
+          <p>DUTT is creating a cleaner, more flexible on-demand ecosystem city by city.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">D1</div>
+            <h3>Flexible rhythm</h3>
+            <p>Work city-based local deliveries in a system designed for real-time movement.</p>
+          </article>
+          <article class="card">
+            <div class="icon">D2</div>
+            <h3>Clear order flow</h3>
+            <p>Simple pickup, delivery and status flow with live updates inside the app experience.</p>
+          </article>
+          <article class="card">
+            <div class="icon">D3</div>
+            <h3>Growing network</h3>
+            <p>DUTT is built to scale city by city, opening room for a strong local driver network over time.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">FAQ</div>
+          <h2>Questions, answered simply.</h2>
+          <p>Use these as your first public answers until the full product launch page evolves.</p>
+        </div>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <details open>
+              <summary>What is DUTT?</summary>
+              <p>DUTT is an on-demand delivery platform designed for fast local movement inside the city, for both everyday needs and business use.</p>
+            </details>
+          </div>
+          <div class="faq-item">
+            <details>
+              <summary>Who is DUTT for?</summary>
+              <p>DUTT is for people and businesses that want a faster, clearer and more flexible delivery experience.</p>
+            </details>
+          </div>
+          <div class="faq-item">
+            <details>
+              <summary>Is DUTT only for food delivery?</summary>
+              <p>No. DUTT is focused on broader local deliveries and urgent city movement, not only food.</p>
+            </details>
+          </div>
+          <div class="faq-item">
+            <details>
+              <summary>Where is DUTT launching?</summary>
+              <p>DUTT is built to grow city by city in Greece, starting with focused local rollout.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cta">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h3>Ready to move faster with DUTT?</h3>
+            <p>Use this section as your live call-to-action until the apps and public links are ready.</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn btn-primary" href="mailto:info@dutt.gr">Contact us</a>
+            <a class="btn btn-secondary" href="https://instagram.com/dutt.app" target="_blank" rel="noreferrer">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand"><span class="brand-mark"></span><span>dutt</span></div>
+          <p>Move anything, anytime. A modern platform for fast local and business deliveries.</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-title">Navigation</div>
+          <div class="footer-links">
+            <a href="#how">How it works</a>
+            <a href="#business">For business</a>
+            <a href="#drivers">Drivers</a>
+            <a href="#faq">FAQ</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-title">Contact</div>
+          <div class="footer-links">
+            <a href="mailto:info@dutt.gr">info@dutt.gr</a>
+            <a href="https://instagram.com/dutt.app" target="_blank" rel="noreferrer">@dutt.app</a>
+            <span>Greece</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> DUTT. All rights reserved.</span>
+        <span class="footer-note">Built for a modern city delivery experience.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
