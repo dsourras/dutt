@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta
@@ -33,6 +33,31 @@
       backdrop-filter: blur(14px);
     }
 
+    .lang-switcher {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      margin-bottom: 18px;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: #b8c5d7;
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .lang-btn.active {
+      background: rgba(255,255,255,0.12);
+      color: white;
+    }
+
     h1 {
       margin: 0 0 14px;
       font-size: clamp(2rem, 8vw, 3rem);
@@ -64,12 +89,53 @@
 </head>
 <body>
   <div class="card">
-    <h1>Application received.</h1>
-    <p>
+    <div class="lang-switcher">
+      <button class="lang-btn active" type="button" data-lang="en">EN</button>
+      <button class="lang-btn" type="button" data-lang="el">GR</button>
+    </div>
+
+    <h1 data-i18n="title">Application received.</h1>
+    <p data-i18n="text">
       Thank you for your interest in joining dutt. We will review your submission
       and contact you soon.
     </p>
-    <a href="/">Back to homepage</a>
+    <a href="/" data-i18n="btn">Back to homepage</a>
   </div>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Application received.",
+        text: "Thank you for your interest in joining dutt. We will review your submission and contact you soon.",
+        btn: "Back to homepage"
+      },
+      el: {
+        title: "Η αίτηση ελήφθη.",
+        text: "Ευχαριστούμε για το ενδιαφέρον σου να γίνεις μέλος του dutt. Θα εξετάσουμε την αίτησή σου και θα επικοινωνήσουμε σύντομα μαζί σου.",
+        btn: "Επιστροφή στην αρχική"
+      }
+    };
+
+    function setLanguage(lang) {
+      const dict = translations[lang] || translations.en;
+      document.documentElement.lang = lang;
+      localStorage.setItem("dutt_lang", lang);
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+      btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+    });
+
+    setLanguage(localStorage.getItem("dutt_lang") || "en");
+  </script>
 </body>
 </html>
