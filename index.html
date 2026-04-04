@@ -497,6 +497,7 @@
 
     .pickup { background: #6eff9a; top: 30%; left: 24%; }
     .dropoff { background: #ff6b87; top: 56%; right: 24%; }
+
     .driver {
       background: #79b9ff;
       top: 42%;
@@ -606,7 +607,8 @@
     .split,
     .apps-grid,
     .form-wrap,
-    .contact-grid {
+    .contact-grid,
+    .investor-grid {
       margin-top: 28px;
       display: grid;
       gap: 18px;
@@ -615,7 +617,8 @@
     .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .split,
     .apps-grid,
-    .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contact-grid,
+    .investor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .form-wrap { grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr); }
 
     .feature-card,
@@ -623,17 +626,20 @@
     .app-card,
     .form-card,
     .form-side,
-    .contact-card {
+    .contact-card,
+    .investor-card {
       padding: 28px;
       overflow: hidden;
     }
 
-    .feature-card {
+    .feature-card,
+    .investor-card {
       min-height: 220px;
       position: relative;
     }
 
-    .feature-card::after {
+    .feature-card::after,
+    .investor-card::after {
       content: "";
       position: absolute;
       inset: auto -10% -40% auto;
@@ -660,7 +666,8 @@
     .app-card h3,
     .form-card h3,
     .form-side h3,
-    .contact-card h3 {
+    .contact-card h3,
+    .investor-card h3 {
       margin: 0 0 10px;
       font-size: 1.2rem;
       letter-spacing: -0.02em;
@@ -672,7 +679,8 @@
     .app-card p,
     .form-card p,
     .form-side p,
-    .contact-card p {
+    .contact-card p,
+    .investor-card p {
       margin: 0;
       color: var(--muted);
       line-height: 1.72;
@@ -795,6 +803,22 @@
       word-break: break-all;
     }
 
+    .investor-strip {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .investor-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d2d9e6;
+      font-size: 0.92rem;
+    }
+
     .final-cta {
       margin: 48px 0 70px;
       padding: 34px;
@@ -846,24 +870,141 @@
       line-height: 1.75;
     }
 
-    footer {
-      padding: 0 0 44px;
+    .site-footer {
+      padding: 8px 0 44px;
       color: #8e98aa;
     }
 
     .footer-line {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
-      margin-bottom: 18px;
+      margin-bottom: 22px;
     }
 
-    .footer-row {
+    .footer-top,
+    .footer-middle,
+    .footer-bottom {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 18px;
       flex-wrap: wrap;
+    }
+
+    .footer-top {
+      margin-bottom: 18px;
+    }
+
+    .footer-middle {
+      margin-bottom: 18px;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .footer-brand img {
+      height: 48px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 10px 24px rgba(255,255,255,0.10));
+      opacity: 0.96;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .social-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #f5f7fb;
+      opacity: 0.92;
+    }
+
+    .footer-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-title {
+      color: #f5f7fb;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-subtitle {
+      color: #9ea7b7;
       font-size: 0.95rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a,
+    .footer-contact a {
+      color: #9ea7b7;
+      font-size: 0.95rem;
+      position: relative;
+      transition: color 0.25s ease;
+    }
+
+    .footer-links a::after,
+    .footer-contact a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 1px;
+      background: rgba(255,255,255,0.42);
+      transition: width 0.25s ease;
+    }
+
+    .footer-links a:hover,
+    .footer-contact a:hover {
+      color: #ffffff;
+    }
+
+    .footer-links a:hover::after,
+    .footer-contact a:hover::after {
+      width: 100%;
+    }
+
+    .footer-bottom {
+      color: #8e98aa;
+      font-size: 0.94rem;
     }
 
     .reveal {
@@ -883,7 +1024,8 @@
       .split,
       .apps-grid,
       .form-wrap,
-      .contact-grid {
+      .contact-grid,
+      .investor-grid {
         grid-template-columns: 1fr;
       }
 
@@ -968,6 +1110,7 @@
       .form-card p,
       .form-side p,
       .contact-card p,
+      .investor-card p,
       .final-cta p {
         font-size: 0.97rem;
       }
@@ -978,6 +1121,7 @@
       .form-card,
       .form-side,
       .contact-card,
+      .investor-card,
       .final-cta {
         border-radius: 24px;
         padding: 22px;
@@ -1051,9 +1195,29 @@
         grid-template-columns: 1fr;
       }
 
-      .footer-row {
+      .site-footer {
+        padding-bottom: 34px;
+      }
+
+      .footer-top,
+      .footer-middle,
+      .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .footer-brand img {
+        height: 42px;
+      }
+
+      .footer-links,
+      .footer-socials {
+        gap: 12px;
+      }
+
+      .social-btn {
+        width: 42px;
+        height: 42px;
       }
     }
 
@@ -1085,6 +1249,7 @@
       .form-card,
       .form-side,
       .contact-card,
+      .investor-card,
       .final-cta {
         padding: 18px;
         border-radius: 20px;
@@ -1126,206 +1291,7 @@
         transform: none;
       }
     }
-
-     .footer-links {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .footer-links a {
-    color: #9ea7b7;
-    font-size: 0.95rem;
-    position: relative;
-    transition: 0.25s ease;
-  }
-
-  .footer-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0%;
-    height: 1px;
-    background: rgba(255,255,255,0.4);
-    transition: width 0.25s ease;
-  }
-
-  .footer-links a:hover {
-    color: #ffffff;
-  }
-
-  .footer-links a:hover::after {
-    width: 100%;
-  }
-
-    .site-footer {
-  padding: 8px 0 44px;
-  color: #8e98aa;
-}
-
-.footer-line {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
-  margin-bottom: 22px;
-}
-
-.footer-top,
-.footer-middle,
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-
-.footer-top {
-  margin-bottom: 18px;
-}
-
-.footer-middle {
-  margin-bottom: 18px;
-  padding: 18px 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-.footer-brand {
-  display: inline-flex;
-  align-items: center;
-}
-
-.footer-brand img {
-  height: 48px;
-  width: auto;
-  display: block;
-  filter: drop-shadow(0 10px 24px rgba(255,255,255,0.10));
-  opacity: 0.96;
-}
-
-.footer-socials {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.social-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
-}
-
-.social-btn:hover {
-  transform: translateY(-2px);
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.14);
-}
-
-.social-btn svg {
-  width: 18px;
-  height: 18px;
-  fill: #f5f7fb;
-  opacity: 0.92;
-}
-
-.footer-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.footer-title {
-  color: #f5f7fb;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.footer-subtitle {
-  color: #9ea7b7;
-  font-size: 0.95rem;
-}
-
-.footer-links {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.footer-links a,
-.footer-contact a {
-  color: #9ea7b7;
-  font-size: 0.95rem;
-  position: relative;
-  transition: color 0.25s ease;
-}
-
-.footer-links a::after,
-.footer-contact a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0%;
-  height: 1px;
-  background: rgba(255,255,255,0.42);
-  transition: width 0.25s ease;
-}
-
-.footer-links a:hover,
-.footer-contact a:hover {
-  color: #ffffff;
-}
-
-.footer-links a:hover::after,
-.footer-contact a:hover::after {
-  width: 100%;
-}
-
-.footer-bottom {
-  color: #8e98aa;
-  font-size: 0.94rem;
-}
-
-@media (max-width: 760px) {
-  .site-footer {
-    padding-bottom: 34px;
-  }
-
-  .footer-top,
-  .footer-middle,
-  .footer-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .footer-brand img {
-    height: 42px;
-  }
-
-  .footer-links,
-  .footer-socials {
-    gap: 12px;
-  }
-
-  .social-btn {
-    width: 42px;
-    height: 42px;
-  }
-}
   </style>
-
-  
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -1343,6 +1309,7 @@
         <a href="#features" data-i18n="navFeatures">Features</a>
         <a href="#apps" data-i18n="navApps">Apps</a>
         <a href="#drivers" data-i18n="navDrivers">Drivers</a>
+        <a href="#investors" data-i18n="navInvestors">Investors</a>
         <a href="#contact" data-i18n="navContact">Contact</a>
       </div>
 
@@ -1713,11 +1680,58 @@
       </div>
     </section>
 
+    <section class="section reveal" id="investors">
+      <h2 class="section-title" data-i18n="investorsTitle">Built for early partners and investors.</h2>
+      <p class="section-text" data-i18n="investorsText">
+        dutt is designed as a scalable city-by-city logistics platform with a premium product layer, flexible driver network, and expansion logic built for structured growth.
+      </p>
+
+      <div class="investor-grid">
+        <div class="investor-card glass-card">
+          <div class="icon">📈</div>
+          <h3 data-i18n="inv1t">Scalable city model</h3>
+          <p data-i18n="inv1d">
+            The platform is positioned to expand city by city, allowing cleaner operational rollout, stronger local density, and more controlled execution.
+          </p>
+        </div>
+
+        <div class="investor-card glass-card">
+          <div class="icon">🏗</div>
+          <h3 data-i18n="inv2t">Built as a real platform</h3>
+          <p data-i18n="inv2d">
+            dutt is not presented as a simple landing concept. It is framed as a modern technology platform with product thinking, operational logic, and expansion potential.
+          </p>
+        </div>
+
+        <div class="investor-card glass-card">
+          <div class="icon">⚙️</div>
+          <h3 data-i18n="inv3t">Operational clarity</h3>
+          <p data-i18n="inv3d">
+            The value proposition is based on speed, live visibility, local execution, and a product-first delivery experience that can support multiple urban logistics use cases.
+          </p>
+        </div>
+
+        <div class="investor-card glass-card">
+          <div class="icon">🤝</div>
+          <h3 data-i18n="inv4t">Open to strategic conversations</h3>
+          <p data-i18n="inv4d">
+            dutt can support discussions with early strategic partners, angel investors, and business stakeholders interested in urban delivery infrastructure and fast city logistics.
+          </p>
+        </div>
+      </div>
+
+      <div class="investor-strip">
+        <div class="investor-pill" data-i18n="invPill1">City-by-city rollout</div>
+        <div class="investor-pill" data-i18n="invPill2">Premium product layer</div>
+        <div class="investor-pill" data-i18n="invPill3">Same-hour logistics</div>
+        <div class="investor-pill" data-i18n="invPill4">Strategic growth potential</div>
+      </div>
+    </section>
+
     <section class="section reveal" id="contact">
       <h2 class="section-title" data-i18n="contactTitle">Contact the team.</h2>
       <p class="section-text" data-i18n="contactText">
-        For partnerships, driver inquiries, and business communication, use the
-        contact details below.
+        For partnerships, driver inquiries, business communication, and early-stage investor interest, use the contact details below.
       </p>
 
       <div class="contact-grid">
@@ -1730,8 +1744,7 @@
         <div class="contact-card glass-card">
           <h3 data-i18n="quickTitle">Quick access</h3>
           <p data-i18n="quickText">
-            Jump directly to the driver application form or download the app from
-            the section above.
+            Jump directly to the driver application form, the app downloads, or get in touch for partnerships and investor communication.
           </p>
           <div class="download-buttons">
             <a href="#drivers" class="btn btn-secondary" data-i18n="quickBtn1">Driver application</a>
@@ -1761,73 +1774,58 @@
       </div>
     </section>
 
-
-
     <footer class="site-footer">
-  <div class="footer-line"></div>
+      <div class="footer-line"></div>
 
-  <div class="footer-top">
-    <a href="/" class="footer-brand" aria-label="dutt homepage">
-      <img src="logo1.png" alt="dutt logo" />
-    </a>
+      <div class="footer-top">
+        <a href="/" class="footer-brand" aria-label="dutt homepage">
+          <img src="logo1.png" alt="dutt logo" />
+        </a>
 
-    <div class="footer-socials">
-      <a
-        href="https://instagram.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Instagram"
-        class="social-btn"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.25 1.65a.95.95 0 1 1 0 1.9.95.95 0 0 1 0-1.9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"/>
-        </svg>
-      </a>
+        <div class="footer-socials">
+          <a
+            href="https://www.instagram.com/dutt.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            class="social-btn"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.25 1.65a.95.95 0 1 1 0 1.9.95.95 0 0 1 0-1.9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"/>
+            </svg>
+          </a>
 
-      <a
-        href="https://facebook.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Facebook"
-        class="social-btn"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5H16.8V5c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V11H7.5v3h2.8v8h3.2Z"/>
-        </svg>
-      </a>
+          <a
+            href="mailto:info@dutt.gr"
+            aria-label="Email"
+            class="social-btn"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.2l9 6.3 9-6.3V7H3Zm18 10V9.7l-8.4 5.9a1 1 0 0 1-1.2 0L3 9.7V17h18Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
 
-      <a
-        href="mailto:info@dutt.gr"
-        aria-label="Email"
-        class="social-btn"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.2l9 6.3 9-6.3V7H3Zm18 10V9.7l-8.4 5.9a1 1 0 0 1-1.2 0L3 9.7V17h18Z"/>
-        </svg>
-      </a>
-    </div>
-  </div>
+      <div class="footer-middle">
+        <div class="footer-copy">
+          <div class="footer-title">dutt</div>
+          <div class="footer-subtitle" data-i18n="footer2">Same-hour delivery platform</div>
+        </div>
 
-  <div class="footer-middle">
-    <div class="footer-copy">
-      <div class="footer-title">dutt</div>
-      <div class="footer-subtitle" data-i18n="footer2">Same-hour delivery platform</div>
-    </div>
+        <div class="footer-links">
+          <a href="/privacy.html" data-i18n="footerLink1">Privacy Policy</a>
+          <a href="/terms.html" data-i18n="footerLink2">Terms of Use</a>
+        </div>
+      </div>
 
-    <div class="footer-links">
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms of Use</a>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <div data-i18n="footer1">© 2026 dutt. All rights reserved.</div>
-    <div class="footer-contact">
-      <a href="mailto:info@dutt.gr">info@dutt.gr</a>
-    </div>
-  </div>
-</footer>
-    
+      <div class="footer-bottom">
+        <div data-i18n="footer1">© 2026 dutt. All rights reserved.</div>
+        <div class="footer-contact">
+          <a href="mailto:info@dutt.gr">info@dutt.gr</a>
+        </div>
+      </div>
+    </footer>
   </main>
 
   <script>
@@ -1847,6 +1845,7 @@
         navFeatures: "Features",
         navApps: "Apps",
         navDrivers: "Drivers",
+        navInvestors: "Investors",
         navContact: "Contact",
         navSignup: "Driver signup",
         eyebrow: "Same-hour delivery, reimagined",
@@ -1931,12 +1930,26 @@
         why2: "📍 Modern real-time platform experience",
         why3: "🏙 City-focused operations",
         why4: "🚗 Flexible independent driver model",
+        investorsTitle: "Built for early partners and investors.",
+        investorsText: "dutt is designed as a scalable city-by-city logistics platform with a premium product layer, flexible driver network, and expansion logic built for structured growth.",
+        inv1t: "Scalable city model",
+        inv1d: "The platform is positioned to expand city by city, allowing cleaner operational rollout, stronger local density, and more controlled execution.",
+        inv2t: "Built as a real platform",
+        inv2d: "dutt is not presented as a simple landing concept. It is framed as a modern technology platform with product thinking, operational logic, and expansion potential.",
+        inv3t: "Operational clarity",
+        inv3d: "The value proposition is based on speed, live visibility, local execution, and a product-first delivery experience that can support multiple urban logistics use cases.",
+        inv4t: "Open to strategic conversations",
+        inv4d: "dutt can support discussions with early strategic partners, angel investors, and business stakeholders interested in urban delivery infrastructure and fast city logistics.",
+        invPill1: "City-by-city rollout",
+        invPill2: "Premium product layer",
+        invPill3: "Same-hour logistics",
+        invPill4: "Strategic growth potential",
         contactTitle: "Contact the team.",
-        contactText: "For partnerships, driver inquiries, and business communication, use the contact details below.",
+        contactText: "For partnerships, driver inquiries, business communication, and early-stage investor interest, use the contact details below.",
         contactEmailTitle: "Email",
         contactEmailText: "The main contact inbox for dutt.",
         quickTitle: "Quick access",
-        quickText: "Jump directly to the driver application form or download the app from the section above.",
+        quickText: "Jump directly to the driver application form, the app downloads, or get in touch for partnerships and investor communication.",
         quickBtn1: "Driver application",
         quickBtn2: "App downloads",
         ctaTitle: "The future of city delivery starts here.",
@@ -1944,12 +1957,15 @@
         ctaBtn1: "Download the app",
         ctaBtn2: "Become a driver",
         footer1: "© 2026 dutt. All rights reserved.",
-        footer2: "Same-hour delivery platform"
+        footer2: "Same-hour delivery platform",
+        footerLink1: "Privacy Policy",
+        footerLink2: "Terms of Use"
       },
       el: {
         navFeatures: "Χαρακτηριστικά",
         navApps: "Εφαρμογές",
         navDrivers: "Διανομείς",
+        navInvestors: "Investors",
         navContact: "Επικοινωνία",
         navSignup: "Αίτηση διανομέα",
         eyebrow: "Same-hour delivery, επανασχεδιασμένο",
@@ -2034,12 +2050,26 @@
         why2: "📍 Σύγχρονη real-time εμπειρία πλατφόρμας",
         why3: "🏙 Λειτουργία με επίκεντρο την πόλη",
         why4: "🚗 Ευέλικτο μοντέλο ανεξάρτητου διανομέα",
+        investorsTitle: "Χτισμένο για πρώιμους συνεργάτες και επενδυτές.",
+        investorsText: "Το dutt σχεδιάζεται ως μια κλιμακούμενη πλατφόρμα city-by-city logistics με premium product layer, ευέλικτο δίκτυο διανομέων και λογική ανάπτυξης φτιαγμένη για δομημένη επέκταση.",
+        inv1t: "Κλιμακούμενο city model",
+        inv1d: "Η πλατφόρμα τοποθετείται ώστε να επεκτείνεται πόλη-πόλη, επιτρέποντας καθαρότερο operational rollout, ισχυρότερη τοπική πυκνότητα και πιο ελεγχόμενη εκτέλεση.",
+        inv2t: "Χτισμένο ως πραγματική πλατφόρμα",
+        inv2d: "Το dutt δεν παρουσιάζεται ως απλό landing concept. Πλαισιώνεται ως σύγχρονη τεχνολογική πλατφόρμα με product thinking, operational logic και προοπτική επέκτασης.",
+        inv3t: "Operational clarity",
+        inv3d: "Η πρόταση αξίας βασίζεται στην ταχύτητα, τη live ορατότητα, την τοπική εκτέλεση και μια product-first εμπειρία παράδοσης που μπορεί να υποστηρίξει πολλαπλά urban logistics use cases.",
+        inv4t: "Ανοιχτό σε στρατηγικές συζητήσεις",
+        inv4d: "Το dutt μπορεί να υποστηρίξει συζητήσεις με πρώιμους στρατηγικούς συνεργάτες, angel investors και επιχειρηματικούς stakeholders που ενδιαφέρονται για urban delivery infrastructure και fast city logistics.",
+        invPill1: "Ανάπτυξη πόλη-πόλη",
+        invPill2: "Premium product layer",
+        invPill3: "Same-hour logistics",
+        invPill4: "Στρατηγική προοπτική ανάπτυξης",
         contactTitle: "Επικοινωνία με την ομάδα.",
-        contactText: "Για συνεργασίες, ερωτήσεις διανομέων και επαγγελματική επικοινωνία, χρησιμοποίησε τα παρακάτω στοιχεία.",
+        contactText: "Για συνεργασίες, ερωτήσεις διανομέων, επαγγελματική επικοινωνία και πρώιμο επενδυτικό ενδιαφέρον, χρησιμοποίησε τα παρακάτω στοιχεία.",
         contactEmailTitle: "Email",
         contactEmailText: "Το βασικό email επικοινωνίας του dutt.",
         quickTitle: "Γρήγορη πρόσβαση",
-        quickText: "Πήγαινε κατευθείαν στη φόρμα διανομέα ή στην ενότητα λήψης εφαρμογών.",
+        quickText: "Πήγαινε κατευθείαν στη φόρμα διανομέα, στην ενότητα λήψης εφαρμογών ή επικοινώνησε για συνεργασίες και επενδυτική επικοινωνία.",
         quickBtn1: "Αίτηση διανομέα",
         quickBtn2: "Λήψη εφαρμογών",
         ctaTitle: "Το μέλλον των αστικών παραδόσεων ξεκινά εδώ.",
@@ -2047,7 +2077,9 @@
         ctaBtn1: "Κατέβασε την εφαρμογή",
         ctaBtn2: "Γίνε διανομέας",
         footer1: "© 2026 dutt. Με κάθε επιφύλαξη νόμιμου δικαιώματος.",
-        footer2: "Πλατφόρμα same-hour delivery"
+        footer2: "Πλατφόρμα same-hour delivery",
+        footerLink1: "Πολιτική Απορρήτου",
+        footerLink2: "Όροι Χρήσης"
       }
     };
 
