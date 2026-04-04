@@ -2,50 +2,88 @@
 <html lang="el">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dutt — Same-Hour Delivery Platform</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>dutt — Same-hour delivery platform</title>
   <meta
     name="description"
-    content="dutt is a premium same-hour delivery platform for instant city logistics, powered by independent drivers."
+    content="dutt is a premium same-hour delivery platform for urban logistics, powered by independent drivers."
   />
+  <meta name="theme-color" content="#05070b" />
+
   <style>
     :root {
       --bg: #05070b;
       --bg-2: #0a0f18;
+      --bg-3: #0d131c;
       --card: rgba(255, 255, 255, 0.06);
+      --card-strong: rgba(255, 255, 255, 0.08);
       --card-border: rgba(255, 255, 255, 0.12);
       --text: #f5f7fb;
       --muted: #9ea7b7;
+      --muted-2: #cfd8e7;
       --line: rgba(255, 255, 255, 0.08);
       --accent: #ffffff;
+      --accent-soft: #dbe7ff;
+      --blue: #8cb5ff;
       --glow: rgba(116, 183, 255, 0.35);
       --success: #95ffb8;
+      --radius: 30px;
+      --radius-sm: 20px;
+      --shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.28);
+      --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.22);
+      --container: 1180px;
+      --nav-height: 80px;
     }
 
     * {
       box-sizing: border-box;
+      min-width: 0;
     }
 
     html {
       scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
       margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at 20% 20%, rgba(86, 131, 255, 0.15), transparent 32%),
         radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.09), transparent 22%),
         radial-gradient(circle at 80% 80%, rgba(45, 120, 255, 0.12), transparent 30%),
         linear-gradient(180deg, #05070b 0%, #070c13 40%, #04060a 100%);
-      overflow-x: hidden;
+      overflow-x: clip;
       min-height: 100vh;
+      text-rendering: optimizeLegibility;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
     }
 
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .wrap,
+    .nav-inner {
+      width: min(var(--container), calc(100% - 32px));
+      margin: 0 auto;
     }
 
     .bg-grid {
@@ -97,30 +135,25 @@
     }
 
     @keyframes float {
-      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-      50% { transform: translate3d(0, -18px, 0) scale(1.06); }
-    }
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(0, -18px, 0) scale(1.06);
+      }
     }
 
     .nav {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
       backdrop-filter: blur(18px);
       background: rgba(5, 7, 11, 0.56);
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .nav-inner {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      min-height: 78px;
+      min-height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -130,20 +163,21 @@
     .brand {
       display: flex;
       align-items: center;
+      flex: 0 0 auto;
     }
 
     .brand img {
-      height: 56px;
+      height: 58px;
       width: auto;
-      display: block;
       filter: drop-shadow(0 10px 28px rgba(255,255,255,0.12));
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      flex: 1 1 auto;
     }
 
     .nav-links a {
@@ -151,12 +185,17 @@
       font-size: 0.95rem;
       padding: 10px 14px;
       border-radius: 999px;
-      transition: 0.25s ease;
+      transition: 0.24s ease;
+      white-space: nowrap;
     }
 
     .nav-links a:hover {
       color: var(--text);
       background: rgba(255,255,255,0.06);
+    }
+
+    .nav-cta {
+      flex: 0 0 auto;
     }
 
     .btn {
@@ -167,11 +206,17 @@
       padding: 14px 22px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,0.10);
-      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      transition:
+        transform 0.24s ease,
+        background 0.24s ease,
+        border-color 0.24s ease,
+        box-shadow 0.24s ease,
+        color 0.24s ease;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 650;
       letter-spacing: 0.01em;
       min-height: 50px;
+      text-align: center;
     }
 
     .btn:hover {
@@ -181,7 +226,9 @@
     .btn-primary {
       background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(230,236,244,0.92));
       color: #071019;
-      box-shadow: 0 10px 35px rgba(255,255,255,0.14), 0 0 0 1px rgba(255,255,255,0.15) inset;
+      box-shadow:
+        0 10px 35px rgba(255,255,255,0.14),
+        0 0 0 1px rgba(255,255,255,0.15) inset;
       border-color: rgba(255,255,255,0.25);
     }
 
@@ -195,15 +242,45 @@
       color: var(--text);
     }
 
+    .btn-block {
+      width: 100%;
+    }
+
+    .glass-card {
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.07),
+        rgba(255,255,255,0.04)
+      );
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 2;
+    }
+
+    .section {
+      padding: 46px 0;
+    }
+
     .hero {
-      padding: 72px 0 48px;
+      padding: 72px 0 38px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 36px;
+      grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+      gap: 34px;
       align-items: center;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
     }
 
     .eyebrow {
@@ -218,6 +295,7 @@
       font-size: 0.92rem;
       margin-bottom: 20px;
       box-shadow: 0 0 0 1px rgba(255,255,255,0.02) inset;
+      max-width: 100%;
     }
 
     .pulse {
@@ -227,17 +305,24 @@
       background: var(--success);
       box-shadow: 0 0 0 0 rgba(149,255,184,0.7);
       animation: pulse 1.8s infinite;
+      flex: 0 0 auto;
     }
 
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(149,255,184,0.7); }
-      70% { box-shadow: 0 0 0 12px rgba(149,255,184,0); }
-      100% { box-shadow: 0 0 0 0 rgba(149,255,184,0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(149,255,184,0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 12px rgba(149,255,184,0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(149,255,184,0);
+      }
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(3rem, 7vw, 6.2rem);
+      font-size: clamp(3rem, 7vw, 6.3rem);
       line-height: 0.95;
       letter-spacing: -0.05em;
       font-weight: 800;
@@ -254,9 +339,9 @@
 
     .hero p {
       margin: 22px 0 0;
-      max-width: 670px;
+      max-width: 690px;
       font-size: clamp(1rem, 2vw, 1.18rem);
-      line-height: 1.7;
+      line-height: 1.72;
       color: var(--muted);
     }
 
@@ -264,13 +349,6 @@
       margin-top: 30px;
       display: flex;
       gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .store-row {
-      margin-top: 18px;
-      display: flex;
-      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -288,6 +366,7 @@
       border: 1px solid rgba(255,255,255,0.08);
       color: #d2d9e6;
       font-size: 0.92rem;
+      max-width: 100%;
     }
 
     .hero-visual {
@@ -298,9 +377,15 @@
       justify-content: center;
     }
 
+    .phone-shell {
+      position: relative;
+      width: min(360px, 100%);
+      max-width: 100%;
+    }
+
     .phone {
       position: relative;
-      width: min(360px, 88vw);
+      width: 100%;
       aspect-ratio: 9 / 18.8;
       border-radius: 42px;
       padding: 12px;
@@ -315,11 +400,16 @@
       overflow: hidden;
       transform: perspective(1200px) rotateY(-8deg) rotateX(5deg);
       animation: phoneFloat 5.8s ease-in-out infinite;
+      margin: 0 auto;
     }
 
     @keyframes phoneFloat {
-      0%, 100% { transform: perspective(1200px) rotateY(-8deg) rotateX(5deg) translateY(0); }
-      50% { transform: perspective(1200px) rotateY(-5deg) rotateX(3deg) translateY(-10px); }
+      0%, 100% {
+        transform: perspective(1200px) rotateY(-8deg) rotateX(5deg) translateY(0);
+      }
+      50% {
+        transform: perspective(1200px) rotateY(-5deg) rotateX(3deg) translateY(-10px);
+      }
     }
 
     .phone::before {
@@ -353,18 +443,23 @@
       justify-content: space-between;
       color: #c4cede;
       font-size: 0.85rem;
+      gap: 12px;
     }
 
     .screen-body {
       padding: 10px 14px 16px;
       position: relative;
       height: calc(100% - 54px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .map-card {
       position: relative;
       border-radius: 28px;
-      height: 56%;
+      flex: 1 1 auto;
+      min-height: 280px;
       background:
         radial-gradient(circle at 30% 30%, rgba(255,255,255,0.10), transparent 18%),
         radial-gradient(circle at 70% 70%, rgba(121,174,255,0.16), transparent 18%),
@@ -421,18 +516,24 @@
     }
 
     @keyframes moveDriver {
-      0% { transform: translate(0, 0); }
-      25% { transform: translate(26px, -18px); }
-      50% { transform: translate(58px, 12px); }
-      75% { transform: translate(18px, 32px); }
-      100% { transform: translate(0, 0); }
+      0% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(26px, -18px);
+      }
+      50% {
+        transform: translate(58px, 12px);
+      }
+      75% {
+        transform: translate(18px, 32px);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
     }
 
     .ride-sheet {
-      position: absolute;
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
       border-radius: 26px;
       padding: 18px;
       background: linear-gradient(180deg, rgba(15,20,28,0.90), rgba(11,16,24,0.96));
@@ -451,6 +552,7 @@
 
     .ride-head strong {
       font-size: 1rem;
+      line-height: 1.3;
     }
 
     .tag-live {
@@ -460,11 +562,13 @@
       background: rgba(255,255,255,0.06);
       color: #dce7ff;
       border: 1px solid rgba(255,255,255,0.08);
+      white-space: nowrap;
     }
 
     .line-item {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
       gap: 12px;
       padding: 11px 0;
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -472,13 +576,22 @@
       font-size: 0.93rem;
     }
 
-    .line-item:last-of-type {
-      border-bottom: none;
+    .line-item span:first-child {
+      color: #b8c5d7;
+      flex: 0 0 auto;
     }
 
     .line-item span:last-child {
       color: #ffffff;
       font-weight: 600;
+      text-align: right;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      max-width: 70%;
+    }
+
+    .line-item:last-of-type {
+      border-bottom: none;
     }
 
     .confirm-btn {
@@ -494,23 +607,12 @@
       box-shadow: 0 12px 30px rgba(255,255,255,0.12);
     }
 
-    .glass-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 30px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 18px 60px rgba(0,0,0,0.24);
-    }
-
-    .section {
-      padding: 44px 0;
-    }
-
     .section-title {
       margin: 0 0 12px;
       font-size: clamp(2rem, 4vw, 3.25rem);
       letter-spacing: -0.04em;
       line-height: 1;
+      text-wrap: balance;
     }
 
     .section-text {
@@ -524,7 +626,7 @@
     .feature-grid {
       margin-top: 30px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
     }
 
@@ -557,39 +659,45 @@
       margin-bottom: 18px;
     }
 
-    .feature-card h3 {
+    .feature-card h3,
+    .info-card h3,
+    .app-card h3,
+    .form-card h3,
+    .form-side h3,
+    .contact-card h3 {
       margin: 0 0 10px;
-      font-size: 1.18rem;
+      font-size: 1.2rem;
       letter-spacing: -0.02em;
+      line-height: 1.25;
     }
 
-    .feature-card p {
+    .feature-card p,
+    .info-card p,
+    .app-card p,
+    .form-card p,
+    .form-side p,
+    .contact-card p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.72;
       font-size: 0.98rem;
+      overflow-wrap: anywhere;
     }
 
     .split {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
       margin-top: 30px;
     }
 
-    .info-card {
+    .info-card,
+    .app-card,
+    .form-card,
+    .form-side,
+    .contact-card {
       padding: 28px;
-    }
-
-    .info-card h3 {
-      margin: 0 0 10px;
-      font-size: 1.25rem;
-    }
-
-    .info-card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.75;
+      overflow: hidden;
     }
 
     .ticker {
@@ -598,6 +706,7 @@
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.04);
+      max-width: 100%;
     }
 
     .ticker-track {
@@ -607,6 +716,7 @@
       padding: 12px 14px;
       animation: ticker 26s linear infinite;
       white-space: nowrap;
+      max-width: none;
     }
 
     .ticker-track span {
@@ -616,66 +726,52 @@
     }
 
     @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
     .apps-grid {
       margin-top: 28px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
     }
 
-    .app-card {
-      padding: 28px;
+    .download-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
     }
 
-    .app-card h3 {
-      margin: 0 0 12px;
-      font-size: 1.25rem;
-    }
-
-    .app-card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.75;
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
     }
 
     .form-wrap {
       margin-top: 28px;
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
       gap: 18px;
       align-items: start;
-    }
-
-    .form-card,
-    .form-side {
-      padding: 28px;
-    }
-
-    .form-card h3,
-    .form-side h3 {
-      margin: 0 0 12px;
-      font-size: 1.32rem;
-    }
-
-    .form-card p,
-    .form-side p {
-      margin: 0 0 18px;
-      color: var(--muted);
-      line-height: 1.75;
     }
 
     .driver-form {
       display: grid;
       gap: 14px;
+      margin-top: 18px;
     }
 
-    .driver-form .row {
+    .row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
     }
 
@@ -699,9 +795,15 @@
       color: var(--text);
       border-radius: 16px;
       padding: 14px 16px;
-      font: inherit;
       outline: none;
-      transition: border-color 0.2s ease, background 0.2s ease;
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #8f9aad;
     }
 
     .field input:focus,
@@ -709,15 +811,16 @@
     .field textarea:focus {
       border-color: rgba(140,181,255,0.55);
       background: rgba(255,255,255,0.06);
+      box-shadow: 0 0 0 4px rgba(140,181,255,0.10);
     }
 
     .field textarea {
-      min-height: 140px;
+      min-height: 144px;
       resize: vertical;
     }
 
     .small-note {
-      margin-top: 10px;
+      margin-top: 12px;
       font-size: 0.88rem;
       color: #9ca7ba;
       line-height: 1.7;
@@ -735,6 +838,22 @@
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       color: #dbe3f1;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .contact-card a.email-link {
+      color: #ffffff;
+      font-weight: 650;
+      display: inline-block;
+      margin-top: 8px;
+      word-break: break-all;
     }
 
     .final-cta {
@@ -778,6 +897,8 @@
       margin: 0 0 12px;
       font-size: clamp(2rem, 4vw, 3rem);
       letter-spacing: -0.04em;
+      line-height: 1;
+      text-wrap: balance;
     }
 
     .final-cta p {
@@ -794,7 +915,12 @@
 
     .footer-line {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.10),
+        transparent
+      );
       margin-bottom: 18px;
     }
 
@@ -818,17 +944,22 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 1040px) {
+    .mobile-only {
+      display: none !important;
+    }
+
+    .desktop-only {
+      display: initial;
+    }
+
+    @media (max-width: 1100px) {
       .hero-grid,
       .feature-grid,
       .split,
       .apps-grid,
-      .form-wrap {
+      .form-wrap,
+      .contact-grid {
         grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 48px;
       }
 
       .hero-visual {
@@ -840,45 +971,99 @@
       }
 
       @keyframes phoneFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-8px); }
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .brand img {
+        height: 52px;
+      }
+
+      .hero {
+        padding-top: 46px;
       }
     }
 
     @media (max-width: 760px) {
+      :root {
+        --radius: 24px;
+        --radius-sm: 18px;
+      }
+
       .wrap,
       .nav-inner {
-        width: min(100% - 20px, 1180px);
+        width: min(100% - 20px, var(--container));
+      }
+
+      .nav {
+        position: sticky;
       }
 
       .nav-inner {
         min-height: 74px;
       }
 
-      .nav-links {
-        display: none;
+      .brand img {
+        height: 46px;
       }
 
-      .brand img {
-        height: 50px;
+      .nav-cta .btn {
+        min-height: 44px;
+        padding: 12px 16px;
+        font-size: 0.92rem;
+      }
+
+      .desktop-only {
+        display: none !important;
+      }
+
+      .mobile-only {
+        display: initial !important;
       }
 
       .hero {
-        padding: 28px 0 20px;
+        padding: 28px 0 16px;
       }
 
       .section {
-        padding: 28px 0;
+        padding: 26px 0;
+      }
+
+      .hero-grid {
+        gap: 22px;
+      }
+
+      .eyebrow {
+        font-size: 0.84rem;
+        padding: 9px 12px;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-size: clamp(2.45rem, 12vw, 3.55rem);
+        line-height: 0.96;
       }
 
       .hero p,
       .section-text,
-      .app-card p,
+      .feature-card p,
       .info-card p,
+      .app-card p,
       .form-card p,
       .form-side p,
+      .contact-card p,
       .final-cta p {
-        font-size: 0.98rem;
+        font-size: 0.97rem;
         line-height: 1.72;
       }
 
@@ -887,46 +1072,22 @@
       .app-card,
       .form-card,
       .form-side,
+      .contact-card,
       .final-cta {
         border-radius: 24px;
         padding: 22px;
       }
 
-      .mini-stats,
       .cta-row,
-      .store-row {
+      .download-buttons,
+      .mini-stats {
         gap: 10px;
       }
 
-      .btn {
+      .cta-row .btn,
+      .download-buttons .btn,
+      .final-cta .btn {
         width: 100%;
-      }
-
-      .phone {
-        width: min(100%, 360px);
-      }
-
-      .driver-form .row {
-        grid-template-columns: 1fr;
-      }
-
-      .final-cta-inner {
-        align-items: flex-start;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .brand img {
-        height: 44px;
-      }
-
-      .hero h1 {
-        font-size: clamp(2.35rem, 12vw, 3.2rem);
-      }
-
-      .eyebrow {
-        font-size: 0.84rem;
-        padding: 9px 12px;
       }
 
       .mini-pill {
@@ -934,18 +1095,202 @@
         text-align: center;
       }
 
-      .line-item {
-        font-size: 0.88rem;
+      .hero-visual {
+        order: -1;
+      }
+
+      .phone-shell {
+        width: min(100%, 360px);
+      }
+
+      .phone {
+        width: 100%;
+        border-radius: 34px;
+        padding: 10px;
+      }
+
+      .screen {
+        border-radius: 26px;
+      }
+
+      .screen-top {
+        padding: 18px 14px 10px;
+        font-size: 0.8rem;
+      }
+
+      .screen-body {
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .map-card {
+        min-height: 230px;
+        border-radius: 20px;
       }
 
       .ride-sheet {
-        padding: 16px;
+        padding: 14px;
+        border-radius: 20px;
+      }
+
+      .ride-head {
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .ride-head strong {
+        font-size: 0.96rem;
+      }
+
+      .tag-live {
+        font-size: 0.75rem;
+        padding: 7px 9px;
+      }
+
+      .line-item {
+        font-size: 0.88rem;
+        gap: 10px;
+      }
+
+      .line-item span:last-child {
+        max-width: 62%;
+      }
+
+      .confirm-btn {
+        padding: 14px;
+        font-size: 0.94rem;
+        border-radius: 16px;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .ticker-track {
+        animation-duration: 34s;
+      }
+
+      .footer-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrap,
+      .nav-inner {
+        width: calc(100% - 16px);
+      }
+
+      .brand img {
+        height: 42px;
+      }
+
+      .nav-inner {
+        min-height: 70px;
+      }
+
+      .nav-cta .btn {
+        padding: 10px 14px;
+        min-height: 42px;
+      }
+
+      .hero {
+        padding-top: 24px;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 11.5vw, 3rem);
+      }
+
+      .hero p {
+        margin-top: 18px;
+      }
+
+      .section-title {
+        font-size: clamp(1.8rem, 9vw, 2.2rem);
+      }
+
+      .feature-card,
+      .info-card,
+      .app-card,
+      .form-card,
+      .form-side,
+      .contact-card,
+      .final-cta {
+        padding: 18px;
+        border-radius: 20px;
+      }
+
+      .icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        margin-bottom: 14px;
+      }
+
+      .phone {
+        border-radius: 28px;
+        padding: 8px;
+      }
+
+      .phone::before {
+        height: 24px;
+        top: 6px;
+      }
+
+      .screen {
+        border-radius: 22px;
+      }
+
+      .map-card {
+        min-height: 200px;
+      }
+
+      .line-item {
+        font-size: 0.85rem;
+      }
+
+      .line-item span:last-child {
+        max-width: 58%;
       }
 
       .field input,
       .field select,
       .field textarea {
         padding: 13px 14px;
+        border-radius: 14px;
+      }
+
+      .field textarea {
+        min-height: 130px;
+      }
+
+      .small-note {
+        font-size: 0.84rem;
+      }
+
+      .ticker-track {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
       }
     }
   </style>
@@ -958,7 +1303,7 @@
 
   <nav class="nav">
     <div class="nav-inner">
-      <a href="#" class="brand">
+      <a href="#" class="brand" aria-label="dutt homepage">
         <img src="logo1.png" alt="dutt logo" />
       </a>
 
@@ -969,7 +1314,9 @@
         <a href="#contact">Contact</a>
       </div>
 
-      <a href="#drivers" class="btn btn-secondary">Driver Signup</a>
+      <div class="nav-cta">
+        <a href="#drivers" class="btn btn-secondary">Driver signup</a>
+      </div>
     </div>
   </nav>
 
@@ -988,19 +1335,15 @@
           </h1>
 
           <p>
-            dutt is the next-generation same-hour delivery platform for urban logistics,
-            designed for speed, clarity, and premium user experience. Instant requests,
-            real-time tracking, and a modern network of independent drivers.
+            dutt is the next-generation same-hour delivery platform for urban
+            logistics, built for speed, clarity, and premium user experience.
+            Instant requests, real-time tracking, and a modern network of
+            independent drivers.
           </p>
 
           <div class="cta-row">
-            <a href="#apps" class="btn btn-primary">Download the App</a>
-            <a href="#drivers" class="btn btn-secondary">Become a Driver</a>
-          </div>
-
-          <div class="store-row">
-            <a href="https://play.google.com/store" class="btn btn-dark" target="_blank" rel="noopener noreferrer">Android App</a>
-            <a href="https://www.apple.com/app-store/" class="btn btn-dark" target="_blank" rel="noopener noreferrer">iOS App</a>
+            <a href="#apps" class="btn btn-primary">Download the app</a>
+            <a href="#drivers" class="btn btn-secondary">Become a driver</a>
           </div>
 
           <div class="mini-stats">
@@ -1011,44 +1354,46 @@
         </div>
 
         <div class="hero-visual reveal">
-          <div class="phone">
-            <div class="screen">
-              <div class="screen-top">
-                <span>9:41</span>
-                <span>dutt live</span>
-              </div>
-
-              <div class="screen-body">
-                <div class="map-card">
-                  <div class="road road-1"></div>
-                  <div class="road road-2"></div>
-                  <div class="dot pickup"></div>
-                  <div class="dot dropoff"></div>
-                  <div class="dot driver"></div>
+          <div class="phone-shell">
+            <div class="phone">
+              <div class="screen">
+                <div class="screen-top">
+                  <span>9:41</span>
+                  <span>dutt live</span>
                 </div>
 
-                <div class="ride-sheet">
-                  <div class="ride-head">
-                    <strong>Delivery in progress</strong>
-                    <div class="tag-live">Live</div>
+                <div class="screen-body">
+                  <div class="map-card">
+                    <div class="road road-1"></div>
+                    <div class="road road-2"></div>
+                    <div class="dot pickup"></div>
+                    <div class="dot dropoff"></div>
+                    <div class="dot driver"></div>
                   </div>
 
-                  <div class="line-item">
-                    <span>Pickup</span>
-                    <span>Auto Parts Hub</span>
-                  </div>
+                  <div class="ride-sheet">
+                    <div class="ride-head">
+                      <strong>Delivery in progress</strong>
+                      <div class="tag-live">Live</div>
+                    </div>
 
-                  <div class="line-item">
-                    <span>Dropoff</span>
-                    <span>Downtown Garage</span>
-                  </div>
+                    <div class="line-item">
+                      <span>Pickup</span>
+                      <span>Auto Parts Hub</span>
+                    </div>
 
-                  <div class="line-item">
-                    <span>ETA</span>
-                    <span>12 min</span>
-                  </div>
+                    <div class="line-item">
+                      <span>Dropoff</span>
+                      <span>Downtown Garage</span>
+                    </div>
 
-                  <button class="confirm-btn">Track Order</button>
+                    <div class="line-item">
+                      <span>ETA</span>
+                      <span>12 min</span>
+                    </div>
+
+                    <button class="confirm-btn" type="button">Track order</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1070,7 +1415,7 @@
           <div class="icon">⚡</div>
           <h3>Instant dispatch</h3>
           <p>
-            Orders move into a real-time delivery flow designed for fast assignment
+            Orders enter a real-time delivery flow designed for fast assignment
             and clean operational control.
           </p>
         </div>
@@ -1079,8 +1424,8 @@
           <div class="icon">🗺</div>
           <h3>Live tracking</h3>
           <p>
-            Customers can follow each delivery on a visual, premium-style interface
-            with location awareness and progress clarity.
+            Customers follow each delivery on a premium-style interface with
+            location awareness and progress clarity.
           </p>
         </div>
 
@@ -1088,17 +1433,17 @@
           <div class="icon">🏙</div>
           <h3>City-based scaling</h3>
           <p>
-            The platform is structured to operate city by city, making growth cleaner,
-            smarter, and operationally stronger.
+            The platform is structured to operate city by city, making growth
+            cleaner, smarter, and operationally stronger.
           </p>
         </div>
 
         <div class="feature-card glass-card">
           <div class="icon">📦</div>
-          <h3>Flexible delivery use cases</h3>
+          <h3>Flexible use cases</h3>
           <p>
-            Ideal for urgent city logistics, business deliveries, fast local movement,
-            and same-hour requests where time matters.
+            Ideal for urgent city logistics, business deliveries, fast local
+            movement, and same-hour requests where time matters.
           </p>
         </div>
 
@@ -1106,8 +1451,8 @@
           <div class="icon">✨</div>
           <h3>Premium product feel</h3>
           <p>
-            Minimal, smooth, and modern. Every screen is designed to feel closer to
-            a high-end tech platform than a basic delivery site.
+            Minimal, smooth, and modern. Every screen is designed to feel closer
+            to a high-end tech platform than a basic delivery site.
           </p>
         </div>
 
@@ -1115,8 +1460,8 @@
           <div class="icon">🚗</div>
           <h3>Independent driver network</h3>
           <p>
-            Powered by independent drivers to create flexibility, speed, and scalable
-            local execution.
+            Powered by independent drivers to create flexibility, speed, and
+            scalable local execution.
           </p>
         </div>
       </div>
@@ -1133,7 +1478,7 @@
           </p>
 
           <div class="ticker">
-            <div class="ticker-track">
+            <div class="ticker-track" aria-hidden="true">
               <span>Same-hour delivery</span>
               <span>•</span>
               <span>Real-time movement</span>
@@ -1160,9 +1505,9 @@
         <div class="info-card glass-card">
           <h3>For independent drivers</h3>
           <p>
-            A modern platform experience built around speed, flexibility, and clean
-            workflow. dutt is designed to support fast local delivery operations
-            with a product-first mindset.
+            A modern platform experience built around speed, flexibility, and
+            clean workflow. dutt is designed to support fast local delivery
+            operations with a product-first mindset.
           </p>
         </div>
       </div>
@@ -1171,28 +1516,45 @@
     <section class="section reveal" id="apps">
       <h2 class="section-title">Download the apps.</h2>
       <p class="section-text">
-        Add your real store links below when the apps are published.
-        For now, the buttons can point temporarily to your placeholder pages.
+        One clean place for both platforms. Put your final store links below
+        whenever the apps go live.
       </p>
 
       <div class="apps-grid">
         <div class="app-card glass-card">
           <h3>Android app</h3>
           <p>
-            Make the experience immediate for Android users with a direct install path.
+            Give Android users a direct path to install dutt and start using the
+            platform immediately.
           </p>
-          <div class="store-row">
-            <a href="https://play.google.com/store" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Get it on Google Play</a>
+
+          <div class="download-buttons">
+            <a
+              href="https://play.google.com/store"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary store-badge"
+            >
+              Get it on Google Play
+            </a>
           </div>
         </div>
 
         <div class="app-card glass-card">
           <h3>iPhone app</h3>
           <p>
-            Give iOS users a premium, direct path to the App Store version of dutt.
+            Give iOS users a premium direct path to the App Store version of dutt.
           </p>
-          <div class="store-row">
-            <a href="https://www.apple.com/app-store/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Download on the App Store</a>
+
+          <div class="download-buttons">
+            <a
+              href="https://www.apple.com/app-store/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary store-badge"
+            >
+              Download on the App Store
+            </a>
           </div>
         </div>
       </div>
@@ -1201,41 +1563,74 @@
     <section class="section reveal" id="drivers">
       <h2 class="section-title">Join as a driver.</h2>
       <p class="section-text">
-        Interested drivers can submit an application and your team can contact them directly.
+        Interested drivers can submit an application and your team can contact
+        them directly.
       </p>
 
       <div class="form-wrap">
         <div class="form-card glass-card">
           <h3>Driver application form</h3>
           <p>
-            Replace the email in the form action below with your real driver recruitment email.
+            Fill out the form below and send your application directly to the
+            dutt team.
           </p>
 
           <form
             class="driver-form"
-            action="mailto:YOUR-EMAIL@EXAMPLE.COM"
-            method="post"
-            enctype="text/plain"
+            action="https://formsubmit.co/info@dutt.gr"
+            method="POST"
           >
+            <input type="hidden" name="_subject" value="New driver application - dutt" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_next" value="https://dutt.gr/thanks.html" />
+            <input type="hidden" name="_captcha" value="true" />
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
             <div class="row">
               <div class="field">
                 <label for="fullName">Full name</label>
-                <input type="text" id="fullName" name="Full Name" required />
+                <input
+                  type="text"
+                  id="fullName"
+                  name="Full Name"
+                  required
+                  autocomplete="name"
+                />
               </div>
+
               <div class="field">
                 <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="Phone" required />
+                <input
+                  type="tel"
+                  id="phone"
+                  name="Phone"
+                  required
+                  autocomplete="tel"
+                />
               </div>
             </div>
 
             <div class="row">
               <div class="field">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="Email" required />
+                <input
+                  type="email"
+                  id="email"
+                  name="Email"
+                  required
+                  autocomplete="email"
+                />
               </div>
+
               <div class="field">
                 <label for="city">City</label>
-                <input type="text" id="city" name="City" required />
+                <input
+                  type="text"
+                  id="city"
+                  name="City"
+                  required
+                  autocomplete="address-level2"
+                />
               </div>
             </div>
 
@@ -1251,21 +1646,35 @@
                   <option>Other</option>
                 </select>
               </div>
+
               <div class="field">
                 <label for="availability">Availability</label>
-                <input type="text" id="availability" name="Availability" placeholder="e.g. Full-time / Part-time / Evenings" />
+                <input
+                  type="text"
+                  id="availability"
+                  name="Availability"
+                  placeholder="e.g. Full-time / Part-time / Evenings"
+                />
               </div>
             </div>
 
             <div class="field">
               <label for="experience">Experience / short message</label>
-              <textarea id="experience" name="Message" placeholder="Tell us a few things about your availability, delivery experience, and area."></textarea>
+              <textarea
+                id="experience"
+                name="Message"
+                placeholder="Tell us a few things about your availability, delivery experience, and area."
+              ></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Send application</button>
+            <button type="submit" class="btn btn-primary btn-block">
+              Send application
+            </button>
 
             <div class="small-note">
-              Note: this version uses a basic email form via <code>mailto:</code>. On some phones or browsers it may open the default mail app instead of submitting automatically. For a more professional no-popup form submission, we can switch it next to a dedicated form service.
+              The first time you test the form, FormSubmit will send a confirmation
+              email to <strong>info@dutt.gr</strong>. Open it once and confirm,
+              so all future submissions are delivered normally.
             </div>
           </form>
         </div>
@@ -1273,7 +1682,8 @@
         <div class="form-side glass-card">
           <h3>Why drive with dutt</h3>
           <p>
-            Build a cleaner, faster, more premium delivery experience with a platform designed around operational clarity and modern UX.
+            Build a cleaner, faster, more premium delivery experience with a
+            platform designed around operational clarity and modern UX.
           </p>
 
           <div class="bullet-list">
@@ -1287,19 +1697,50 @@
     </section>
 
     <section class="section reveal" id="contact">
+      <h2 class="section-title">Contact the team.</h2>
+      <p class="section-text">
+        For partnerships, driver inquiries, and business communication, use the
+        contact details below.
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-card glass-card">
+          <h3>Email</h3>
+          <p>
+            The main contact inbox for dutt.
+          </p>
+          <a class="email-link" href="mailto:info@dutt.gr">info@dutt.gr</a>
+        </div>
+
+        <div class="contact-card glass-card">
+          <h3>Quick access</h3>
+          <p>
+            Jump directly to the driver application form or download the app from
+            the section above.
+          </p>
+          <div class="download-buttons">
+            <a href="#drivers" class="btn btn-secondary">Driver application</a>
+            <a href="#apps" class="btn btn-secondary">App downloads</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
       <div class="final-cta glass-card">
         <div class="final-cta-inner">
           <div>
             <h2>The future of city delivery starts here.</h2>
             <p>
-              dutt is building a sharper, faster, more premium same-hour delivery platform.
-              Download the apps, join as a driver, or contact the team to learn more.
+              dutt is building a sharper, faster, more premium same-hour delivery
+              platform. Download the app, join as a driver, or contact the team
+              to learn more.
             </p>
           </div>
 
           <div class="cta-row">
-            <a href="mailto:hello@dutt.gr" class="btn btn-primary">Contact Us</a>
-            <a href="#drivers" class="btn btn-secondary">Driver Application</a>
+            <a href="#apps" class="btn btn-primary">Download the app</a>
+            <a href="#drivers" class="btn btn-secondary">Become a driver</a>
           </div>
         </div>
       </div>
@@ -1315,13 +1756,16 @@
   </main>
 
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.14 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.14 }
+    );
 
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
   </script>
