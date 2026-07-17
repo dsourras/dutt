@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>dutt — Same-hour delivery platform</title>
-  <meta name="description" content="dutt is a premium same-hour delivery platform for urban logistics, powered by independent drivers." />
+  <meta name="description" content="dutt is a premium same-hour delivery platform for customers, businesses and e-shops, powered by independent drivers." />
   <meta name="theme-color" content="#05070b" />
   <style>
     :root {
@@ -809,6 +809,369 @@
       font-size: 0.92rem;
     }
 
+    .ecommerce-section {
+      scroll-margin-top: calc(var(--nav-height) + 18px);
+    }
+
+    .commerce-stage {
+      margin-top: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 212, 0, 0.28);
+      border-radius: var(--radius);
+      background: #080b10;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.32);
+    }
+
+    .commerce-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(380px, 1.08fr);
+      gap: clamp(28px, 5vw, 58px);
+      align-items: center;
+      padding: clamp(30px, 5vw, 58px);
+      background:
+        linear-gradient(115deg, rgba(255, 212, 0, 0.10), transparent 42%),
+        #080b10;
+    }
+
+    .commerce-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: #ffe15e;
+      font-size: 0.92rem;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .commerce-mark {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      color: #07090d;
+      background: #ffd400;
+      font-size: 0.86rem;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .commerce-copy h2 {
+      margin: 0;
+      max-width: 660px;
+      font-size: clamp(2.35rem, 5vw, 4.75rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .commerce-copy > p {
+      margin: 22px 0 0;
+      max-width: 650px;
+      color: #b8c1cf;
+      font-size: 1.06rem;
+      line-height: 1.75;
+    }
+
+    .commerce-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-top: 28px;
+    }
+
+    .btn-commerce {
+      border-color: #ffd400;
+      color: #080a0d;
+      background: #ffd400;
+      box-shadow: 0 14px 36px rgba(255, 212, 0, 0.16);
+    }
+
+    .btn-commerce:hover {
+      background: #ffe05c;
+      border-color: #ffe05c;
+    }
+
+    .commerce-compatibility {
+      margin: 16px 0 0;
+      color: #909aaa;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .commerce-preview {
+      width: 100%;
+      color: #11151b;
+      background: #f5f6f8;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      border-radius: 18px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+      overflow: hidden;
+    }
+
+    .commerce-preview-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      border-bottom: 1px solid #dfe3e8;
+      background: #ffffff;
+    }
+
+    .commerce-preview-top strong {
+      font-size: 0.98rem;
+    }
+
+    .commerce-secure {
+      color: #4f5a67;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .commerce-preview-body {
+      padding: 22px;
+    }
+
+    .commerce-preview-label {
+      margin-bottom: 12px;
+      color: #596370;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .commerce-method {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid #d9dee5;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .commerce-method + .commerce-method {
+      margin-top: 10px;
+    }
+
+    .commerce-method.is-selected {
+      border-color: #d6b200;
+      background: #fffbea;
+      box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.15);
+    }
+
+    .commerce-radio {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #aab2bd;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .is-selected .commerce-radio {
+      border-color: #14171c;
+    }
+
+    .is-selected .commerce-radio::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: #14171c;
+    }
+
+    .commerce-method-copy strong,
+    .commerce-method-copy span {
+      display: block;
+    }
+
+    .commerce-method-copy strong {
+      font-size: 0.93rem;
+      line-height: 1.35;
+    }
+
+    .commerce-method-copy span {
+      margin-top: 3px;
+      color: #697481;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .commerce-method-price {
+      color: #252a31;
+      font-size: 0.88rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .commerce-quote-note {
+      margin: 12px 0 0;
+      color: #66717e;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .commerce-checkout-button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 15px 18px;
+      border: 0;
+      border-radius: 8px;
+      color: #090b0e;
+      background: #ffd400;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .commerce-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0c1016;
+    }
+
+    .commerce-step {
+      min-height: 190px;
+      padding: 28px;
+    }
+
+    .commerce-step + .commerce-step {
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .commerce-step-number {
+      display: block;
+      margin-bottom: 28px;
+      color: #ffd400;
+      font-size: 0.8rem;
+      font-weight: 850;
+    }
+
+    .commerce-step h3 {
+      margin: 0 0 9px;
+      font-size: 1.08rem;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .commerce-step p {
+      margin: 0;
+      color: #929cab;
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .commerce-operations,
+    .commerce-integrations {
+      display: grid;
+      grid-template-columns: minmax(250px, 0.82fr) minmax(0, 1.18fr);
+      gap: clamp(28px, 5vw, 60px);
+      padding: clamp(30px, 5vw, 54px);
+    }
+
+    .commerce-integrations {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: #090d12;
+    }
+
+    .commerce-subheading h3 {
+      margin: 0;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .commerce-subheading p {
+      margin: 16px 0 0;
+      color: #929cab;
+      line-height: 1.7;
+    }
+
+    .commerce-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 24px;
+    }
+
+    .commerce-point {
+      padding: 16px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .commerce-point strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #f6f8fb;
+      font-size: 0.96rem;
+      line-height: 1.4;
+    }
+
+    .commerce-point span {
+      display: block;
+      color: #8f99a8;
+      font-size: 0.86rem;
+      line-height: 1.58;
+    }
+
+    .commerce-integration-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .commerce-integration-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 0.35fr) minmax(0, 1fr);
+      gap: 20px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .commerce-integration-row strong {
+      color: #ffd400;
+      line-height: 1.5;
+    }
+
+    .commerce-integration-name {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .commerce-coming-soon {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 4px 8px;
+      border: 1px solid rgba(255, 212, 0, 0.26);
+      border-radius: 999px;
+      color: #ffe15e;
+      background: rgba(255, 212, 0, 0.08);
+      font-size: 0.68rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .commerce-integration-row span {
+      color: #a4adba;
+      line-height: 1.7;
+    }
+
+    .commerce-platform-note {
+      margin: 18px 0 0;
+      color: #d6dce5;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
     .final-cta {
       margin: 48px 0 70px;
       padding: 34px;
@@ -1016,8 +1379,23 @@
       .apps-grid,
       .form-wrap,
       .contact-grid,
-      .investor-grid {
+      .investor-grid,
+      .commerce-hero,
+      .commerce-operations,
+      .commerce-integrations {
         grid-template-columns: 1fr;
+      }
+
+      .commerce-flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .commerce-step:nth-child(3) {
+        border-left: 0;
+      }
+
+      .commerce-step:nth-child(n + 3) {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
       }
 
       .hero-visual {
@@ -1104,6 +1482,40 @@
       .investor-card p,
       .final-cta p {
         font-size: 0.97rem;
+      }
+
+      .commerce-hero,
+      .commerce-operations,
+      .commerce-integrations {
+        padding: 24px;
+      }
+
+      .commerce-flow,
+      .commerce-points {
+        grid-template-columns: 1fr;
+      }
+
+      .commerce-step {
+        min-height: auto;
+        padding: 24px;
+      }
+
+      .commerce-step + .commerce-step {
+        border-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .commerce-step-number {
+        margin-bottom: 16px;
+      }
+
+      .commerce-integration-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .commerce-actions .btn {
+        width: 100%;
       }
 
       .feature-card,
@@ -1218,6 +1630,10 @@
         width: calc(100% - 16px);
       }
 
+      .nav-right .btn {
+        display: none;
+      }
+
       .brand img {
         height: 42px;
       }
@@ -1244,6 +1660,22 @@
       .final-cta {
         padding: 18px;
         border-radius: 20px;
+      }
+
+      .commerce-stage {
+        border-radius: 20px;
+      }
+
+      .commerce-preview-body {
+        padding: 16px;
+      }
+
+      .commerce-method {
+        grid-template-columns: 20px minmax(0, 1fr);
+      }
+
+      .commerce-method-price {
+        grid-column: 2;
       }
 
       .phone {
@@ -1302,6 +1734,7 @@
 
       <div class="nav-links">
         <a href="#features" data-i18n="navFeatures">Features</a>
+        <a href="#eshops" data-i18n="navEshops">E-shops</a>
         <a href="#apps" data-i18n="navApps">Apps</a>
         <a href="#drivers" data-i18n="navDrivers">Drivers</a>
         <a href="#investors" data-i18n="navInvestors">Investors</a>
@@ -1476,6 +1909,144 @@
         <div class="info-card glass-card">
           <h3 data-i18n="driverInfoTitle">For independent drivers</h3>
           <p data-i18n="driverInfoText">A modern platform experience built around speed, flexibility, and clean workflow. dutt is designed to support fast local delivery operations with a product-first mindset.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal ecommerce-section" id="eshops">
+      <h2 class="section-title" data-i18n="eshopSectionTitle">Dutt for e-shops.</h2>
+      <p class="section-text" data-i18n="eshopSectionText">Make immediate local delivery a core part of your online store, not an afterthought.</p>
+
+      <div class="commerce-stage">
+        <div class="commerce-hero">
+          <div class="commerce-copy">
+            <div class="commerce-kicker">
+              <span class="commerce-mark" aria-hidden="true">D</span>
+              <span data-i18n="eshopKicker">Dutt for e-commerce</span>
+            </div>
+            <h2 data-i18n="eshopTitle">Same-hour delivery, built into your checkout.</h2>
+            <p data-i18n="eshopIntro">Give local customers the option to receive eligible products immediately. Dutt connects your online store with our delivery network, from order placement through final delivery.</p>
+            <div class="commerce-actions">
+              <a class="btn btn-commerce" href="mailto:info@dutt.gr?subject=Dutt%20e-shop%20integration" data-i18n="eshopCta">Add Dutt to your e-shop</a>
+            </div>
+            <p class="commerce-compatibility" data-i18n="eshopCompatibility">WooCommerce and custom integrations are supported. Shopify integration is coming next.</p>
+          </div>
+
+          <div class="commerce-preview" aria-label="E-shop checkout preview">
+            <div class="commerce-preview-top">
+              <strong data-i18n="eshopPreviewTitle">Checkout</strong>
+              <span class="commerce-secure" data-i18n="eshopPreviewSecure">Secure checkout</span>
+            </div>
+            <div class="commerce-preview-body">
+              <div class="commerce-preview-label" data-i18n="eshopDeliveryMethod">Delivery method</div>
+
+              <div class="commerce-method">
+                <span class="commerce-radio" aria-hidden="true"></span>
+                <span class="commerce-method-copy">
+                  <strong data-i18n="eshopStandardTitle">Standard delivery</strong>
+                  <span data-i18n="eshopStandardTime">1-3 business days</span>
+                </span>
+                <span class="commerce-method-price" data-i18n="eshopStandardPrice">Calculated later</span>
+              </div>
+
+              <div class="commerce-method is-selected">
+                <span class="commerce-radio" aria-hidden="true"></span>
+                <span class="commerce-method-copy">
+                  <strong data-i18n="eshopDuttTitle">Dutt same-hour delivery</strong>
+                  <span data-i18n="eshopDuttTime">Estimated delivery in 45-60 minutes</span>
+                </span>
+                <span class="commerce-method-price" data-i18n="eshopDuttPrice">Live quote</span>
+              </div>
+
+              <p class="commerce-quote-note" data-i18n="eshopQuoteNote">Availability and price are calculated for this address and order.</p>
+              <div class="commerce-checkout-button" data-i18n="eshopPlaceOrder">Place order</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="commerce-flow">
+          <div class="commerce-step">
+            <span class="commerce-step-number">01</span>
+            <h3 data-i18n="eshopStep1Title">The customer chooses Dutt</h3>
+            <p data-i18n="eshopStep1Text">The option appears at checkout when the delivery address and products are eligible.</p>
+          </div>
+          <div class="commerce-step">
+            <span class="commerce-step-number">02</span>
+            <h3 data-i18n="eshopStep2Title">The store prepares the order</h3>
+            <p data-i18n="eshopStep2Text">The merchant sees the order and marks it ready when pickup can begin.</p>
+          </div>
+          <div class="commerce-step">
+            <span class="commerce-step-number">03</span>
+            <h3 data-i18n="eshopStep3Title">A driver is dispatched</h3>
+            <p data-i18n="eshopStep3Text">Dutt handles driver search, pickup and live status updates automatically.</p>
+          </div>
+          <div class="commerce-step">
+            <span class="commerce-step-number">04</span>
+            <h3 data-i18n="eshopStep4Title">The delivery is completed</h3>
+            <p data-i18n="eshopStep4Text">The customer and merchant follow progress through to successful delivery.</p>
+          </div>
+        </div>
+
+        <div class="commerce-operations">
+          <div class="commerce-subheading">
+            <h3 data-i18n="eshopControlTitle">One delivery flow. Full control.</h3>
+            <p data-i18n="eshopControlText">The connection goes beyond a shipping option. Dutt supports the operational and financial lifecycle of each local order.</p>
+          </div>
+
+          <div class="commerce-points">
+            <div class="commerce-point">
+              <strong data-i18n="eshopPoint1Title">Real delivery quote</strong>
+              <span data-i18n="eshopPoint1Text">Availability and cost are calculated using the actual store and customer locations.</span>
+            </div>
+            <div class="commerce-point">
+              <strong data-i18n="eshopPoint2Title">Flexible charging policy</strong>
+              <span data-i18n="eshopPoint2Text">The customer, the store or both can cover the delivery cost according to the merchant policy.</span>
+            </div>
+            <div class="commerce-point">
+              <strong data-i18n="eshopPoint3Title">Live merchant tracking</strong>
+              <span data-i18n="eshopPoint3Text">The store can see status, driver progress, pickup and delivery history.</span>
+            </div>
+            <div class="commerce-point">
+              <strong data-i18n="eshopPoint4Title">Automatic status updates</strong>
+              <span data-i18n="eshopPoint4Text">Delivery progress returns to the e-shop without manual status chasing.</span>
+            </div>
+            <div class="commerce-point">
+              <strong data-i18n="eshopPoint5Title">Cancellations and returns</strong>
+              <span data-i18n="eshopPoint5Text">The common Dutt flow handles cancellation, failed delivery and return-to-store cases.</span>
+            </div>
+            <div class="commerce-point">
+              <strong data-i18n="eshopPoint6Title">Financial overview</strong>
+              <span data-i18n="eshopPoint6Text">The merchant can review deliveries, contributions, amounts due and settlement history.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="commerce-integrations">
+          <div class="commerce-subheading">
+            <h3 data-i18n="eshopIntegrationTitle">Connect the e-shop you already use.</h3>
+            <p data-i18n="eshopIntegrationText">Dutt adapts to the sales channel while the delivery logic remains consistent and centrally managed.</p>
+          </div>
+
+          <div>
+            <div class="commerce-integration-list">
+              <div class="commerce-integration-row">
+                <strong>WooCommerce</strong>
+                <span data-i18n="eshopWooText">Connect Dutt, enter the merchant key and configure the store directly from WooCommerce.</span>
+              </div>
+              <div class="commerce-integration-row">
+                <div class="commerce-integration-name">
+                  <strong>Shopify</strong>
+                  <span class="commerce-coming-soon" data-i18n="eshopShopifyStatus">Coming soon</span>
+                </div>
+                <span data-i18n="eshopShopifyText">A dedicated Shopify integration will bring the same Dutt checkout and merchant workflow to Shopify stores.</span>
+              </div>
+              <div class="commerce-integration-row">
+                <strong data-i18n="eshopCustomTitle">Custom e-shop</strong>
+                <span data-i18n="eshopCustomText">Use the Dutt Merchant API without rebuilding pricing, dispatch, tracking, cancellation and settlement flows.</span>
+              </div>
+            </div>
+            <p class="commerce-platform-note" data-i18n="eshopPlatformNote">Whatever the platform, every order runs through the same Dutt delivery lifecycle.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1730,6 +2301,7 @@
     const translations = {
       en: {
         navFeatures: "Features",
+        navEshops: "E-shops",
         navApps: "Apps",
         navDrivers: "Drivers",
         navInvestors: "Investors",
@@ -1783,6 +2355,54 @@
         ticker5b: "Premium UX",
         driverInfoTitle: "For independent drivers",
         driverInfoText: "A modern platform experience built around speed, flexibility, and clean workflow. dutt is designed to support fast local delivery operations with a product-first mindset.",
+        eshopSectionTitle: "Dutt for e-shops.",
+        eshopSectionText: "Make immediate local delivery a core part of your online store, not an afterthought.",
+        eshopKicker: "Dutt for e-commerce",
+        eshopTitle: "Same-hour delivery, built into your checkout.",
+        eshopIntro: "Give local customers the option to receive eligible products immediately. Dutt connects your online store with our delivery network, from order placement through final delivery.",
+        eshopCta: "Add Dutt to your e-shop",
+        eshopCompatibility: "WooCommerce and custom integrations are supported. Shopify integration is coming next.",
+        eshopPreviewTitle: "Checkout",
+        eshopPreviewSecure: "Secure checkout",
+        eshopDeliveryMethod: "Delivery method",
+        eshopStandardTitle: "Standard delivery",
+        eshopStandardTime: "1-3 business days",
+        eshopStandardPrice: "Calculated later",
+        eshopDuttTitle: "Dutt same-hour delivery",
+        eshopDuttTime: "Estimated delivery in 45-60 minutes",
+        eshopDuttPrice: "Live quote",
+        eshopQuoteNote: "Availability and price are calculated for this address and order.",
+        eshopPlaceOrder: "Place order",
+        eshopStep1Title: "The customer chooses Dutt",
+        eshopStep1Text: "The option appears at checkout when the delivery address and products are eligible.",
+        eshopStep2Title: "The store prepares the order",
+        eshopStep2Text: "The merchant sees the order and marks it ready when pickup can begin.",
+        eshopStep3Title: "A driver is dispatched",
+        eshopStep3Text: "Dutt handles driver search, pickup and live status updates automatically.",
+        eshopStep4Title: "The delivery is completed",
+        eshopStep4Text: "The customer and merchant follow progress through to successful delivery.",
+        eshopControlTitle: "One delivery flow. Full control.",
+        eshopControlText: "The connection goes beyond a shipping option. Dutt supports the operational and financial lifecycle of each local order.",
+        eshopPoint1Title: "Real delivery quote",
+        eshopPoint1Text: "Availability and cost are calculated using the actual store and customer locations.",
+        eshopPoint2Title: "Flexible charging policy",
+        eshopPoint2Text: "The customer, the store or both can cover the delivery cost according to the merchant policy.",
+        eshopPoint3Title: "Live merchant tracking",
+        eshopPoint3Text: "The store can see status, driver progress, pickup and delivery history.",
+        eshopPoint4Title: "Automatic status updates",
+        eshopPoint4Text: "Delivery progress returns to the e-shop without manual status chasing.",
+        eshopPoint5Title: "Cancellations and returns",
+        eshopPoint5Text: "The common Dutt flow handles cancellation, failed delivery and return-to-store cases.",
+        eshopPoint6Title: "Financial overview",
+        eshopPoint6Text: "The merchant can review deliveries, contributions, amounts due and settlement history.",
+        eshopIntegrationTitle: "Connect the e-shop you already use.",
+        eshopIntegrationText: "Dutt adapts to the sales channel while the delivery logic remains consistent and centrally managed.",
+        eshopWooText: "Connect Dutt, enter the merchant key and configure the store directly from WooCommerce.",
+        eshopShopifyStatus: "Coming soon",
+        eshopShopifyText: "A dedicated Shopify integration will bring the same Dutt checkout and merchant workflow to Shopify stores.",
+        eshopCustomTitle: "Custom e-shop",
+        eshopCustomText: "Use the Dutt Merchant API without rebuilding pricing, dispatch, tracking, cancellation and settlement flows.",
+        eshopPlatformNote: "Whatever the platform, every order runs through the same Dutt delivery lifecycle.",
         appsTitle: "Download the apps.",
         androidTitle: "Android app",
         androidText: "Give Android users a direct path to install dutt and start using the platform immediately.",
@@ -1853,6 +2473,7 @@
       },
       el: {
         navFeatures: "Χαρακτηριστικά",
+        navEshops: "E-shops",
         navApps: "Εφαρμογές",
         navDrivers: "Διανομείς",
         navInvestors: "Investors",
@@ -1906,6 +2527,54 @@
         ticker5b: "Premium UX",
         driverInfoTitle: "Για ανεξάρτητους διανομείς",
         driverInfoText: "Μια σύγχρονη εμπειρία πλατφόρμας χτισμένη πάνω στην ταχύτητα, την ευελιξία και την καθαρή ροή εργασίας. Το dutt έχει σχεδιαστεί για να υποστηρίζει γρήγορες τοπικές παραδόσεις με product-first φιλοσοφία.",
+        eshopSectionTitle: "Dutt για e-shops.",
+        eshopSectionText: "Κάνε την άμεση τοπική παράδοση βασικό μέρος του ηλεκτρονικού σου καταστήματος.",
+        eshopKicker: "Dutt για e-commerce",
+        eshopTitle: "Άμεση παράδοση, μέσα στο checkout σου.",
+        eshopIntro: "Δώσε στους πελάτες της πόλης σου τη δυνατότητα να παραλαμβάνουν επιλέξιμα προϊόντα άμεσα. Η Dutt συνδέει το ηλεκτρονικό σου κατάστημα με το δίκτυο διανομής μας, από την τοποθέτηση της παραγγελίας μέχρι την παράδοση.",
+        eshopCta: "Πρόσθεσε τη Dutt στο e-shop σου",
+        eshopCompatibility: "Υποστηρίζονται WooCommerce και custom συνδέσεις. Η σύνδεση Shopify έρχεται σύντομα.",
+        eshopPreviewTitle: "Ολοκλήρωση αγοράς",
+        eshopPreviewSecure: "Ασφαλές checkout",
+        eshopDeliveryMethod: "Τρόπος παράδοσης",
+        eshopStandardTitle: "Κανονική παράδοση",
+        eshopStandardTime: "1-3 εργάσιμες ημέρες",
+        eshopStandardPrice: "Υπολογίζεται αργότερα",
+        eshopDuttTitle: "Dutt άμεση παράδοση",
+        eshopDuttTime: "Εκτιμώμενη παράδοση σε 45-60 λεπτά",
+        eshopDuttPrice: "Ζωντανή τιμή",
+        eshopQuoteNote: "Η διαθεσιμότητα και η τιμή υπολογίζονται για τη συγκεκριμένη διεύθυνση και παραγγελία.",
+        eshopPlaceOrder: "Ολοκλήρωση παραγγελίας",
+        eshopStep1Title: "Ο πελάτης επιλέγει Dutt",
+        eshopStep1Text: "Η επιλογή εμφανίζεται στο checkout όταν η διεύθυνση και τα προϊόντα καλύπτονται.",
+        eshopStep2Title: "Το κατάστημα ετοιμάζει την παραγγελία",
+        eshopStep2Text: "Ο έμπορος βλέπει την παραγγελία και τη σημειώνει έτοιμη όταν μπορεί να ξεκινήσει η παραλαβή.",
+        eshopStep3Title: "Ανατίθεται διανομέας",
+        eshopStep3Text: "Η Dutt αναλαμβάνει αυτόματα την αναζήτηση διανομέα, την παραλαβή και τη ζωντανή ενημέρωση.",
+        eshopStep4Title: "Η παράδοση ολοκληρώνεται",
+        eshopStep4Text: "Πελάτης και έμπορος παρακολουθούν την πορεία μέχρι την επιτυχή παράδοση.",
+        eshopControlTitle: "Μία ροή διανομής. Πλήρης έλεγχος.",
+        eshopControlText: "Η σύνδεση δεν σταματά σε μία επιλογή μεταφορικών. Η Dutt υποστηρίζει ολόκληρο τον λειτουργικό και οικονομικό κύκλο κάθε τοπικής παραγγελίας.",
+        eshopPoint1Title: "Πραγματική τιμή διανομής",
+        eshopPoint1Text: "Η διαθεσιμότητα και το κόστος υπολογίζονται με βάση τις πραγματικές τοποθεσίες καταστήματος και πελάτη.",
+        eshopPoint2Title: "Ευέλικτη πολιτική χρέωσης",
+        eshopPoint2Text: "Το κόστος μπορεί να καλύπτεται από τον πελάτη, το κατάστημα ή και τους δύο, σύμφωνα με την πολιτική του εμπόρου.",
+        eshopPoint3Title: "Ζωντανή παρακολούθηση εμπόρου",
+        eshopPoint3Text: "Το κατάστημα βλέπει status, πορεία διανομέα και ιστορικό παραλαβής και παράδοσης.",
+        eshopPoint4Title: "Αυτόματη ενημέρωση status",
+        eshopPoint4Text: "Η πρόοδος της διανομής επιστρέφει στο e-shop χωρίς χειροκίνητη παρακολούθηση.",
+        eshopPoint5Title: "Ακυρώσεις και επιστροφές",
+        eshopPoint5Text: "Η κοινή ροή Dutt χειρίζεται ακύρωση, αποτυχημένη παράδοση και επιστροφή στο κατάστημα.",
+        eshopPoint6Title: "Οικονομική εποπτεία",
+        eshopPoint6Text: "Ο έμπορος ελέγχει παραδόσεις, συμμετοχές, οφειλές και ιστορικό εκκαθαρίσεων.",
+        eshopIntegrationTitle: "Συνδέεται με το e-shop που ήδη χρησιμοποιείς.",
+        eshopIntegrationText: "Η Dutt προσαρμόζεται στο κανάλι πώλησης, ενώ η λογική διανομής παραμένει ενιαία και κεντρικά διαχειριζόμενη.",
+        eshopWooText: "Σύνδεσε τη Dutt, καταχώρισε το merchant key και ρύθμισε το κατάστημα απευθείας μέσα από το WooCommerce.",
+        eshopShopifyStatus: "Σύντομα",
+        eshopShopifyText: "Η ειδική σύνδεση Shopify θα φέρει την ίδια εμπειρία checkout και merchant flow στα καταστήματα Shopify.",
+        eshopCustomTitle: "Custom e-shop",
+        eshopCustomText: "Συνδέσου μέσω του Dutt Merchant API χωρίς να ξαναχτίσεις pricing, dispatch, tracking, ακυρώσεις και εκκαθαρίσεις.",
+        eshopPlatformNote: "Όποια κι αν είναι η πλατφόρμα, κάθε παραγγελία ακολουθεί τον ίδιο κύκλο διανομής Dutt.",
         appsTitle: "Κατέβασε τις εφαρμογές.",
         androidTitle: "Android εφαρμογή",
         androidText: "Δώσε στους χρήστες Android έναν άμεσο τρόπο να εγκαταστήσουν το dutt και να ξεκινήσουν αμέσως.",
