@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Εγκατάσταση DUTT για WooCommerce</title>
+  <meta name="description" content="Απλές οδηγίες εγκατάστασης και σύνδεσης του DUTT Same Hour Delivery με WooCommerce.">
+  <meta name="theme-color" content="#080808">
+  <style>
+    :root {
+      color-scheme: dark;
+      --black: #080808;
+      --surface: #111111;
+      --line: #2a2a2a;
+      --white: #ffffff;
+      --muted: #b8b8b8;
+      --yellow: #f7c900;
+      --max: 900px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--black);
+      color: var(--white);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 48px 0 42px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      width: 136px;
+      height: auto;
+      margin-bottom: 42px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--yellow);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(36px, 7vw, 68px);
+      line-height: 1.02;
+      font-weight: 800;
+    }
+
+    .intro {
+      max-width: 680px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 19px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 1px solid var(--yellow);
+      border-radius: 6px;
+      background: var(--yellow);
+      color: #080808;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    main { padding: 10px 0 56px; }
+
+    .step {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 24px;
+      padding: 38px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .number {
+      color: var(--yellow);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    h2 {
+      margin: 0 0 15px;
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    ol, ul {
+      margin: 0;
+      padding-left: 22px;
+      color: var(--muted);
+    }
+
+    li + li { margin-top: 9px; }
+
+    strong { color: var(--white); }
+
+    .success {
+      margin-top: 22px;
+      padding: 18px;
+      border: 1px solid #3b3b3b;
+      border-left: 4px solid var(--yellow);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--muted);
+    }
+
+    .notice {
+      margin: 38px 0 0;
+      padding: 24px 0 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer a { color: var(--white); }
+
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, var(--max)); }
+      header { padding-top: 30px; }
+      .logo { width: 116px; margin-bottom: 34px; }
+      .intro { font-size: 17px; }
+      .step { grid-template-columns: 1fr; gap: 8px; padding: 30px 0; }
+      .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <img class="logo" src="../logo_white1.png" alt="DUTT">
+      <p class="eyebrow">WooCommerce</p>
+      <h1>Εγκατάσταση σε τέσσερα απλά βήματα.</h1>
+      <p class="intro">Θα χρειαστείς το αρχείο ZIP και το προσωπικό Merchant Key του καταστήματός σου, το οποίο παρέχεται ξεχωριστά από τη DUTT.</p>
+      <div class="actions">
+        <a class="button" href="dutt-same-hour-delivery.zip" download>Λήψη του plugin</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="step">
+      <div class="number">01</div>
+      <div>
+        <h2>Εγκατάσταση του ZIP</h2>
+        <ol>
+          <li>Στο WordPress άνοιξε <strong>Πρόσθετα → Προσθήκη νέου πρόσθετου</strong>.</li>
+          <li>Πάτησε <strong>Μεταφόρτωση πρόσθετου</strong> και επίλεξε το ZIP που κατέβασες.</li>
+          <li>Πάτησε <strong>Εγκατάσταση τώρα</strong> και μετά <strong>Ενεργοποίηση πρόσθετου</strong>.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="step">
+      <div class="number">02</div>
+      <div>
+        <h2>Σύνδεση με τη DUTT</h2>
+        <ol>
+          <li>Από το αριστερό μενού άνοιξε <strong>Dutt → Dutt Delivery</strong>.</li>
+          <li>Πάτησε <strong>Open settings</strong> και ενεργοποίησε τη DUTT.</li>
+          <li>Συμπλήρωσε το όνομα, την πόλη και τη διεύθυνση παραλαβής του καταστήματος, καθώς και τα στοιχεία τιμολόγησης.</li>
+          <li>Στο <strong>DUTT Merchant Key</strong> βάλε το προσωπικό key του καταστήματός σου και πάτησε <strong>Save changes</strong>.</li>
+          <li>Μην αλλάξεις τα έτοιμα API URLs.</li>
+        </ol>
+        <div class="success">Το Merchant Key είναι ιδιωτικό. Δεν το κοινοποιούμε και δεν χρησιμοποιούμε το ίδιο key σε δεύτερο κατάστημα.</div>
+      </div>
+    </section>
+
+    <section class="step">
+      <div class="number">03</div>
+      <div>
+        <h2>Ρυθμίσεις καταστήματος</h2>
+        <ol>
+          <li>Πάτησε <strong>Test Dutt connection</strong>. Πρέπει να εμφανιστεί μήνυμα επιτυχούς σύνδεσης.</li>
+          <li>Στις <strong>WooCommerce → Ρυθμίσεις → Αποστολή</strong>, πρόσθεσε και ενεργοποίησε τη μέθοδο <strong>DUTT Same Hour Delivery</strong> στη σωστή ζώνη αποστολής.</li>
+          <li>Στο <strong>Dutt → Eligible Categories</strong>, επίλεξε τις κατηγορίες προϊόντων που μπορούν να παραδοθούν άμεσα.</li>
+          <li>Άνοιξε το <strong>Dutt → Product Eligibility Scanner</strong> και έλεγξε τα προϊόντα για εξαιρέσεις.</li>
+          <li>Έλεγξε την πολιτική χρέωσης πελάτη, τον χρόνο προετοιμασίας και το ωράριο υπηρεσίας.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="step">
+      <div class="number">04</div>
+      <div>
+        <h2>Δοκιμή πριν την έναρξη</h2>
+        <ol>
+          <li>Βάλε στο καλάθι ένα επιλέξιμο προϊόν.</li>
+          <li>Χρησιμοποίησε διεύθυνση παράδοσης μέσα στην ενεργή περιοχή της DUTT.</li>
+          <li>Επιβεβαίωσε ότι στο checkout εμφανίζεται η επιλογή <strong>DUTT Same Hour Delivery</strong> με τη σωστή τιμή.</li>
+          <li>Δημιούργησε μία δοκιμαστική παραγγελία και, μέσα στην παραγγελία WooCommerce, επίλεξε <strong>Ready for Dutt pickup</strong>.</li>
+          <li>Έλεγξε ότι εμφανίζονται ο κωδικός αποστολής και η κατάσταση της διανομής.</li>
+        </ol>
+        <div class="success"><strong>Η εγκατάσταση είναι έτοιμη</strong> όταν η σύνδεση είναι επιτυχής, η DUTT εμφανίζεται στο checkout και η δοκιμαστική αποστολή δημιουργείται κανονικά.</div>
+      </div>
+    </section>
+
+    <p class="notice">Αν η DUTT δεν εμφανίζεται στο checkout, έλεγξε πρώτα τη διεύθυνση πελάτη, την επιλεξιμότητα του προϊόντος, το ωράριο και τη ζώνη αποστολής. Για βοήθεια: <a href="mailto:info@dutt.gr"><strong>info@dutt.gr</strong></a>.</p>
+  </main>
+
+  <footer>
+    <div class="wrap">DUTT Same Hour Delivery · <a href="https://dutt.gr">dutt.gr</a></div>
+  </footer>
+</body>
+</html>
