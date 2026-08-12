@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="el">
 <head>
   <meta charset="utf-8">
@@ -91,7 +91,7 @@
 
     .packages {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 18px;
     }
 
@@ -213,12 +213,28 @@
       </div>
       <p class="eyebrow">E-shop integrations</p>
       <h1>Σύνδεσε το κατάστημά σου με τη DUTT.</h1>
-      <p class="intro">Κατέβασε το επίσημο πακέτο για την πλατφόρμα σου. Η ενεργοποίηση γίνεται με ξεχωριστό Merchant Key για κάθε κατάστημα.</p>
+      <p class="intro">Επίλεξε την επίσημη σύνδεση για την πλατφόρμα σου. Η DUTT εκδίδει ξεχωριστά στοιχεία ενεργοποίησης για κάθε κατάστημα.</p>
     </div>
   </header>
 
   <main class="wrap">
     <div class="packages">
+      <section class="package">
+        <p class="package-label">One-line installation</p>
+        <h2>Hosted Connector</h2>
+        <p class="version">Χωρίς backend ανάπτυξη</p>
+        <p class="description">Η DUTT φιλοξενεί το checkout widget, τα drafts και την ασφαλή επιβεβαίωση του εμπόρου.</p>
+        <ul class="details">
+          <li>Ένα script tag στο website</li>
+          <li>Χωρίς Merchant Key στον browser</li>
+          <li>Επιβεβαίωση πληρωμής πριν την κλήση διανομέα</li>
+        </ul>
+        <div class="actions">
+          <a class="button" href="mailto:info@dutt.gr?subject=DUTT%20Hosted%20Connector">Ενεργοποίηση</a>
+          <a class="button secondary" href="../connect/index.html">Πρόσβαση εμπόρου</a>
+        </div>
+      </section>
+
       <section class="package">
         <p class="package-label">WordPress plugin</p>
         <h2>WooCommerce</h2>
@@ -239,7 +255,7 @@
       <section class="package">
         <p class="package-label">Developer kit</p>
         <h2>Custom website</h2>
-        <p class="version">Έκδοση 1.0.1</p>
+        <p class="version">Έκδοση 1.1.0</p>
         <p class="description">Server-side integration kit για custom e-shops με Node.js και PHP SDK, OpenAPI contract και ασφαλή webhook verification.</p>
         <ul class="details">
           <li>Node.js ή PHP backend</li>
@@ -255,8 +271,8 @@
     </div>
 
     <section class="security">
-      <strong>Merchant Keys</strong>
-      <p>Τα ZIP δεν περιλαμβάνουν credentials. Η DUTT εκδίδει διαφορετικό key για κάθε merchant και κατάστημα, ώστε ένα key να μπορεί να ανακληθεί ή να αλλάξει χωρίς να επηρεάζονται οι υπόλοιποι.</p>
+      <strong>Στοιχεία πρόσβασης</strong>
+      <p>Τα ZIP δεν περιλαμβάνουν credentials και το Hosted Connector δεν εκθέτει Merchant Key στον browser. Κάθε κατάστημα λαμβάνει ανεξάρτητα, ανακλητά στοιχεία ενεργοποίησης.</p>
     </section>
   </main>
 

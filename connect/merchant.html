@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#090909">
+  <title>DUTT | Παραγγελίες καταστήματος</title>
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="stylesheet" href="merchant.css">
+</head>
+<body>
+  <header class="topbar">
+    <img src="../logo_white1.png" alt="DUTT" width="112">
+    <button id="refresh" class="icon-button" type="button" title="Ανανέωση" aria-label="Ανανέωση">↻</button>
+  </header>
+  <main>
+    <section id="access" class="access" hidden>
+      <h1>Σύνδεση καταστήματος</h1>
+      <form id="access-form">
+        <label>Installation ID<input id="installation" type="text" autocomplete="off" required></label>
+        <label>Management token<input id="token" type="password" autocomplete="current-password" required></label>
+        <button class="primary" type="submit">Σύνδεση</button>
+      </form>
+      <p class="error" role="alert"></p>
+    </section>
+
+    <section id="orders" hidden>
+      <div class="heading">
+        <div><p class="eyebrow">Hosted connector</p><h1 id="store-name">Παραγγελίες</h1></div>
+        <button id="disconnect" class="secondary" type="button">Αποσύνδεση</button>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Κατάσταση">
+        <button class="tab active" data-filter="pending" type="button">Σε αναμονή</button>
+        <button class="tab" data-filter="completed" type="button">Ολοκληρωμένες</button>
+        <button class="tab" data-filter="all" type="button">Όλες</button>
+      </div>
+      <p id="status" class="status" role="status"></p>
+      <div id="list" class="list"></div>
+    </section>
+  </main>
+
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+    <form id="confirm-form" method="dialog">
+      <div class="dialog-head"><h2 id="confirm-title">Επιβεβαίωση παραγγελίας</h2><button class="icon-button close" value="cancel" aria-label="Κλείσιμο" type="submit">×</button></div>
+      <p id="confirm-reference" class="reference"></p>
+      <label>Αριθμός παραγγελίας<input id="external-order-id" type="text" maxlength="160" required></label>
+      <label>Πραγματική αξία παραγγελίας (€)<input id="order-total" type="text" inputmode="decimal" required></label>
+      <label class="check"><input id="paid-ready" type="checkbox" required><span>Η παραγγελία έχει πληρωθεί και είναι έτοιμη για παραλαβή.</span></label>
+      <p id="confirm-error" class="error" role="alert"></p>
+      <div class="dialog-actions"><button class="secondary" value="cancel" type="submit">Άκυρο</button><button id="confirm-submit" class="primary" value="default" type="submit">Κλήση διανομέα</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="cancel-dialog" aria-labelledby="cancel-title">
+    <form id="cancel-form" method="dialog">
+      <div class="dialog-head"><h2 id="cancel-title">Ακύρωση μεταφοράς</h2><button class="icon-button close" value="cancel" aria-label="Κλείσιμο" type="submit">×</button></div>
+      <p id="cancel-reference" class="reference"></p>
+      <label>Αιτία ακύρωσης<input id="cancel-reason" type="text" maxlength="240" required></label>
+      <label class="check"><input id="cancel-confirmed" type="checkbox" required><span>Επιβεβαιώνω ότι θέλω να ακυρωθεί η μεταφορά.</span></label>
+      <p id="cancel-error" class="error" role="alert"></p>
+      <div class="dialog-actions"><button class="secondary" value="cancel" type="submit">Πίσω</button><button id="cancel-submit" class="danger" value="default" type="submit">Ακύρωση μεταφοράς</button></div>
+    </form>
+  </dialog>
+
+  <script src="merchant.js" defer></script>
+</body>
+</html>
