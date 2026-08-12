@@ -78,7 +78,7 @@
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${managementToken}`,
+        "X-DUTT-Management-Token": managementToken,
       },
       body: JSON.stringify({ ...body, installation_id: installationId }),
     });
