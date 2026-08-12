@@ -16,7 +16,16 @@
     ? script.dataset.duttEndpoint
     : "https://us-central1-sendygo-cd034.cloudfunctions.net/duttHostedConnectorPublic";
   const subtotalSelector = String(script.dataset.duttCartSubtotalSelector || "").trim();
+  const renderMode = script.dataset.duttRender === "shipping-method"
+    ? "shipping-method"
+    : "floating";
+  const shippingContainerSelector = String(script.dataset.duttShippingContainer || "").trim();
+  const checkoutFormSelector = String(script.dataset.duttCheckoutForm || "").trim();
+  const shippingInputName = String(script.dataset.duttShippingInputName || "shipping_method").trim();
+  const shippingInputValue = String(script.dataset.duttShippingInputValue || "dutt_hosted").trim();
   let suppliedSubtotal = parseMoney(script.dataset.duttCartSubtotal);
+  let connectorElement = null;
+  let shippingControl = null;
 
   function parseMoney(value) {
     if (typeof value === "number") return Number.isFinite(value) ? value : null;
@@ -57,6 +66,227 @@
 
   function sessionKey(sessionId) {
     return `dutt-hosted-session:${installationId}:${sessionId}`;
+  }
+
+  function querySelector(selector) {
+    if (!selector) return null;
+    try {
+      return document.querySelector(selector);
+    } catch {
+      return null;
+    }
+  }
+
+  function ensureStyle() {
+    if (document.getElementById("dutt-hosted-shipping-method-style")) return;
+    const style = document.createElement("style");
+    style.id = "dutt-hosted-shipping-method-style";
+    style.textContent = `
+      .dutt-hosted-shipping-method { display: block; width: 100%; margin: 0; color: inherit; font: inherit; letter-spacing: 0; }
+      .dutt-hosted-shipping-method[hidden] { display: none !important; }
+      .dutt-hosted-shipping-method__label { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: center; gap: 12px; width: 100%; min-height: 64px; margin: 0; padding: 12px 14px; border: 1px solid #d7d7d7; border-radius: 6px; background: transparent; color: inherit; cursor: pointer; box-sizing: border-box; }
+      .dutt-hosted-shipping-method__label:hover { border-color: #949494; }
+      .dutt-hosted-shipping-method[data-selected="true"] .dutt-hosted-shipping-method__label { border-color: #171717; box-shadow: 0 0 0 1px #171717; }
+      .dutt-hosted-shipping-method[data-state="ready"] .dutt-hosted-shipping-method__label { border-color: #207a45; }
+      .dutt-hosted-shipping-method__radio { width: 19px; height: 19px; margin: 0; accent-color: #171717; cursor: pointer; }
+      .dutt-hosted-shipping-method__copy { display: grid; min-width: 0; gap: 3px; }
+      .dutt-hosted-shipping-method__title { font-size: 15px; font-weight: 750; line-height: 1.25; }
+      .dutt-hosted-shipping-method__status { color: #666; font-size: 12px; line-height: 1.35; }
+      .dutt-hosted-shipping-method__price { white-space: nowrap; font-size: 14px; font-weight: 750; }
+      @media (max-width: 520px) {
+        .dutt-hosted-shipping-method__label { grid-template-columns: 22px minmax(0, 1fr); }
+        .dutt-hosted-shipping-method__price { grid-column: 2; }
+      }
+    `;
+    (document.head || document.documentElement).appendChild(style);
+  }
+
+  function mountShippingMethod() {
+    ensureStyle();
+    const mount = document.createElement("div");
+    mount.className = "dutt-hosted-shipping-method";
+    mount.dataset.state = "idle";
+    mount.dataset.selected = "false";
+
+    const label = document.createElement("label");
+    label.className = "dutt-hosted-shipping-method__label";
+
+    const radio = document.createElement("input");
+    radio.className = "dutt-hosted-shipping-method__radio";
+    radio.type = "radio";
+    radio.name = shippingInputName || "shipping_method";
+    radio.value = shippingInputValue || "dutt_hosted";
+    radio.required = true;
+
+    const copy = document.createElement("span");
+    copy.className = "dutt-hosted-shipping-method__copy";
+    const title = document.createElement("span");
+    title.className = "dutt-hosted-shipping-method__title";
+    title.textContent = "DUTT Same Hour Delivery";
+    const status = document.createElement("span");
+    status.className = "dutt-hosted-shipping-method__status";
+    status.textContent = "Υπολογισμός τιμής με τη διεύθυνση παράδοσης";
+    copy.append(title, status);
+
+    const price = document.createElement("span");
+    price.className = "dutt-hosted-shipping-method__price";
+    label.append(radio, copy, price);
+    mount.appendChild(label);
+
+    const configuredTarget = querySelector(shippingContainerSelector);
+    if (configuredTarget) {
+      configuredTarget.appendChild(mount);
+    } else if (script.parentNode && script.parentNode !== document.head) {
+      script.parentNode.insertBefore(mount, script);
+    } else {
+      (document.body || document.documentElement).appendChild(mount);
+    }
+
+    const configuredForm = querySelector(checkoutFormSelector);
+    const checkoutForm = configuredForm instanceof HTMLFormElement
+      ? configuredForm
+      : mount.closest("form");
+    const hiddenFields = {};
+    let draft = null;
+    let quote = null;
+    let restoringFallback = false;
+    let fallbackRadio = Array.from(document.getElementsByName(radio.name)).find(
+      (input) => input instanceof HTMLInputElement && input !== radio && input.type === "radio" && input.checked,
+    ) || null;
+
+    function hiddenField(name) {
+      if (!checkoutForm) return null;
+      if (!hiddenFields[name]) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.disabled = true;
+        checkoutForm.appendChild(input);
+        hiddenFields[name] = input;
+      }
+      return hiddenFields[name];
+    }
+
+    function syncFields() {
+      const selected = radio.checked;
+      const values = {
+        dutt_hosted_session_id: draft?.session_id || "",
+        dutt_hosted_reference: draft?.reference || "",
+        dutt_hosted_customer_charge: quote?.quote?.customer_charge ?? "",
+      };
+      Object.entries(values).forEach(([name, value]) => {
+        const input = hiddenField(name);
+        if (!input) return;
+        input.value = String(value);
+        input.disabled = !selected || !draft;
+      });
+    }
+
+    function emit(name, detail = {}) {
+      connectorElement?.dispatchEvent(new CustomEvent(name, {
+        bubbles: true,
+        detail: { installation_id: installationId, ...detail },
+      }));
+    }
+
+    function syncSelected() {
+      mount.dataset.selected = radio.checked ? "true" : "false";
+      syncFields();
+    }
+
+    function restoreFallback() {
+      radio.checked = false;
+      if (fallbackRadio?.isConnected && !fallbackRadio.disabled) {
+        fallbackRadio.checked = true;
+        restoringFallback = true;
+        fallbackRadio.dispatchEvent(new Event("change", { bubbles: true }));
+        restoringFallback = false;
+      }
+      syncSelected();
+    }
+
+    radio.addEventListener("change", () => {
+      syncSelected();
+      if (!radio.checked) return;
+      emit("dutt:shipping-selected", { status: draft ? "ready" : "details_required" });
+      if (!draft) connectorElement?.open();
+    });
+    radio.addEventListener("click", () => {
+      if (radio.checked && !draft && connectorElement) connectorElement.open();
+    });
+    document.addEventListener("change", (event) => {
+      const target = event.target;
+      if (
+        target instanceof HTMLInputElement &&
+        target !== radio &&
+        target.type === "radio" &&
+        target.name === radio.name &&
+        target.checked
+      ) {
+        fallbackRadio = target;
+        syncSelected();
+        if (!restoringFallback) {
+          emit("dutt:shipping-cleared", { reason: "another_method_selected" });
+        }
+      }
+    });
+
+    if (checkoutForm) {
+      checkoutForm.addEventListener("submit", (event) => {
+        if (!radio.checked || draft) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        mount.dataset.state = "attention";
+        status.textContent = "Ολοκληρώστε πρώτα τα στοιχεία παράδοσης";
+        emit("dutt:checkout-blocked", { reason: "hosted_draft_required" });
+        connectorElement?.open();
+      }, true);
+    }
+
+    return {
+      element: mount,
+      radio,
+      hasDraft: () => Boolean(draft),
+      setUnavailable() {
+        mount.hidden = true;
+        radio.disabled = true;
+        restoreFallback();
+      },
+      setQuote(value) {
+        quote = value;
+        draft = null;
+        mount.dataset.state = "quoted";
+        const charge = Number(value?.quote?.customer_charge || 0);
+        price.textContent = `${charge.toFixed(2)} €`;
+        status.textContent = value?.quote?.estimated_time || "Η προσφορά υπολογίστηκε";
+        syncFields();
+      },
+      setDraft(value) {
+        draft = value;
+        mount.dataset.state = "ready";
+        status.textContent = `Έτοιμη για checkout${value?.reference ? ` · ${value.reference}` : ""}`;
+        syncFields();
+      },
+      cancelPending() {
+        if (draft || !radio.checked) return;
+        quote = null;
+        mount.dataset.state = "idle";
+        price.textContent = "";
+        status.textContent = "Υπολογισμός τιμής με τη διεύθυνση παράδοσης";
+        restoreFallback();
+        emit("dutt:shipping-cleared", { reason: "details_cancelled" });
+      },
+      resetForCartChange() {
+        if (!quote && !draft) return;
+        quote = null;
+        draft = null;
+        mount.dataset.state = "idle";
+        price.textContent = "";
+        status.textContent = "Το καλάθι άλλαξε · ζητήστε νέα τιμή";
+        restoreFallback();
+        emit("dutt:shipping-cleared", { reason: "cart_changed" });
+      },
+    };
   }
 
   async function api(body, sessionToken = "", retry = 0) {
@@ -154,7 +384,7 @@
           @media (min-width: 620px) { .overlay { align-items: center; } .sheet { border-radius: 8px; } }
           @media (max-width: 520px) { .overlay { padding: 0; } .sheet { max-height: 92vh; } .grid { grid-template-columns: 1fr; } label.wide { grid-column: auto; } .launch { right: 12px; bottom: 12px; } }
         </style>
-        <button class="launch" type="button">Παράδοση με DUTT</button>
+        <button class="launch" type="button"${renderMode === "shipping-method" ? " hidden" : ""}>Παράδοση με DUTT</button>
         <div class="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="dutt-title">
           <section class="sheet">
             <header class="head">
@@ -222,6 +452,7 @@
         this.config = await api({ action: "config" });
       } catch (error) {
         this.shadowRoot.querySelector(".launch").hidden = true;
+        shippingControl?.setUnavailable();
         console.error("DUTT Hosted Connector:", error.message);
       }
     }
@@ -246,7 +477,10 @@
 
     close(reset = false) {
       this.shadowRoot.querySelector(".overlay").hidden = true;
-      if (reset) {
+      if (renderMode === "shipping-method" && !shippingControl?.hasDraft()) {
+        shippingControl?.cancelPending();
+      }
+      if (reset && renderMode !== "shipping-method") {
         this.quote = null;
         this.shadowRoot.querySelector("form").reset();
         const subtotal = currentSubtotal();
@@ -302,6 +536,7 @@
         const charge = Number(this.quote.quote?.customer_charge || 0);
         this.shadowRoot.querySelector(".charge").textContent = `${charge.toFixed(2)} €`;
         this.shadowRoot.querySelector(".estimate").textContent = this.quote.quote?.estimated_time || "-";
+        shippingControl?.setQuote(this.quote);
         this.show("quote");
         this.dispatchEvent(new CustomEvent("dutt:quote", { bubbles: true, detail: this.quote }));
       } catch (error) {
@@ -322,6 +557,7 @@
         }, token);
         renewClientReference();
         this.shadowRoot.querySelector(".reference").textContent = result.reference || "";
+        shippingControl?.setDraft(result);
         this.show("success");
         this.dispatchEvent(new CustomEvent("dutt:draft", { bubbles: true, detail: result }));
       } catch (error) {
@@ -336,9 +572,16 @@
     customElements.define("dutt-hosted-connector", DuttHostedConnector);
   }
   const element = document.createElement("dutt-hosted-connector");
+  connectorElement = element;
+  if (renderMode === "shipping-method") shippingControl = mountShippingMethod();
   document.body.appendChild(element);
   globalThis.DUTTHostedConnector = {
     open: (options = {}) => element.open(options),
-    setCartSubtotal: (value) => { suppliedSubtotal = parseMoney(value); },
+    setCartSubtotal: (value) => {
+      const previousSubtotal = currentSubtotal();
+      const nextSubtotal = parseMoney(value);
+      if (nextSubtotal !== previousSubtotal) shippingControl?.resetForCartChange();
+      suppliedSubtotal = nextSubtotal;
+    },
   };
 })();
