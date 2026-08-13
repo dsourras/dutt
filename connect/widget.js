@@ -23,19 +23,83 @@
   const checkoutFormSelector = String(script.dataset.duttCheckoutForm || "").trim();
   const shippingInputName = String(script.dataset.duttShippingInputName || "shipping_method").trim();
   const shippingInputValue = String(script.dataset.duttShippingInputValue || "dutt_hosted").trim();
+  const requestTimeoutMs = 90000;
   let suppliedSubtotal = parseMoney(script.dataset.duttCartSubtotal);
   let connectorElement = null;
   let shippingControl = null;
 
   function parseMoney(value) {
-    if (typeof value === "number") return Number.isFinite(value) ? value : null;
+    if (typeof value === "number") {
+      return Number.isFinite(value) && value >= 0 ? Math.round(value * 100) / 100 : null;
+    }
     const compact = String(value || "").replace(/[^0-9,.-]/g, "").trim();
-    if (!compact) return null;
-    const normalized = compact.includes(",")
-      ? compact.replace(/\./g, "").replace(",", ".")
-      : compact;
+    if (!compact || compact.startsWith("-") || (compact.match(/-/g) || []).length) return null;
+    const comma = compact.lastIndexOf(",");
+    const dot = compact.lastIndexOf(".");
+    let normalized = compact;
+    if (comma >= 0 && dot >= 0) {
+      const decimal = comma > dot ? "," : ".";
+      const thousands = decimal === "," ? "." : ",";
+      const escapedThousands = thousands === "." ? "\\." : thousands;
+      const escapedDecimal = decimal === "." ? "\\." : decimal;
+      const grouped = new RegExp(`^\\d{1,3}(?:${escapedThousands}\\d{3})*${escapedDecimal}\\d{1,2}$`);
+      if (!grouped.test(compact)) return null;
+      normalized = compact.replaceAll(thousands, "").replace(decimal, ".");
+    } else if (comma >= 0 || dot >= 0) {
+      const separator = comma >= 0 ? "," : ".";
+      const parts = compact.split(separator);
+      if (parts.some((part) => !part)) return null;
+      const decimals = parts.at(-1)?.length || 0;
+      if (parts.length === 2 && decimals <= 2) {
+        normalized = `${parts[0]}.${parts[1]}`;
+      } else if (parts.length >= 2 && parts.slice(1).every((part) => part.length === 3)) {
+        normalized = parts.join("");
+      } else {
+        return null;
+      }
+    }
+    if (!/^\d+(?:\.\d{1,2})?$/.test(normalized)) return null;
     const number = Number(normalized);
     return Number.isFinite(number) && number >= 0 ? Math.round(number * 100) / 100 : null;
+  }
+
+  function requiredNonNegativeNumber(value) {
+    if (
+      (typeof value !== "number" && typeof value !== "string") ||
+      (typeof value === "string" && !value.trim())
+    ) return null;
+    const amount = Number(value);
+    if (!Number.isFinite(amount) || amount < 0) return null;
+    const cents = Math.round(amount * 100);
+    return Math.abs((amount * 100) - cents) <= 1e-7 ? cents / 100 : null;
+  }
+
+  function validQuoteResponse(value) {
+    const quote = value?.quote;
+    const amounts = [quote?.quote_price, quote?.customer_charge, quote?.store_contribution]
+      .map(requiredNonNegativeNumber);
+    return (
+      /^hs_[A-Za-z0-9_-]+$/.test(String(value?.session_id || "")) &&
+      String(value?.session_token || "").startsWith("dutt_session_") &&
+      ["quoted", "merchant_review"].includes(String(value?.status || "")) &&
+      quote && typeof quote === "object" && !Array.isArray(quote) &&
+      String(quote.quote_id || "").trim() !== "" &&
+      String(quote.currency || "").toUpperCase() === "EUR" &&
+      amounts.every((amount) => amount !== null) &&
+      Math.round((amounts[1] + amounts[2]) * 100) === Math.round(amounts[0] * 100)
+    );
+  }
+
+  function validDraftResponse(value, quoteResponse) {
+    const draftCustomerCharge = requiredNonNegativeNumber(value?.quote?.customer_charge);
+    const quotedCustomerCharge = requiredNonNegativeNumber(quoteResponse?.quote?.customer_charge);
+    return (
+      String(value?.session_id || "") === String(quoteResponse?.session_id || "") &&
+      ["merchant_review", "confirming", "dispatched"].includes(String(value?.status || "")) &&
+      draftCustomerCharge !== null &&
+      quotedCustomerCharge !== null &&
+      Math.round(draftCustomerCharge * 100) === Math.round(quotedCustomerCharge * 100)
+    );
   }
 
   function currentSubtotal() {
@@ -150,6 +214,8 @@
     let draft = null;
     let quote = null;
     let restoringFallback = false;
+    let abandonmentPending = false;
+    let abandonmentFailed = false;
     let fallbackRadio = Array.from(document.getElementsByName(radio.name)).find(
       (input) => input instanceof HTMLInputElement && input !== radio && input.type === "radio" && input.checked,
     ) || null;
@@ -205,6 +271,22 @@
       syncSelected();
     }
 
+    function startAbandonment(staleQuote) {
+      if (!staleQuote?.session_id || !connectorElement) return;
+      abandonmentPending = true;
+      abandonmentFailed = false;
+      connectorElement.abandonStaleQuote().then(() => {
+        abandonmentPending = false;
+        abandonmentFailed = false;
+      }).catch((error) => {
+        abandonmentPending = false;
+        abandonmentFailed = true;
+        mount.dataset.state = "attention";
+        status.textContent = "Η προηγούμενη επιλογή DUTT δεν ακυρώθηκε. Δοκιμάστε ξανά.";
+        console.error("DUTT Hosted Connector:", error.message);
+      });
+    }
+
     radio.addEventListener("change", () => {
       syncSelected();
       if (!radio.checked) return;
@@ -226,6 +308,17 @@
         fallbackRadio = target;
         syncSelected();
         if (!restoringFallback) {
+          const staleQuote = quote;
+          quote = null;
+          draft = null;
+          mount.dataset.state = "idle";
+          price.textContent = "";
+          status.textContent = "Υπολογισμός τιμής με τη διεύθυνση παράδοσης";
+          syncFields();
+          if (staleQuote?.session_id && connectorElement) {
+            connectorElement.cartSubtotalChanged(currentSubtotal(), staleQuote);
+            startAbandonment(staleQuote);
+          }
           emit("dutt:shipping-cleared", { reason: "another_method_selected" });
         }
       }
@@ -233,6 +326,20 @@
 
     if (checkoutForm) {
       checkoutForm.addEventListener("submit", (event) => {
+        if (abandonmentPending || abandonmentFailed) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          mount.dataset.state = "attention";
+          status.textContent = abandonmentPending
+            ? "Περιμένετε να ολοκληρωθεί η αλλαγή τρόπου αποστολής"
+            : "Η προηγούμενη επιλογή DUTT δεν ακυρώθηκε. Δοκιμάστε ξανά.";
+          emit("dutt:checkout-blocked", {
+            reason: abandonmentPending
+              ? "hosted_abandonment_in_progress"
+              : "hosted_abandonment_failed",
+          });
+          return;
+        }
         if (!radio.checked || draft) return;
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -253,6 +360,8 @@
         restoreFallback();
       },
       setQuote(value) {
+        abandonmentPending = false;
+        abandonmentFailed = false;
         quote = value;
         draft = null;
         mount.dataset.state = "quoted";
@@ -262,6 +371,8 @@
         syncFields();
       },
       setDraft(value) {
+        abandonmentPending = false;
+        abandonmentFailed = false;
         draft = value;
         mount.dataset.state = "ready";
         status.textContent = `Έτοιμη για checkout${value?.reference ? ` · ${value.reference}` : ""}`;
@@ -276,8 +387,24 @@
         restoreFallback();
         emit("dutt:shipping-cleared", { reason: "details_cancelled" });
       },
+      beginEdit() {
+        const staleQuote = quote;
+        quote = null;
+        draft = null;
+        mount.dataset.state = "idle";
+        price.textContent = "";
+        status.textContent = "Ενημερώστε τα στοιχεία και ζητήστε νέα τιμή";
+        syncFields();
+        return staleQuote;
+      },
+      startAbandonment,
+      abandonmentResolved() {
+        abandonmentPending = false;
+        abandonmentFailed = false;
+      },
       resetForCartChange() {
-        if (!quote && !draft) return;
+        if (!quote && !draft) return null;
+        const staleQuote = quote;
         quote = null;
         draft = null;
         mount.dataset.state = "idle";
@@ -285,6 +412,7 @@
         status.textContent = "Το καλάθι άλλαξε · ζητήστε νέα τιμή";
         restoreFallback();
         emit("dutt:shipping-cleared", { reason: "cart_changed" });
+        return staleQuote;
       },
     };
   }
@@ -292,14 +420,28 @@
   async function api(body, sessionToken = "", retry = 0) {
     const headers = { "Content-Type": "application/json" };
     if (sessionToken) headers["X-DUTT-Session-Token"] = sessionToken;
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ ...body, installation_id: installationId }),
-    });
-    const payload = await response.json().catch(() => ({}));
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
+    let response;
+    try {
+      response = await fetch(endpoint, {
+        method: "POST",
+        redirect: "error",
+        headers,
+        body: JSON.stringify({ ...body, installation_id: installationId }),
+        signal: controller.signal,
+      });
+    } catch (error) {
+      if (error?.name === "AbortError") throw new Error("hosted_request_timeout");
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
+    const payload = await response.json().catch(() => null);
+    const validPayload = payload && typeof payload === "object" && !Array.isArray(payload);
     if (
       !response.ok &&
+      validPayload &&
       payload.reason === "hosted_quote_in_progress" &&
       body.action === "quote" &&
       retry < 6
@@ -307,8 +449,11 @@
       await new Promise((resolve) => setTimeout(resolve, 750));
       return api(body, sessionToken, retry + 1);
     }
-    if (!response.ok || payload.success === false) {
-      const error = new Error(payload.reason || "hosted_request_failed");
+    if (!response.ok || !validPayload || payload.success !== true) {
+      const reason = validPayload
+        ? payload.reason || (response.ok ? "hosted_invalid_response" : "hosted_request_failed")
+        : response.ok ? "hosted_invalid_response" : "hosted_request_failed";
+      const error = new Error(reason);
       error.payload = payload;
       throw error;
     }
@@ -318,6 +463,8 @@
   function messageFor(error) {
     const reason = String(error?.message || "");
     const messages = {
+      hosted_request_timeout: "Η σύνδεση καθυστέρησε. Ελέγξτε το δίκτυο και δοκιμάστε ξανά.",
+      hosted_invalid_response: "Η DUTT επέστρεψε μη έγκυρη απάντηση. Δοκιμάστε ξανά.",
       hosted_rate_limited: "Έγιναν πολλές προσπάθειες. Δοκιμάστε ξανά σε λίγο.",
       hosted_quote_in_progress: "Ο υπολογισμός είναι ήδη σε εξέλιξη. Δοκιμάστε ξανά σε λίγο.",
       hosted_origin_not_allowed: "Η σύνδεση του καταστήματος δεν είναι ενεργή.",
@@ -335,6 +482,7 @@
       this.attachShadow({ mode: "open" });
       this.config = null;
       this.quote = null;
+      this.staleQuote = null;
       this.busy = false;
     }
 
@@ -435,7 +583,16 @@
         if (event.target.classList.contains("overlay")) this.close();
       });
       root.querySelector("form").addEventListener("submit", (event) => this.requestQuote(event));
-      root.querySelector(".back").addEventListener("click", () => this.show("details"));
+      root.querySelector(".back").addEventListener("click", () => {
+        const staleQuote = shippingControl?.beginEdit() || this.quote;
+        this.cartSubtotalChanged(currentSubtotal(), staleQuote);
+        if (staleQuote?.session_id) {
+          if (shippingControl) shippingControl.startAbandonment(staleQuote);
+          else this.abandonStaleQuote().catch((error) => {
+            this.shadowRoot.querySelector(".details-step .notice").textContent = messageFor(error);
+          });
+        }
+      });
       root.querySelector(".submit-draft").addEventListener("click", () => this.saveDraft());
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") this.close();
@@ -450,6 +607,12 @@
     async loadConfig() {
       try {
         this.config = await api({ action: "config" });
+        if (
+          this.config.installation_id !== installationId ||
+          this.config.currency !== "EUR" ||
+          !this.config.location ||
+          typeof this.config.location !== "object"
+        ) throw new Error("hosted_invalid_response");
       } catch (error) {
         this.shadowRoot.querySelector(".launch").hidden = true;
         shippingControl?.setUnavailable();
@@ -501,6 +664,39 @@
       this.shadowRoot.querySelectorAll("button").forEach((button) => { button.disabled = value; });
     }
 
+    cartSubtotalChanged(subtotal, staleQuote) {
+      const previousQuote = staleQuote?.session_id ? staleQuote : this.quote;
+      if (previousQuote?.session_id) this.staleQuote = previousQuote;
+      this.quote = null;
+      const field = this.shadowRoot.querySelector('[name="subtotal"]');
+      const wrapper = this.shadowRoot.querySelector(".subtotal-field");
+      if (subtotal !== null) {
+        field.value = subtotal.toFixed(2);
+        wrapper.hidden = true;
+      } else {
+        field.value = "";
+        wrapper.hidden = false;
+      }
+      this.show("details");
+    }
+
+    async abandonStaleQuote() {
+      if (!this.staleQuote?.session_id) return;
+      const sessionId = this.staleQuote.session_id;
+      const token = sessionStorage.getItem(sessionKey(sessionId)) || this.staleQuote.session_token;
+      if (!token) throw new Error("hosted_session_token_required");
+      try {
+        await api({ action: "abandon_draft", session_id: sessionId }, token);
+      } catch (error) {
+        if (!["hosted_session_expired", "hosted_session_not_found"].includes(error?.message)) {
+          throw error;
+        }
+      }
+      sessionStorage.removeItem(sessionKey(sessionId));
+      if (this.staleQuote?.session_id === sessionId) this.staleQuote = null;
+      shippingControl?.abandonmentResolved();
+    }
+
     async requestQuote(event) {
       event.preventDefault();
       if (this.busy) return;
@@ -512,7 +708,8 @@
       }
       this.setBusy(true);
       try {
-        this.quote = await api({
+        await this.abandonStaleQuote();
+        const quote = await api({
           action: "quote",
           customer_privacy_notice_accepted: form.get("privacy") === "on",
           client_reference: clientReference(),
@@ -532,6 +729,8 @@
             notes: form.get("notes"),
           },
         });
+        if (!validQuoteResponse(quote)) throw new Error("hosted_invalid_response");
+        this.quote = quote;
         sessionStorage.setItem(sessionKey(this.quote.session_id), this.quote.session_token);
         const charge = Number(this.quote.quote?.customer_charge || 0);
         this.shadowRoot.querySelector(".charge").textContent = `${charge.toFixed(2)} €`;
@@ -555,6 +754,7 @@
           action: "save_draft",
           session_id: this.quote.session_id,
         }, token);
+        if (!validDraftResponse(result, this.quote)) throw new Error("hosted_invalid_response");
         renewClientReference();
         this.shadowRoot.querySelector(".reference").textContent = result.reference || "";
         shippingControl?.setDraft(result);
@@ -574,14 +774,43 @@
   const element = document.createElement("dutt-hosted-connector");
   connectorElement = element;
   if (renderMode === "shipping-method") shippingControl = mountShippingMethod();
-  document.body.appendChild(element);
+  (document.body || document.documentElement).appendChild(element);
+
+  function applyCartSubtotal(value) {
+    const nextSubtotal = parseMoney(value);
+    const staleQuote = shippingControl?.resetForCartChange() || null;
+    connectorElement?.cartSubtotalChanged(nextSubtotal, staleQuote);
+    if (staleQuote?.session_id) shippingControl?.startAbandonment(staleQuote);
+    return nextSubtotal;
+  }
+
+  if (subtotalSelector && suppliedSubtotal === null && globalThis.MutationObserver) {
+    let lastSubtotal = currentSubtotal();
+    let scheduled = false;
+    const observer = new MutationObserver(() => {
+      if (scheduled) return;
+      scheduled = true;
+      setTimeout(() => {
+        scheduled = false;
+        const nextSubtotal = currentSubtotal();
+        if (nextSubtotal === lastSubtotal) return;
+        lastSubtotal = nextSubtotal;
+        applyCartSubtotal(nextSubtotal);
+      }, 0);
+    });
+    observer.observe(document.body || document.documentElement, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
+  }
   globalThis.DUTTHostedConnector = {
     open: (options = {}) => element.open(options),
     setCartSubtotal: (value) => {
       const previousSubtotal = currentSubtotal();
       const nextSubtotal = parseMoney(value);
-      if (nextSubtotal !== previousSubtotal) shippingControl?.resetForCartChange();
       suppliedSubtotal = nextSubtotal;
+      if (nextSubtotal !== previousSubtotal) applyCartSubtotal(nextSubtotal);
     },
   };
 })();

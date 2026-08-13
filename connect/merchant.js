@@ -42,6 +42,7 @@
   let selected = null;
   let selectedCancellation = null;
   let loading = false;
+  const requestTimeoutMs = 90000;
 
   function safeInstallation(value) {
     const result = String(value || "").trim();
@@ -75,17 +76,33 @@
   }
 
   async function api(body) {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-DUTT-Management-Token": managementToken,
-      },
-      body: JSON.stringify({ ...body, installation_id: installationId }),
-    });
-    const payload = await response.json().catch(() => ({}));
-    if (!response.ok || payload.success === false) {
-      const error = new Error(payload.reason || "hosted_management_failed");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
+    let response;
+    try {
+      response = await fetch(endpoint, {
+        method: "POST",
+        redirect: "error",
+        headers: {
+          "Content-Type": "application/json",
+          "X-DUTT-Management-Token": managementToken,
+        },
+        body: JSON.stringify({ ...body, installation_id: installationId }),
+        signal: controller.signal,
+      });
+    } catch (error) {
+      if (error?.name === "AbortError") throw new Error("hosted_request_timeout");
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
+    const payload = await response.json().catch(() => null);
+    const validPayload = payload && typeof payload === "object" && !Array.isArray(payload);
+    if (!response.ok || !validPayload || payload.success !== true) {
+      const reason = validPayload
+        ? payload.reason || (response.ok ? "hosted_invalid_response" : "hosted_management_failed")
+        : response.ok ? "hosted_invalid_response" : "hosted_management_failed";
+      const error = new Error(reason);
       error.status = response.status;
       throw error;
     }
@@ -93,12 +110,33 @@
   }
 
   function formatMoney(value) {
-    return new Intl.NumberFormat("el-GR", { style: "currency", currency: "EUR" }).format(Number(value || 0));
+    if (value === null || value === undefined || value === "") return "€";
+    const amount = Number(value);
+    if (!Number.isFinite(amount) || amount < 0) return "€";
+    return new Intl.NumberFormat("el-GR", { style: "currency", currency: "EUR" }).format(amount);
   }
 
   function expectedCheckoutTotal(item) {
-    const subtotalCents = Math.round(Number(item?.cartSubtotal || 0) * 100);
-    const customerChargeCents = Math.round(Number(item?.customerCharge || 0) * 100);
+    const subtotalValue = item?.cartSubtotal;
+    const customerChargeValue = item?.customerCharge;
+    if (
+      (typeof subtotalValue !== "number" && typeof subtotalValue !== "string") ||
+      (typeof customerChargeValue !== "number" && typeof customerChargeValue !== "string") ||
+      (typeof subtotalValue === "string" && !subtotalValue.trim()) ||
+      (typeof customerChargeValue === "string" && !customerChargeValue.trim())
+    ) return null;
+    const subtotal = Number(subtotalValue);
+    const customerCharge = Number(customerChargeValue);
+    if (
+      !Number.isFinite(subtotal) || subtotal < 0 ||
+      !Number.isFinite(customerCharge) || customerCharge < 0
+    ) return null;
+    const subtotalCents = Math.round(subtotal * 100);
+    const customerChargeCents = Math.round(customerCharge * 100);
+    if (
+      Math.abs((subtotal * 100) - subtotalCents) > 1e-7 ||
+      Math.abs((customerCharge * 100) - customerChargeCents) > 1e-7
+    ) return null;
     return (subtotalCents + customerChargeCents) / 100;
   }
 
@@ -151,6 +189,7 @@
 
       const meta = document.createElement("div");
       meta.className = "meta";
+      const expectedTotal = expectedCheckoutTotal(item);
       addText(meta, "span", `Σύνολο checkout ${formatMoney(expectedCheckoutTotal(item))}`, "amount");
       addText(meta, "span", `Προϊόντα ${formatMoney(item.cartSubtotal)} + DUTT ${formatMoney(item.customerCharge)}`, "breakdown");
       addText(meta, "span", item.reference || "", "reference");
@@ -158,7 +197,7 @@
       addText(meta, "span", formatDate(item.createdAt));
       article.appendChild(meta);
 
-      if (["merchant_review", "confirmation_failed"].includes(item.status)) {
+      if (["merchant_review", "confirmation_failed"].includes(item.status) && expectedTotal !== null) {
         const action = document.createElement("button");
         action.type = "button";
         action.className = "primary";
@@ -210,9 +249,10 @@
   }
 
   function openConfirmation(item) {
+    const expectedTotal = expectedCheckoutTotal(item);
+    if (expectedTotal === null) return;
     selected = item;
     elements.confirmReference.textContent = item.reference || "";
-    const expectedTotal = expectedCheckoutTotal(item);
     elements.confirmTotalHint.textContent = `Αναμενόμενο σύνολο: ${formatMoney(expectedTotal)} (${formatMoney(item.cartSubtotal)} προϊόντα + ${formatMoney(item.customerCharge)} μεταφορικά DUTT)`;
     elements.externalOrderId.value = item.externalOrderId || "";
     elements.orderTotal.value = "";
