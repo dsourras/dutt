@@ -21,6 +21,7 @@
     dialog: document.querySelector("#confirm-dialog"),
     confirmForm: document.querySelector("#confirm-form"),
     confirmReference: document.querySelector("#confirm-reference"),
+    confirmTotalHint: document.querySelector("#confirm-total-hint"),
     externalOrderId: document.querySelector("#external-order-id"),
     orderTotal: document.querySelector("#order-total"),
     paidReady: document.querySelector("#paid-ready"),
@@ -95,6 +96,12 @@
     return new Intl.NumberFormat("el-GR", { style: "currency", currency: "EUR" }).format(Number(value || 0));
   }
 
+  function expectedCheckoutTotal(item) {
+    const subtotalCents = Math.round(Number(item?.cartSubtotal || 0) * 100);
+    const customerChargeCents = Math.round(Number(item?.customerCharge || 0) * 100);
+    return (subtotalCents + customerChargeCents) / 100;
+  }
+
   function formatDate(value) {
     const date = new Date(Number(value));
     return Number.isNaN(date.getTime()) ? "" : new Intl.DateTimeFormat("el-GR", { dateStyle: "short", timeStyle: "short" }).format(date);
@@ -144,7 +151,8 @@
 
       const meta = document.createElement("div");
       meta.className = "meta";
-      addText(meta, "span", formatMoney(item.cartSubtotal), "amount");
+      addText(meta, "span", `Σύνολο checkout ${formatMoney(expectedCheckoutTotal(item))}`, "amount");
+      addText(meta, "span", `Προϊόντα ${formatMoney(item.cartSubtotal)} + DUTT ${formatMoney(item.customerCharge)}`, "breakdown");
       addText(meta, "span", item.reference || "", "reference");
       addText(meta, "span", statusLabel(item.status), `badge${item.status === "dispatched" ? " ready" : ""}`);
       addText(meta, "span", formatDate(item.createdAt));
@@ -204,9 +212,11 @@
   function openConfirmation(item) {
     selected = item;
     elements.confirmReference.textContent = item.reference || "";
+    const expectedTotal = expectedCheckoutTotal(item);
+    elements.confirmTotalHint.textContent = `Αναμενόμενο σύνολο: ${formatMoney(expectedTotal)} (${formatMoney(item.cartSubtotal)} προϊόντα + ${formatMoney(item.customerCharge)} μεταφορικά DUTT)`;
     elements.externalOrderId.value = item.externalOrderId || "";
     elements.orderTotal.value = "";
-    elements.orderTotal.placeholder = "π.χ. 49,90";
+    elements.orderTotal.placeholder = expectedTotal.toFixed(2).replace(".", ",");
     elements.paidReady.checked = false;
     elements.confirmError.textContent = "";
     elements.dialog.showModal();

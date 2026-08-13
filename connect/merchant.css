@@ -43,6 +43,7 @@ button:disabled { cursor: wait; opacity: .55; }
 .order p { margin-bottom: 2px; color: var(--muted); font-size: 14px; }
 .meta { display: grid; gap: 5px; }
 .amount { color: var(--yellow); font-size: 19px; font-weight: 800; }
+.breakdown, .hint { color: var(--muted); font-size: 12px; }
 .badge { display: inline-flex; width: fit-content; align-items: center; min-height: 25px; border: 1px solid #505050; border-radius: 5px; padding: 0 8px; color: var(--muted); font-size: 12px; }
 .badge.ready { border-color: #34784f; color: var(--green); }
 .empty { padding: 32px 0; border-bottom: 1px solid var(--line); color: var(--muted); text-align: center; }
@@ -52,6 +53,7 @@ dialog::backdrop { background: rgba(0,0,0,.7); }
 dialog form { display: grid; gap: 16px; padding: 20px; }
 .dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .reference { margin: -8px 0 0; color: var(--yellow); font-weight: 800; }
+.hint { margin: -8px 0 0; }
 .check { display: grid; grid-template-columns: 22px 1fr; align-items: start; gap: 10px; color: var(--white); font-size: 14px; }
 .check input { width: 20px; min-height: 20px; margin: 1px 0 0; accent-color: var(--yellow); }
 .dialog-actions { display: flex; justify-content: flex-end; gap: 10px; }
