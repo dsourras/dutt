@@ -18,8 +18,12 @@ const visibleKeys = new Set(
   [...html.matchAll(/data-i18n="([^"]+)"/g)].map((match) => match[1]),
 );
 
-test('all six public terms translations are complete', () => {
-  assert.deepEqual(Object.keys(translations).sort(), ['de', 'el', 'en', 'es', 'fr', 'it']);
+test('the website exposes exactly its English and Greek translations', () => {
+  assert.deepEqual(Object.keys(translations).sort(), ['el', 'en']);
+  assert.deepEqual(
+    [...html.matchAll(/data-lang="([^"]+)"/g)].map((match) => match[1]).sort(),
+    ['el', 'en'],
+  );
   for (const [language, copy] of Object.entries(translations)) {
     for (const key of visibleKeys) {
       assert.ok(copy[key], `${language} is missing ${key}`);
@@ -31,10 +35,6 @@ test('public terms state provider role and both courier models', () => {
   const markers = {
     en: ['contracting provider', 'DUTT-employed couriers', 'independent delivery partners'],
     el: ['συμβατικός πάροχος', 'μισθωτούς διανομείς', 'ανεξάρτητους συνεργάτες'],
-    es: ['proveedor contractual', 'contratados laboralmente', 'independientes'],
-    fr: ['prestataire contractuel', 'livreurs salariés', 'indépendants'],
-    de: ['Vertragspartner und Anbieter', 'angestellte Kuriere', 'unabhängige Lieferpartner'],
-    it: ['fornitore contrattuale', 'corrieri dipendenti', 'indipendenti'],
   };
   for (const [language, phrases] of Object.entries(markers)) {
     const text = Object.values(translations[language]).join(' ');
@@ -55,6 +55,4 @@ test('public terms cover all channels, tax documents, and overdue safeguards', (
 test('obsolete intermediary-only statements are absent', () => {
   assert.doesNotMatch(html, /solely as a .*intermediation/i);
   assert.doesNotMatch(html, /λειτουργεί αποκλειστικά ως .*διαμεσολάβ/i);
-  assert.doesNotMatch(html, /exclusivamente como .*intermedia/i);
-  assert.doesNotMatch(html, /exclusivement comme .*intermédi/i);
 });
