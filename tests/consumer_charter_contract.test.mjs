@@ -101,11 +101,14 @@ test('all charter table-of-contents targets and local document links resolve', (
 });
 
 test('draft cannot be mistaken for an effective registered charter', () => {
-  assert.match(charter, /Έκδοση προσχεδίου/);
-  assert.match(charter, /Δεν αποτελεί ακόμη ισχύοντα Χ\.Υ\.Κ\./);
+  assert.match(charter, /Δημόσιο προσχέδιο για έλεγχο/);
+  assert.match(charter, /δεν αποτελεί ακόμη ισχύοντα Χ\.Υ\.Κ\./i);
   assert.match(charter, /Αριθμός μητρώου Ε\.Ε\.Τ\.Τ\./);
-  assert.match(charter, /Δεν έχει ακόμη δημοσιευθεί\./);
+  assert.match(charter, /Υπό συμπλήρωση πριν από την εμπορική έναρξη\./);
   assert.match(charter, /Ταχυδρομικές δραστηριότητες ανά Κ\.Α\.Δ\./);
+  assert.match(charter, /Η ακριβής σύνθεση και ο εκπρόσωπος των χρηστών είναι υπό συμπλήρωση/);
+  assert.match(charter, /Η αυτόματη απόδοση μοναδικού αριθμού αναφοράς βρίσκεται υπό τεχνική επιβεβαίωση/);
+  assert.match(charter, /Public preview - not yet an effective Charter\./);
   assert.doesNotMatch(charter, /TODO|TBD|PLACEHOLDER|\{\{[^}]+\}\}/i);
 });
 
