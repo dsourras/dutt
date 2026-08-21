@@ -80,6 +80,13 @@ test('identity, item limits and current fiscal price metadata are explicit', () 
   assert.match(agreement, /103922076/);
   assert.match(agreement, /Κουτλιμπάνα 5-7, Λάρισα/);
   assert.match(agreement, /info@dutt\.gr/);
+  assert.match(agreement, /tel:\+302414005377/);
+  assert.match(agreement, /241 400 5377/);
+  assert.match(agreement, /Δευτέρα-Παρασκευή, 09:00-17:00/);
+  assert.match(agreement, /Monday-Friday, 09:00-17:00 \(Europe\/Athens\)/);
+  assert.match(agreement, /δεν είναι πρόσθετης χρέωσης/);
+  assert.match(agreement, /not a premium-rate line/);
+  assert.match(homepage, /tel:\+302414005377/);
   assert.match(agreement, /45 × 45 × 45 cm/);
   assert.match(agreement, /20 kg/);
   assert.match(agreement, /21 \/ 08 \/ 2026/);
