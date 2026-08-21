@@ -108,3 +108,9 @@ test('draft cannot be mistaken for an effective registered charter', () => {
   assert.match(charter, /Ταχυδρομικές δραστηριότητες ανά Κ\.Α\.Δ\./);
   assert.doesNotMatch(charter, /TODO|TBD|PLACEHOLDER|\{\{[^}]+\}\}/i);
 });
+
+test('charter uses the public DUTT app name', () => {
+  assert.doesNotMatch(charter, /Customer App/i);
+  assert.match(charter, /εφαρμογ(?:ή|ής) DUTT/);
+  assert.match(charter, /DUTT app/);
+});
