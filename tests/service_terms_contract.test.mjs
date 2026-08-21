@@ -142,3 +142,11 @@ test('agreement has no unresolved legal placeholders or obsolete intermediary di
   assert.doesNotMatch(agreement, /solely (?:a|an) .*intermediar/i);
   assert.doesNotMatch(agreement, /αποκλειστικά ως .*διαμεσολαβ/i);
 });
+
+test('public legal copy uses the DUTT app name instead of an internal product label', () => {
+  for (const document of [generalTerms, agreement]) {
+    assert.doesNotMatch(document, /Customer App/i);
+    assert.match(document, /εφαρμογ(?:ή|ής) DUTT/);
+    assert.match(document, /DUTT app/);
+  }
+});
