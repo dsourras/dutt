@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <title>Σύμβαση Όρων Παροχής - DUTT</title>
+  <meta
+    name="description"
+    content="Η ισχύουσα Σύμβαση Όρων Παροχής ταχυμεταφορών και ο τιμοκατάλογος της DUTT."
+  />
+  <meta name="theme-color" content="#070707" />
+  <style>
+    :root {
+      --bg: #070707;
+      --surface: #101010;
+      --surface-strong: #171717;
+      --text: #f7f7f5;
+      --muted: #b2b2ad;
+      --line: #2a2a27;
+      --accent: #f3d20a;
+      --accent-ink: #111100;
+      --success: #8ed9ac;
+      --container: 980px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(7, 7, 7, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner,
+    .wrap {
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand img {
+      display: block;
+      width: auto;
+      height: 48px;
+    }
+
+    .nav-actions,
+    .language-switcher {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .language-switcher {
+      padding: 3px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .language-button,
+    .action-button {
+      border: 0;
+      cursor: pointer;
+      color: var(--muted);
+      background: transparent;
+      min-height: 40px;
+      padding: 8px 13px;
+      font-weight: 700;
+    }
+
+    .language-button.active {
+      color: var(--accent-ink);
+      background: var(--accent);
+    }
+
+    .action-button {
+      border: 1px solid var(--line);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .action-button:hover,
+    .action-button:focus-visible {
+      border-color: var(--accent);
+    }
+
+    .wrap {
+      padding: 54px 0 64px;
+    }
+
+    .hero {
+      padding-bottom: 34px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(2.25rem, 6vw, 4.4rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 790px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 30px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .status-item {
+      padding: 16px;
+      background: var(--surface);
+    }
+
+    .status-label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status-value {
+      font-weight: 750;
+    }
+
+    .notice {
+      margin: 30px 0 0;
+      padding: 18px 20px;
+      border-left: 4px solid var(--accent);
+      background: #151505;
+      color: #f7f4c2;
+    }
+
+    .toc {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .toc h2 {
+      margin: 0 0 14px;
+      font-size: 1rem;
+    }
+
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 24px;
+    }
+
+    .toc a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .toc a:hover,
+    .toc a:focus-visible {
+      color: var(--accent);
+    }
+
+    .contract-section {
+      scroll-margin-top: 92px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contract-section h2 {
+      margin: 0 0 14px;
+      font-size: 1.38rem;
+      line-height: 1.25;
+    }
+
+    .contract-section h3 {
+      margin: 24px 0 8px;
+      font-size: 1.02rem;
+    }
+
+    .contract-section p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .contract-section p + p {
+      margin-top: 12px;
+    }
+
+    .contract-section ul,
+    .contract-section ol {
+      margin: 12px 0 0;
+      padding-left: 22px;
+      color: var(--muted);
+    }
+
+    .contract-section li + li {
+      margin-top: 7px;
+    }
+
+    .identity-grid,
+    .rate-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .identity-item,
+    .rate-item {
+      padding: 15px 16px;
+      background: var(--surface);
+    }
+
+    .identity-item strong,
+    .rate-item strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.84rem;
+    }
+
+    .identity-item span,
+    .rate-item span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      width: 100%;
+      margin-top: 18px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px;
+      background: var(--surface);
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--text);
+      background: var(--surface-strong);
+      font-size: 0.84rem;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .price-table td:last-child,
+    .price-table th:last-child {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .legal-emphasis {
+      color: var(--text);
+      font-weight: 750;
+    }
+
+    .source-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .source-links a {
+      color: var(--accent);
+    }
+
+    .footer {
+      padding-top: 28px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    [data-language][hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 760px) {
+      .nav-inner,
+      .wrap {
+        width: min(100% - 20px, var(--container));
+      }
+
+      .nav-inner {
+        min-height: 0;
+        align-items: flex-start;
+        padding: 10px 0;
+      }
+
+      .brand img {
+        height: 42px;
+      }
+
+      .nav-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .language-switcher {
+        order: 1;
+      }
+
+      .language-button {
+        flex: 1;
+      }
+
+      .action-button {
+        min-height: 36px;
+        padding: 6px 10px;
+        font-size: 0.83rem;
+      }
+
+      .wrap {
+        padding: 36px 0 46px;
+      }
+
+      .status-row,
+      .identity-grid,
+      .rate-grid,
+      .toc-links {
+        grid-template-columns: 1fr;
+      }
+
+      .contract-section {
+        padding: 26px 0;
+      }
+
+      .price-table {
+        min-width: 0;
+        table-layout: fixed;
+      }
+    }
+
+    @media print {
+      :root {
+        --bg: #fff;
+        --surface: #fff;
+        --surface-strong: #f3f3f3;
+        --text: #111;
+        --muted: #333;
+        --line: #bbb;
+        --accent: #111;
+      }
+
+      body {
+        background: #fff;
+        color: #111;
+        font-size: 10.5pt;
+      }
+
+      .nav,
+      .toc,
+      .source-links {
+        display: none !important;
+      }
+
+      .wrap {
+        width: 100%;
+        padding: 0;
+      }
+
+      .contract-section {
+        break-inside: avoid-page;
+      }
+
+      .table-wrap {
+        overflow: visible;
+      }
+
+      table {
+        min-width: 0;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="brand" aria-label="DUTT αρχική σελίδα">
+        <img src="logo_white1.png" alt="DUTT" />
+      </a>
+      <div class="nav-actions">
+        <div class="language-switcher" aria-label="Επιλογή γλώσσας">
+          <button class="language-button" type="button" data-language-button="en">EN</button>
+          <button class="language-button active" type="button" data-language-button="el">GR</button>
+        </div>
+        <button class="action-button" type="button" data-print>Εκτύπωση / PDF</button>
+        <a class="action-button" href="/" data-home-link>Αρχική</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <article data-language="el">
+      <header class="hero">
+        <p class="eyebrow">Ισχύουσα ατομική σύμβαση ταχυμεταφοράς</p>
+        <h1>Σύμβαση Όρων Παροχής</h1>
+        <p class="lead">
+          Οι παρόντες όροι αποτελούν την ατομική σύμβαση για κάθε αποστολή που αναλαμβάνει η DUTT. Ο χρήστης λαμβάνει ψηφιακά τον σύνδεσμο της ισχύουσας έκδοσης πριν από την αποδοχή της υπηρεσίας.
+        </p>
+        <div class="status-row">
+          <div class="status-item"><span class="status-label">Έκδοση</span><span class="status-value">1.0</span></div>
+          <div class="status-item"><span class="status-label">Έναρξη ισχύος</span><span class="status-value">21 / 08 / 2026</span></div>
+          <div class="status-item"><span class="status-label">Γλώσσα αναφοράς</span><span class="status-value">Ελληνικά</span></div>
+        </div>
+        <p class="notice">
+          Η τελική τιμή και το συγκεκριμένο χρονικό παράθυρο κάθε αποστολής εμφανίζονται πριν από την οριστική αποδοχή. Μετά την αποδοχή δεν εφαρμόζεται αναδρομική αύξηση τιμής.
+        </p>
+      </header>
+
+      <nav class="toc" aria-label="Περιεχόμενα σύμβασης">
+        <h2>Περιεχόμενα</h2>
+        <div class="toc-links">
+          <a href="#el-provider">1. Πάροχος και σύναψη</a>
+          <a href="#el-services">2. Υπηρεσίες</a>
+          <a href="#el-quality">3. Χρόνοι και ποιότητα</a>
+          <a href="#el-rights">4. Δικαιώματα και υποχρεώσεις</a>
+          <a href="#el-items">5. Αντικείμενα και συσκευασία</a>
+          <a href="#el-prohibited">6. Απαγορευμένα αντικείμενα</a>
+          <a href="#pricing">7. Τιμοκατάλογος</a>
+          <a href="#el-cancellations">8. Ακυρώσεις και αλλαγές</a>
+          <a href="#el-delivery">9. Επίδοση και ανεπίδοτα</a>
+          <a href="#el-compensation">10. Ευθύνη και αποζημιώσεις</a>
+          <a href="#el-insurance">11. Δηλωμένη αξία</a>
+          <a href="#el-complaints">12. Παράπονα και διαφορές</a>
+          <a href="#el-records">13. Αρχεία και προσωπικά δεδομένα</a>
+          <a href="#el-law">14. Δίκαιο και ισχύς</a>
+        </div>
+      </nav>
+
+      <section class="contract-section" id="el-provider">
+        <h2>1. Πάροχος και σύναψη της σύμβασης</h2>
+        <p>
+          Πάροχος της υπηρεσίας μεταφοράς είναι η επιχείρηση <span class="legal-emphasis">ΣΟΥΡΡΑΣ ΔΗΜΗΤΡΙΟΣ ΕΥΑΓΓΕΛΟΣ</span>, με διακριτικό τίτλο DUTT. Η DUTT είναι ο συμβατικός πάροχος της μεταφοράς, ανεξάρτητα από το αν η φυσική εκτέλεση γίνεται από μισθωτό διανομέα ή ανεξάρτητο συνεργάτη διανομέα.
+        </p>
+        <div class="identity-grid">
+          <div class="identity-item"><strong>Α.Φ.Μ.</strong><span>103922076</span></div>
+          <div class="identity-item"><strong>Δ.Ο.Υ.</strong><span>Λάρισας</span></div>
+          <div class="identity-item"><strong>Διεύθυνση</strong><span>Κουτλιμπάνα 5-7, Λάρισα</span></div>
+          <div class="identity-item"><strong>Ηλεκτρονική επικοινωνία</strong><span><a href="mailto:info@dutt.gr">info@dutt.gr</a></span></div>
+        </div>
+        <p>
+          Η σύμβαση καταρτίζεται όταν ο χρήστης αποδεχθεί την τελική προσφορά στην εφαρμογή DUTT, σε ηλεκτρονικό κατάστημα που χρησιμοποιεί σύνδεση DUTT ή σε άλλο εγκεκριμένο επιχειρηματικό κανάλι. Η επιβεβαίωση της αποστολής, ο μοναδικός αριθμός της και η παρούσα έκδοση αποτελούν ενιαίο σύνολο.
+        </p>
+        <p>
+          Η αγορά οποιουδήποτε προϊόντος παραμένει χωριστή σύμβαση μεταξύ αγοραστή και πωλητή. Η DUTT χρεώνει και εκδίδει το προβλεπόμενο παραστατικό μόνο για την υπηρεσία μεταφοράς που παρέχει στον αντισυμβαλλόμενό της.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-services">
+        <h2>2. Παρεχόμενες υπηρεσίες</h2>
+        <ul>
+          <li>Αυθημερόν παραλαβή, παρακολούθηση και επίδοση φακέλου ή δέματος σε διεύθυνση εντός της ενεργής περιοχής εξυπηρέτησης.</li>
+          <li>Αποστολές ιδιωτών και επιχειρήσεων μέσω του Customer App.</li>
+          <li>Αποστολές ηλεκτρονικών καταστημάτων μέσω WooCommerce, Hosted Connector ή εγκεκριμένης προσαρμοσμένης σύνδεσης.</li>
+          <li>Αποστολές με δίκυκλο ή, όταν δηλωθεί και υπάρχει διαθέσιμο κατάλληλο όχημα, με αυτοκίνητο ή βαν.</li>
+          <li>Ψηφιακή παρακολούθηση της πορείας, ενημερώσεις κατάστασης και ηλεκτρονική απόδειξη επίδοσης.</li>
+          <li>Επιστροφή στον αποστολέα όταν η επίδοση δεν είναι δυνατή, σύμφωνα με την ενότητα 9.</li>
+        </ul>
+        <p>
+          Η υπηρεσία παρέχεται μόνο όταν το σύστημα δώσει ενεργή προσφορά και επιβεβαιώσει διαθεσιμότητα. Αίτημα για το οποίο δεν εκδίδεται προσφορά δεν αποτελεί αποδεκτή αποστολή.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-quality">
+        <h2>3. Χρόνοι, ποιότητα και παρακολούθηση</h2>
+        <p>
+          Πριν από την αποδοχή εμφανίζεται εκτιμώμενο χρονικό παράθυρο που προκύπτει από τον υπολογισμένο χρόνο διαδρομής και, όπου εφαρμόζεται, από τον χρόνο προετοιμασίας του καταστήματος. Με την οριστική αποδοχή, το χρονικό παράθυρο που αποθηκεύεται στην επιβεβαίωση της αποστολής αποτελεί το συμφωνημένο πλαίσιο επίδοσης, εκτός αν ο χρήστης αποδεχθεί μεταγενέστερη αλλαγή.
+        </p>
+        <p>
+          Η αποστολή λαμβάνει μοναδικό αναγνωριστικό και παρακολουθείται ψηφιακά από την ανάληψη έως την επίδοση ή την επιστροφή. Η DUTT διατηρεί τα ηλεκτρονικά αποδεικτικά παραλαβής και επίδοσης. Ανωτέρα βία ή έκτακτη ανάγκη αντιμετωπίζεται σύμφωνα με την ενότητα 10 και την ισχύουσα νομοθεσία.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-rights">
+        <h2>4. Δικαιώματα και υποχρεώσεις αποστολέα και παραλήπτη</h2>
+        <h3>Ο αποστολέας οφείλει</h3>
+        <ul>
+          <li>να δηλώνει ακριβή στοιχεία ταυτότητας, επικοινωνίας, παραλαβής, παραλήπτη, περιεχομένου, διαστάσεων, βάρους και απαιτούμενου οχήματος,</li>
+          <li>να συσκευάζει το αντικείμενο ώστε να αντέχει τη συνήθη μεταφορά και να μην προκαλεί κίνδυνο ή ζημία,</li>
+          <li>να εξασφαλίζει ότι επιτρέπεται η κατοχή και η μεταφορά του περιεχομένου και ότι ο παραλήπτης μπορεί να το παραλάβει,</li>
+          <li>να ενημερώνει πριν από την ανάληψη για ευπάθεια, ειδική μεταχείριση ή άλλη ουσιώδη ιδιότητα.</li>
+        </ul>
+        <h3>Ο αποστολέας και ο παραλήπτης δικαιούνται</h3>
+        <ul>
+          <li>ενημέρωση για την τιμή, το συμφωνημένο χρονικό πλαίσιο και την πορεία της αποστολής,</li>
+          <li>στοιχεία επίδοσης, τουλάχιστον ημέρα, ώρα και ταυτότητα ή ψηφιακή επιβεβαίωση του παραλήπτη,</li>
+          <li>υποβολή επιφύλαξης, παραπόνου και αξίωσης αποζημίωσης μέσα στις προβλεπόμενες προθεσμίες,</li>
+          <li>πρόσβαση στα στοιχεία της αποστολής και στα έγγραφα που δικαιούνται σύμφωνα με τον νόμο.</li>
+        </ul>
+      </section>
+
+      <section class="contract-section" id="el-items">
+        <h2>5. Όρια αντικειμένων, όχημα και συσκευασία</h2>
+        <p>
+          Για τυπική μεταφορά με δίκυκλο, το αντικείμενο πρέπει να χωρά με ασφάλεια σε χώρο <span class="legal-emphasis">45 × 45 × 45 cm</span> και να μην υπερβαίνει τα <span class="legal-emphasis">20 kg</span>. Μεγαλύτερο ή βαρύτερο αντικείμενο πρέπει να δηλώνεται ως αποστολή που χρειάζεται αυτοκίνητο ή βαν. Η αποδοχή εξαρτάται από τη διαθεσιμότητα κατάλληλου οχήματος και την ασφαλή δυνατότητα φόρτωσης.
+        </p>
+        <p>
+          Η DUTT δικαιούται να ζητήσει ασφαλή επιθεώρηση του αντικειμένου ή της συσκευασίας πριν από την ανάληψη και να αρνηθεί την παραλαβή αν ο αποστολέας αρνηθεί, αν τα δηλωμένα στοιχεία είναι ανακριβή ή αν η μεταφορά δεν μπορεί να γίνει νόμιμα και με ασφάλεια.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-prohibited">
+        <h2>6. Μη αποδεκτά και απαγορευμένα αντικείμενα</h2>
+        <p>Δεν γίνονται αποδεκτά, ιδίως:</p>
+        <ul>
+          <li>παράνομα, κλεμμένα ή παραποιημένα αγαθά και αντικείμενα των οποίων απαγορεύεται η κατοχή ή η μεταφορά,</li>
+          <li>όπλα, πυρομαχικά, εκρηκτικά, εύφλεκτα, διαβρωτικά, τοξικά, ραδιενεργά ή άλλα επικίνδυνα υλικά,</li>
+          <li>ναρκωτικές ή ελεγχόμενες ουσίες χωρίς νόμιμη άδεια,</li>
+          <li>ζωντανά ζώα, ανθρώπινα λείψανα ή μη επιτρεπόμενο βιολογικό υλικό,</li>
+          <li>μετρητά, ανώνυμους τίτλους, πολύτιμα μέταλλα ή λίθους,</li>
+          <li>φάρμακα, αίμα, βιολογικό υλικό, τρόφιμα ή άλλα ευπαθή προϊόντα που απαιτούν ειδική άδεια, ψυκτική αλυσίδα ή συνθήκες που δεν έχουν συμφωνηθεί εγγράφως,</li>
+          <li>αντικείμενα ανεπαρκώς συσκευασμένα, με διαρροή, αιχμηρές εκτεθειμένες επιφάνειες ή άλλο κίνδυνο για πρόσωπα και λοιπές αποστολές.</li>
+        </ul>
+      </section>
+
+      <section class="contract-section" id="pricing" data-pricing-policy-version="launch_v12_tiered_customer_uplift">
+        <h2>7. Τιμοκατάλογος υπηρεσιών</h2>
+        <p><span class="legal-emphasis">Ημερομηνία έναρξης ισχύος: 21 / 08 / 2026.</span> Νόμισμα: ευρώ. Όλες οι τελικές τιμές περιλαμβάνουν ΦΠΑ 24%.</p>
+        <p>
+          Η DUTT χρησιμοποιεί δυναμική τιμολόγηση. Η πραγματική οδική απόσταση υπολογίζεται ψηφιακά και η ακριβής τελική χρέωση εμφανίζεται πριν από την αποδοχή. Ο παρακάτω πίνακας δίνει την τελική τιμή για ακέραιη απόσταση, τυπικό δίκυκλο, χωρίς προσαύξηση ζήτησης και χωρίς ζωνική προσαρμογή. Για ενδιάμεση απόσταση ο υπολογισμός γίνεται συνεχώς και στρογγυλοποιείται στο λεπτό του ευρώ.
+        </p>
+
+        <div class="rate-grid">
+          <div class="rate-item"><strong>Ζωντανή ζήτηση</strong><span>0%, 1%, 1,5% ή 2,5% επί της βασικής καθαρής αξίας, με τον ΦΠΑ να περιλαμβάνεται στην τελική προσφορά.</span></div>
+          <div class="rate-item"><strong>Αυτοκίνητο ή βαν</strong><span>Προσαύξηση 40% στην τελική τιμή της αντίστοιχης διαδρομής.</span></div>
+          <div class="rate-item"><strong>Ζώνη Αθήνας ή Θεσσαλονίκης</strong><span>Καθαρή προσαρμογή €0,00 / €0,09 / €0,32 / €0,38 / €0,68 ανάλογα με τη σχέση ζωνών, με ΦΠΑ και τελική στρογγυλοποίηση στην προσφορά.</span></div>
+          <div class="rate-item"><strong>Αλλαγή προορισμού</strong><span>Νέα προσφορά από τη νέα οδική απόσταση. Εφαρμόζεται μόνο μετά από ρητή αποδοχή της πρόσθετης χρέωσης.</span></div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="price-table">
+            <thead><tr><th>Οδική απόσταση</th><th>Τελική τιμή με ΦΠΑ</th></tr></thead>
+            <tbody data-price-body></tbody>
+          </table>
+        </div>
+
+        <h3>Χρεώσεις ακύρωσης και επιστροφής</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Στάδιο</th><th>Ισχύουσα χρέωση με ΦΠΑ</th></tr></thead>
+            <tbody>
+              <tr><td>Πριν από την ανάθεση ή μετά από ανάθεση χωρίς αποδοχή οδηγού</td><td>€0,00</td></tr>
+              <tr><td>Επιχειρηματική αποστολή, έως 90 δευτερόλεπτα μετά την αποδοχή οδηγού</td><td>€0,00</td></tr>
+              <tr><td>Επιχειρηματική αποστολή, μετά τα 90 δευτερόλεπτα και πριν από την άφιξη στην παραλαβή</td><td>€1,00 + €0,18 ανά εκτιμώμενο διανυθέν km, ελάχιστο €1,50 και μέγιστο 70% της αρχικής προσφοράς</td></tr>
+              <tr><td>Επιχειρηματική αποστολή, μετά την άφιξη στην παραλαβή και πριν από την παραλαβή αντικειμένου</td><td>€1,50 + €0,18 ανά διανυθέν km, ελάχιστο €2,50 και μέγιστο 85% της αρχικής προσφοράς</td></tr>
+              <tr><td>Μετά την παραλαβή του αντικειμένου</td><td>Η αρχική χρέωση μεταφοράς παραμένει απαιτητή. Αν απαιτηθεί επιστροφή, η πρόσθετη χρέωση επιστροφής δεν υπερβαίνει την αρχική χρέωση αποστολής.</td></tr>
+              <tr><td>Επιχειρηματική αποστολή που βρίσκεται σε επιστροφή ή έχει επιστραφεί</td><td>Αρχική προσφορά + €2,00 για την επιστροφή. Για αυτοκίνητο ή βαν εφαρμόζεται προσαύξηση 40%.</td></tr>
+              <tr><td>Ανεπίδοτο αντικείμενο σε φύλαξη</td><td>€0,00 τέλος φύλαξης</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Για ειδική έγγραφη σύμβαση επιχειρηματικού πελάτη μπορούν να ισχύουν διαφορετικές τιμές ή όροι, οι οποίοι γνωστοποιούνται και γίνονται αποδεκτοί πριν από την εκτέλεση. Η τιμή ήδη αποδεκτής αποστολής δεν αυξάνεται αναδρομικά.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-cancellations">
+        <h2>8. Ακυρώσεις, επιστροφές χρημάτων και αλλαγές</h2>
+        <p>
+          Η ακύρωση ζητείται από το ίδιο κανάλι στο οποίο δημιουργήθηκε η αποστολή ή από την υποστήριξη. Η εφαρμοζόμενη χρέωση εξαρτάται από το πραγματικό στάδιο και αποτυπώνεται στην ενότητα 7. Όταν το σύστημα δεν μπορεί να επαληθεύσει με ασφάλεια το στάδιο ή το ποσό, δεν επιβάλλει αυθαίρετη αυτόματη χρέωση και η υπόθεση εξετάζεται.
+        </p>
+        <p>
+          Αν έχει ήδη παραληφθεί το αντικείμενο, η DUTT οργανώνει επιστροφή στον αποστολέα όταν αυτό είναι ασφαλές και νόμιμο. Για απευθείας αποστολή Customer App, η τρέχουσα πολιτική επιστροφής διατηρεί ως τελικό μικτό ποσό το 50% της αρχικής καθαρής αξίας της μεταφοράς και επιστρέφει το υπόλοιπο ποσό που είχε εισπραχθεί. Όπου η νομοθεσία επιβάλλει πλήρη επιστροφή, υπερισχύει η υποχρεωτική διάταξη.
+        </p>
+        <p>
+          Αλλαγή διεύθυνσης μετά την αποδοχή υπολογίζεται ως νέα διαδρομή. Ο χρήστης βλέπει και αποδέχεται την τυχόν πρόσθετη χρέωση πριν εφαρμοστεί η αλλαγή.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-delivery">
+        <h2>9. Επίδοση, αποτυχημένη προσπάθεια και ανεπίδοτα</h2>
+        <p>
+          Η παράδοση αποδεικνύεται με ψηφιακή υπογραφή, προσωπικό κωδικό, ηλεκτρονική επιβεβαίωση ή άλλο νόμιμο αποδεικτικό. Ο παραλήπτης μπορεί να διατυπώσει επιφύλαξη για εμφανή φθορά ή έλλειψη κατά την παραλαβή ή μέσα σε δύο εργάσιμες ημέρες με μήνυμα στο <a href="mailto:info@dutt.gr">info@dutt.gr</a>.
+        </p>
+        <p>
+          Αν ο παραλήπτης απουσιάζει, ειδοποιείται ηλεκτρονικά ή εγγράφως και η DUTT επικοινωνεί με τα διαθέσιμα στοιχεία. Προγραμματίζεται τουλάχιστον δεύτερη προσπάθεια, εκτός αν ο παραλήπτης επιλέξει άλλο σημείο ή αν το αντικείμενο απαιτεί ειδικές συνθήκες και δεν επιτρέπεται η αναμονή. Αν η επίδοση παραμένει αδύνατη ή ο παραλήπτης αρνείται, το αντικείμενο επιστρέφεται στον αποστολέα με πρόσθετη χρέωση όχι μεγαλύτερη από την αρχική χρέωση αποστολής.
+        </p>
+        <p>
+          Αν δεν είναι δυνατή ούτε η επιστροφή, το αντικείμενο φυλάσσεται χωρίς τέλος φύλαξης για έξι μήνες από την επόμενη ημέρα της τελευταίας αποτυχημένης προσπάθειας. Μετά τους έξι μήνες θεωρείται οριστικά ανεπίδοτο και μπορεί να δωρηθεί ή να καταστραφεί με σύνταξη σχετικού πρακτικού και σύμφωνα με τον νόμο.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-compensation">
+        <h2>10. Ευθύνη, αποζημιώσεις και προθεσμίες</h2>
+        <p>Για αποστολές που υπάγονται σε καθεστώς Γενικής Άδειας εφαρμόζονται τα ακόλουθα νόμιμα όρια:</p>
+        <ul>
+          <li>Για αποδεδειγμένη ολική απώλεια, κλοπή ή καταστροφή φακέλου εσωτερικού: δέκα φορές το καταβληθέν ταχυδρομικό τέλος, συν επιστροφή του τέλους.</li>
+          <li>Για αποδεδειγμένη ολική απώλεια, κλοπή ή καταστροφή δέματος εσωτερικού: οκτώ φορές το καταβληθέν τέλος, συν επιστροφή του τέλους, με ανώτατο όριο την αποδεδειγμένη αξία αγοράς ή αντικατάστασης.</li>
+          <li>Για μερική απώλεια, κλοπή ή καταστροφή: η αποδεδειγμένη πραγματική ζημία, έως το αντίστοιχο όριο ολικής απώλειας.</li>
+          <li>Για αποστολή με δηλωμένη και ασφαλισμένη αξία που έχει γίνει εγγράφως αποδεκτή: η δηλωμένη αξία, συν επιστροφή του τέλους, με τα απαραίτητα αποδεικτικά.</li>
+          <li>Για επιστροφή με ευθύνη της DUTT και άγνωστη αιτία μη επίδοσης: επιστροφή του ταχυδρομικού τέλους και των σχετικών εξόδων που καταβλήθηκαν στη DUTT.</li>
+          <li>Για αποδεδειγμένη καθυστέρηση που υπερβαίνει τρεις εργάσιμες ημέρες από τη συμφωνημένη καταληκτική ημέρα: δύο φορές το ταχυδρομικό τέλος. Για κάθε πρόσθετη εργάσιμη ημέρα μέσα στις επόμενες δώδεκα, προστίθενται 3/12 του τέλους. Πέραν των δεκαπέντε εργάσιμων ημερών η αποστολή τεκμαίρεται ως απολεσθείσα.</li>
+          <li>Για παράδοση σε εναλλακτικό σημείο χωρίς αποδεδειγμένη συναίνεση ενώ είχε συμφωνηθεί συγκεκριμένη διεύθυνση: δύο φορές το ταχυδρομικό τέλος.</li>
+        </ul>
+        <p>
+          Η έγγραφη αξίωση πρέπει να υποβληθεί μέσα σε έξι μήνες από τη σύναψη της συγκεκριμένης σύμβασης. Εγκεκριμένη αποζημίωση καταβάλλεται το αργότερο μέσα σε είκοσι εργάσιμες ημέρες από την έγκριση. Κάθε αντικείμενο πολλαπλής αποστολής εξετάζεται χωριστά.
+        </p>
+        <h3>Περιπτώσεις έλλειψης ευθύνης</h3>
+        <p>
+          Η DUTT δεν ευθύνεται στον βαθμό που η απώλεια, φθορά ή καθυστέρηση οφείλεται σε ανωτέρα βία ή έκτακτη ανάγκη, αποδεδειγμένη εγκληματική ενέργεια, εγγενή ευπάθεια, ακατάλληλη συσκευασία ή άλλα λανθασμένα στοιχεία του αποστολέα, παράνομο ή μη αποδεκτό περιεχόμενο, κατάσχεση ή πράξη αρμόδιας αρχής, δόλια υπερασφάλιση ή τελωνειακή διαδικασία. Όπου η νομοθεσία απαιτεί επιστροφή του ταχυδρομικού τέλους, αυτή πραγματοποιείται.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-insurance">
+        <h2>11. Δηλωμένη αξία και ασφαλιστική κάλυψη</h2>
+        <p>
+          Η αυτόματη υπηρεσία του Customer App και των συνδέσεων ηλεκτρονικών καταστημάτων δεν περιλαμβάνει σήμερα προαιρετική ασφάλιση ή υπηρεσία δηλωμένης αξίας και δεν χρεώνει σχετικό ασφάλιστρο. Αντικείμενο για το οποίο απαιτείται τέτοια κάλυψη γίνεται δεκτό μόνο μετά από ξεχωριστή έγγραφη συμφωνία πριν από την παραλαβή, στην οποία αναγράφονται η αποδεκτή αξία, η κάλυψη και η πρόσθετη χρέωση.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-complaints">
+        <h2>12. Παράπονα, καταγγελίες και επίλυση διαφορών</h2>
+        <p>
+          Πρώτο σημείο επαφής είναι το <a href="mailto:info@dutt.gr">info@dutt.gr</a> ή έγγραφη αποστολή στη διεύθυνση Κουτλιμπάνα 5-7, Λάρισα. Το αίτημα πρέπει να περιλαμβάνει ονοματεπώνυμο, στοιχεία επικοινωνίας, αριθμό αποστολής, ημερομηνία, περιγραφή και διαθέσιμα αποδεικτικά.
+        </p>
+        <p>
+          Η DUTT αποστέλλει άμεσα επιβεβαίωση παραλαβής με μοναδικό αριθμό αναφοράς και ημερομηνία και απαντά τεκμηριωμένα, εγγράφως ή με ηλεκτρονικό μήνυμα, μέσα σε δεκαπέντε εργάσιμες ημέρες. Το υλικό τηρείται για όσο η σύμβαση είναι ενεργή και για έξι επιπλέον μήνες, ή μέχρι να ολοκληρωθεί εκκρεμής διαδικασία ενώπιον αρμόδιας αρχής ή δικαστηρίου.
+        </p>
+        <p>
+          Αν η διαφορά δεν επιλυθεί απευθείας, ο χρήστης μπορεί να απευθυνθεί στην ΕΕΤΤ και στις λοιπές αρμόδιες αρχές ή να προσφύγει στα ελληνικά δικαστήρια. Η DUTT δεν δεσμεύεται εκ των προτέρων να χρησιμοποιήσει συγκεκριμένο φορέα εναλλακτικής επίλυσης διαφορών, αλλά ενημερώνει τον καταναλωτή για τις διαθέσιμες επιλογές όταν η απευθείας διαδικασία δεν επιλύσει τη διαφορά.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-records">
+        <h2>13. Αρχεία, αποδεικτικά και προσωπικά δεδομένα</h2>
+        <p>
+          Η DUTT τηρεί ψηφιακά τη σύμβαση, την επιβεβαίωση, την πορεία, τα αποδεικτικά παραλαβής και επίδοσης και τη σχετική επικοινωνία για όσο ισχύει η σύμβαση και για έξι επιπλέον μήνες. Αν εκκρεμεί παράπονο, έλεγχος ή δικαστική διαδικασία, τα σχετικά αρχεία διατηρούνται μέχρι την ολοκλήρωσή της. Η επεξεργασία προσωπικών δεδομένων περιγράφεται χωριστά στην <a href="/privacy.html">Πολιτική Απορρήτου</a>.
+        </p>
+      </section>
+
+      <section class="contract-section" id="el-law">
+        <h2>14. Εφαρμοστέο δίκαιο, αλλαγές και υπεροχή υποχρεωτικών διατάξεων</h2>
+        <p>
+          Η σύμβαση διέπεται από το ελληνικό δίκαιο, τον ν. 4053/2012, τους ισχύοντες κανονισμούς και τις αποφάσεις της ΕΕΤΤ και τη νομοθεσία προστασίας καταναλωτή. Τυχόν υποχρεωτική διάταξη υπερισχύει αντίθετου όρου. Ο χρήστης διατηρεί τη δυνατότητα προσφυγής στα ελληνικά δικαστήρια.
+        </p>
+        <p>
+          Νέα έκδοση ισχύει μόνο για συμβάσεις που καταρτίζονται μετά τη δημοσίευσή της, εκτός αν ο χρήστης αποδεχθεί ρητά άλλη νόμιμη μεταβολή. Η ισχύουσα έκδοση παραμένει διαθέσιμη αποκλειστικά σε αυτή τη σελίδα και μπορεί να εκτυπωθεί ή να αποθηκευτεί ως PDF.
+        </p>
+        <div class="source-links">
+          <a href="https://www.eett.gr/wp-content/uploads/2024/02/%CE%91%CE%A01101-003.%CE%A6%CE%95%CE%9A.pdf" target="_blank" rel="noopener">Κανονισμός ΕΕΤΤ 1101/3/2024</a>
+          <a href="https://www.eett.gr/wp-content/uploads/2026/02/%CE%91%CE%A0-1182-007.%CE%A6%CE%95%CE%9A.pdf" target="_blank" rel="noopener">Απόφαση ΕΕΤΤ 1182/007/2026</a>
+        </div>
+      </section>
+    </article>
+
+    <article data-language="en" hidden>
+      <header class="hero">
+        <p class="eyebrow">Current individual courier-service contract</p>
+        <h1>Service Provision Agreement</h1>
+        <p class="lead">
+          These terms form the individual agreement for each shipment undertaken by DUTT. Before accepting the service, the user receives a digital link to the current version.
+        </p>
+        <div class="status-row">
+          <div class="status-item"><span class="status-label">Version</span><span class="status-value">1.0</span></div>
+          <div class="status-item"><span class="status-label">Effective date</span><span class="status-value">21 / 08 / 2026</span></div>
+          <div class="status-item"><span class="status-label">Controlling language</span><span class="status-value">Greek</span></div>
+        </div>
+        <p class="notice">
+          The final price and the specific delivery window for each shipment are displayed before final acceptance. No retroactive price increase applies after acceptance.
+        </p>
+      </header>
+
+      <nav class="toc" aria-label="Agreement contents">
+        <h2>Contents</h2>
+        <div class="toc-links">
+          <a href="#en-provider">1. Provider and formation</a>
+          <a href="#en-services">2. Services</a>
+          <a href="#en-quality">3. Time and quality</a>
+          <a href="#en-rights">4. Rights and duties</a>
+          <a href="#en-items">5. Items and packaging</a>
+          <a href="#en-prohibited">6. Prohibited items</a>
+          <a href="#pricing-en">7. Price list</a>
+          <a href="#en-cancellations">8. Cancellations and changes</a>
+          <a href="#en-delivery">9. Delivery and undelivered items</a>
+          <a href="#en-compensation">10. Liability and compensation</a>
+          <a href="#en-insurance">11. Declared value</a>
+          <a href="#en-complaints">12. Complaints and disputes</a>
+          <a href="#en-records">13. Records and privacy</a>
+          <a href="#en-law">14. Law and validity</a>
+        </div>
+      </nav>
+
+      <section class="contract-section" id="en-provider">
+        <h2>1. Provider and formation of the agreement</h2>
+        <p>
+          The transport service provider is <span class="legal-emphasis">SOURRAS DIMITRIOS EVANGELOS</span>, trading as DUTT. DUTT is the contractual transport provider whether physical performance is carried out by an employed courier or an independent courier partner.
+        </p>
+        <div class="identity-grid">
+          <div class="identity-item"><strong>Greek VAT number</strong><span>103922076</span></div>
+          <div class="identity-item"><strong>Tax authority</strong><span>Larissa</span></div>
+          <div class="identity-item"><strong>Address</strong><span>Koutlimpana 5-7, Larissa, Greece</span></div>
+          <div class="identity-item"><strong>Email</strong><span><a href="mailto:info@dutt.gr">info@dutt.gr</a></span></div>
+        </div>
+        <p>
+          The agreement is formed when the user accepts the final quote in the DUTT application, an e-shop using a DUTT integration, or another approved business channel. The shipment confirmation, its unique number and this version form one agreement.
+        </p>
+        <p>
+          Any product purchase remains a separate agreement between buyer and seller. DUTT charges and issues the applicable tax document only for the transport service supplied to its contractual customer.
+        </p>
+      </section>
+
+      <section class="contract-section" id="en-services">
+        <h2>2. Services supplied</h2>
+        <ul>
+          <li>Same-day collection, tracking and delivery of an envelope or parcel to an address within the active service area.</li>
+          <li>Private and business shipments requested through the Customer App.</li>
+          <li>E-shop shipments through WooCommerce, Hosted Connector or an approved custom integration.</li>
+          <li>Shipments by two-wheeler or, when declared and an appropriate vehicle is available, by car or van.</li>
+          <li>Digital tracking, status notifications and electronic proof of delivery.</li>
+          <li>Return to sender when delivery is impossible, under section 9.</li>
+        </ul>
+        <p>The service is available only when the system issues an active quote and confirms availability. A request without a quote is not an accepted shipment.</p>
+      </section>
+
+      <section class="contract-section" id="en-quality">
+        <h2>3. Time, quality and tracking</h2>
+        <p>
+          Before acceptance, the system displays an estimated time window based on calculated route time and, where applicable, merchant preparation time. On final acceptance, the time window stored in the shipment confirmation becomes the agreed delivery window unless the user later accepts a change.
+        </p>
+        <p>
+          Each shipment receives a unique identifier and is digitally tracked from acceptance to delivery or return. DUTT retains electronic collection and delivery evidence. Force majeure or emergency is handled under section 10 and applicable law.
+        </p>
+      </section>
+
+      <section class="contract-section" id="en-rights">
+        <h2>4. Sender and recipient rights and duties</h2>
+        <h3>The sender must</h3>
+        <ul>
+          <li>provide accurate identity, contact, collection, recipient, content, dimensions, weight and vehicle-requirement information,</li>
+          <li>package the item so it withstands normal transport without causing danger or damage,</li>
+          <li>ensure that possession and transport are lawful and that the recipient can receive the item,</li>
+          <li>disclose fragility, special handling or any other material characteristic before collection.</li>
+        </ul>
+        <h3>The sender and recipient are entitled to</h3>
+        <ul>
+          <li>information about price, the agreed delivery window and shipment progress,</li>
+          <li>delivery details, including at least date, time and recipient identity or digital confirmation,</li>
+          <li>submit a reservation, complaint and compensation claim within the applicable deadlines,</li>
+          <li>access shipment data and documents to which they are legally entitled.</li>
+        </ul>
+      </section>
+
+      <section class="contract-section" id="en-items">
+        <h2>5. Item limits, vehicle and packaging</h2>
+        <p>
+          For standard two-wheeler transport, an item must fit safely within <span class="legal-emphasis">45 × 45 × 45 cm</span> and must not exceed <span class="legal-emphasis">20 kg</span>. A larger or heavier item must be declared as requiring a car or van. Acceptance depends on an appropriate vehicle being available and safe loading being possible.
+        </p>
+        <p>
+          DUTT may request a safe inspection of the item or packaging before collection and may refuse it if the sender refuses, the declaration is inaccurate, or transport cannot be performed lawfully and safely.
+        </p>
+      </section>
+
+      <section class="contract-section" id="en-prohibited">
+        <h2>6. Non-accepted and prohibited items</h2>
+        <p>Items not accepted include:</p>
+        <ul>
+          <li>illegal, stolen or counterfeit goods and items whose possession or transport is prohibited,</li>
+          <li>weapons, ammunition, explosives, flammable, corrosive, toxic, radioactive or other dangerous materials,</li>
+          <li>narcotic or controlled substances without lawful authorisation,</li>
+          <li>live animals, human remains or unauthorised biological material,</li>
+          <li>cash, bearer instruments, precious metals or precious stones,</li>
+          <li>medicines, blood, biological material, food or other perishables requiring a permit, cold chain or conditions not agreed in writing,</li>
+          <li>inadequately packaged, leaking or otherwise unsafe items.</li>
+        </ul>
+      </section>
+
+      <section class="contract-section" id="pricing-en" data-pricing-policy-version="launch_v12_tiered_customer_uplift">
+        <h2>7. Service price list</h2>
+        <p><span class="legal-emphasis">Effective date: 21 / 08 / 2026.</span> Currency: euro. All final prices include 24% VAT.</p>
+        <p>
+          DUTT uses dynamic pricing. Actual road distance is calculated digitally and the exact final charge is displayed before acceptance. The table below shows the final price at each whole kilometre for a standard two-wheeler, with no demand or zone adjustment. Intermediate distances are calculated continuously and rounded to the nearest cent.
+        </p>
+        <div class="rate-grid">
+          <div class="rate-item"><strong>Live demand</strong><span>0%, 1%, 1.5% or 2.5% of the base net value, with VAT included in the final quote.</span></div>
+          <div class="rate-item"><strong>Car or van</strong><span>40% increase to the final price for the corresponding route.</span></div>
+          <div class="rate-item"><strong>Athens or Thessaloniki zone</strong><span>Net adjustment of €0.00 / €0.09 / €0.32 / €0.38 / €0.68 according to zone relation, with VAT and final rounding in the quote.</span></div>
+          <div class="rate-item"><strong>Destination change</strong><span>A new quote based on the new road distance, applied only after explicit acceptance of any additional charge.</span></div>
+        </div>
+        <div class="table-wrap">
+          <table class="price-table">
+            <thead><tr><th>Road distance</th><th>Final price including VAT</th></tr></thead>
+            <tbody data-price-body></tbody>
+          </table>
+        </div>
+
+        <h3>Cancellation and return charges</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Stage</th><th>Current charge including VAT</th></tr></thead>
+            <tbody>
+              <tr><td>Before assignment or after assignment without courier acceptance</td><td>€0.00</td></tr>
+              <tr><td>Business shipment, up to 90 seconds after courier acceptance</td><td>€0.00</td></tr>
+              <tr><td>Business shipment, after 90 seconds and before arrival at collection</td><td>€1.00 + €0.18 per estimated travelled km, minimum €1.50 and maximum 70% of the original quote</td></tr>
+              <tr><td>Business shipment, after arrival at collection but before item collection</td><td>€1.50 + €0.18 per travelled km, minimum €2.50 and maximum 85% of the original quote</td></tr>
+              <tr><td>After collection of the item</td><td>The original transport charge remains due. If return is required, the additional return charge does not exceed the original outbound charge.</td></tr>
+              <tr><td>Business shipment returning or returned</td><td>Original quote + €2.00 for return. A 40% increase applies to car or van service.</td></tr>
+              <tr><td>Undelivered item held in storage</td><td>€0.00 storage fee</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          A separately signed business agreement may set different prices or terms disclosed and accepted before performance. The price of an accepted shipment is never increased retroactively.
+        </p>
+      </section>
+
+      <section class="contract-section" id="en-cancellations">
+        <h2>8. Cancellations, refunds and changes</h2>
+        <p>
+          Cancellation is requested through the channel used to create the shipment or through support. The charge depends on the verified stage and is set out in section 7. If the system cannot safely verify the stage or amount, it does not impose an arbitrary automatic charge and the case is reviewed.
+        </p>
+        <p>
+          If the item has already been collected, DUTT arranges return to sender where safe and lawful. For a direct Customer App shipment, the current return policy retains as the final gross amount 50% of the original net transport value and refunds the remainder collected. Where mandatory law requires a full refund, the mandatory rule prevails.
+        </p>
+        <p>A destination change after acceptance is priced as a new route. The user sees and accepts any additional charge before the change is applied.</p>
+      </section>
+
+      <section class="contract-section" id="en-delivery">
+        <h2>9. Delivery, failed attempt and undelivered items</h2>
+        <p>
+          Delivery is evidenced by digital signature, personal code, electronic confirmation or other lawful proof. The recipient may reserve rights for visible damage or shortage on delivery or within two business days by emailing <a href="mailto:info@dutt.gr">info@dutt.gr</a>.
+        </p>
+        <p>
+          If the recipient is absent, electronic or written notice is provided and DUTT uses the available contact details. At least a second attempt is arranged unless the recipient selects another point or the item requires special conditions that prevent waiting. If delivery remains impossible or is refused, the item is returned to the sender for an additional charge no greater than the original outbound charge.
+        </p>
+        <p>
+          If return is also impossible, the item is held without a storage fee for six months from the day after the last failed attempt. After six months it is finally undelivered and may be donated or destroyed with a written record and in accordance with law.
+        </p>
+      </section>
+
+      <section class="contract-section" id="en-compensation">
+        <h2>10. Liability, compensation and deadlines</h2>
+        <p>For shipments under the General Authorisation regime, the following statutory limits apply:</p>
+        <ul>
+          <li>Proven total loss, theft or destruction of a domestic envelope: ten times the postal fee paid, plus refund of that fee.</li>
+          <li>Proven total loss, theft or destruction of a domestic parcel: eight times the fee paid, plus refund of that fee, capped at proven purchase or replacement value.</li>
+          <li>Partial loss, theft or destruction: proven actual loss, capped at the corresponding total-loss compensation.</li>
+          <li>Written and accepted declared-value/insured shipment: declared value plus fee refund, subject to evidence.</li>
+          <li>Return due to DUTT's responsibility with unknown non-delivery cause: refund of the postal fee and related expenses paid to DUTT.</li>
+          <li>Proven delay beyond three business days after the agreed deadline: twice the postal fee. For each additional business day within the next twelve days, 3/12 of the fee is added. Beyond fifteen business days the shipment is presumed lost.</li>
+          <li>Delivery to an alternative point without proven consent where a specific address was agreed: twice the postal fee.</li>
+        </ul>
+        <p>
+          A written claim must be submitted within six months of the relevant agreement. Approved compensation is paid within twenty business days after approval. Each item in a multiple shipment is considered separately.
+        </p>
+        <h3>Cases excluding liability</h3>
+        <p>
+          DUTT is not liable to the extent loss, damage or delay results from force majeure or emergency, proven criminal acts, inherent perishability, inadequate packaging or other incorrect sender information, unlawful or non-accepted contents, seizure or action by authorities, fraudulent over-insurance or customs procedures. Any fee refund required by mandatory law remains payable.
+        </p>
+      </section>
+
+      <section class="contract-section" id="en-insurance">
+        <h2>11. Declared value and insurance</h2>
+        <p>
+          The automatic Customer App and e-shop integration service does not currently include optional insurance or declared-value service and charges no insurance premium. An item requiring such coverage is accepted only under a separate written agreement before collection that states the accepted value, coverage and additional charge.
+        </p>
+      </section>
+
+      <section class="contract-section" id="en-complaints">
+        <h2>12. Complaints and dispute resolution</h2>
+        <p>
+          The first contact point is <a href="mailto:info@dutt.gr">info@dutt.gr</a> or written mail to Koutlimpana 5-7, Larissa, Greece. A submission should include the person's name, contact details, shipment number, date, description and available evidence.
+        </p>
+        <p>
+          DUTT sends immediate acknowledgement with a unique reference number and date and provides a reasoned written or email response within fifteen business days. Material is retained while the agreement is active and for six additional months, or until any pending authority or court process is completed.
+        </p>
+        <p>
+          If the dispute is not resolved directly, the user may contact EETT and other competent authorities or the Greek courts. DUTT does not commit in advance to a specific alternative dispute resolution body but informs the consumer of available options when the direct process does not resolve the dispute.
+        </p>
+      </section>
+
+      <section class="contract-section" id="en-records">
+        <h2>13. Records, evidence and personal data</h2>
+        <p>
+          DUTT digitally retains the agreement, confirmation, tracking, collection and delivery evidence and related correspondence while the agreement is in force and for six additional months. If a complaint, regulatory review or court process is pending, related records are retained until completion. Personal-data processing is described separately in the <a href="/privacy.html">Privacy Policy</a>.
+        </p>
+      </section>
+
+      <section class="contract-section" id="en-law">
+        <h2>14. Governing law, changes and mandatory rules</h2>
+        <p>
+          This agreement is governed by Greek law, Law 4053/2012, current EETT regulations and decisions, and consumer-protection law. A mandatory rule prevails over any conflicting term. The user may bring proceedings before the Greek courts.
+        </p>
+        <p>
+          A new version applies only to agreements formed after publication unless the user expressly accepts another lawful change. The current version remains available exclusively on this page and can be printed or saved as PDF.
+        </p>
+        <div class="source-links">
+          <a href="https://www.eett.gr/wp-content/uploads/2024/02/%CE%91%CE%A01101-003.%CE%A6%CE%95%CE%9A.pdf" target="_blank" rel="noopener">EETT Regulation 1101/3/2024</a>
+          <a href="https://www.eett.gr/wp-content/uploads/2026/02/%CE%91%CE%A0-1182-007.%CE%A6%CE%95%CE%9A.pdf" target="_blank" rel="noopener">EETT Decision 1182/007/2026</a>
+        </div>
+      </section>
+    </article>
+
+    <footer class="footer">
+      <div class="footer-row">
+        <span>© 2026 DUTT</span>
+        <a href="/terms.html" data-terms-link>Όροι Χρήσης</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const standardPrices = [
+      4.09, 4.59, 5.13, 5.90, 6.52, 7.25, 8.24, 9.19, 10.25, 11.52,
+      12.82, 14.01, 15.10, 16.38, 17.57, 18.93, 20.14, 21.33, 22.64, 23.95,
+      25.05, 26.35, 27.65, 28.96, 30.49, 31.59, 32.89, 34.08, 35.27, 36.59,
+      37.90, 39.21, 40.53, 41.82, 43.13, 44.44, 45.75, 47.04, 48.36, 49.67
+    ];
+
+    document.querySelectorAll("[data-price-body]").forEach((body) => {
+      body.innerHTML = standardPrices
+        .map((price, index) => `<tr><td>${index + 1} km</td><td>€${price.toFixed(2)}</td></tr>`)
+        .join("");
+    });
+
+    const copy = {
+      el: {
+        title: "Σύμβαση Όρων Παροχής - DUTT",
+        description: "Η ισχύουσα Σύμβαση Όρων Παροχής ταχυμεταφορών και ο τιμοκατάλογος της DUTT.",
+        print: "Εκτύπωση / PDF",
+        home: "Αρχική",
+        terms: "Όροι Χρήσης"
+      },
+      en: {
+        title: "Service Provision Agreement - DUTT",
+        description: "The current DUTT courier Service Provision Agreement and price list.",
+        print: "Print / PDF",
+        home: "Home",
+        terms: "Terms of Use"
+      }
+    };
+
+    function setLanguage(language) {
+      const selected = copy[language] ? language : "el";
+      document.documentElement.lang = selected;
+      document.title = copy[selected].title;
+      document.querySelector('meta[name="description"]').content = copy[selected].description;
+      document.querySelectorAll("[data-language]").forEach((panel) => {
+        panel.hidden = panel.dataset.language !== selected;
+      });
+      document.querySelectorAll("[data-language-button]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.languageButton === selected);
+      });
+      document.querySelector("[data-print]").textContent = copy[selected].print;
+      document.querySelector("[data-home-link]").textContent = copy[selected].home;
+      document.querySelector("[data-terms-link]").textContent = copy[selected].terms;
+      localStorage.setItem("dutt_lang", selected);
+
+      if (window.location.hash === "#pricing" || window.location.hash === "#pricing-en") {
+        const pricingHash = selected === "en" ? "#pricing-en" : "#pricing";
+        if (window.location.hash !== pricingHash) {
+          history.replaceState(null, "", pricingHash);
+        }
+        requestAnimationFrame(() => document.querySelector(pricingHash)?.scrollIntoView());
+      }
+    }
+
+    document.querySelectorAll("[data-language-button]").forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.dataset.languageButton));
+    });
+    document.querySelector("[data-print]").addEventListener("click", () => window.print());
+    setLanguage(localStorage.getItem("dutt_lang") || "el");
+  </script>
+</body>
+</html>
