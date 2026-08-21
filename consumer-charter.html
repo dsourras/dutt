@@ -189,6 +189,24 @@
       color: #f7f4c2;
     }
 
+    .notice strong {
+      display: block;
+      color: #ffffff;
+    }
+
+    .notice p {
+      margin: 7px 0 0;
+    }
+
+    .notice ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    .notice li + li {
+      margin-top: 5px;
+    }
+
     .toc {
       padding: 30px 0;
       border-bottom: 1px solid var(--line);
@@ -479,7 +497,7 @@
   <main class="wrap">
     <article data-language="el">
       <header class="hero">
-        <p class="eyebrow">Προσχέδιο πριν από την εμπορική έναρξη</p>
+        <p class="eyebrow">Δημόσιο προσχέδιο για έλεγχο</p>
         <h1>Χάρτης Υποχρεώσεων προς τον Χρήστη-Καταναλωτή</h1>
         <p class="lead">
           Ο παρών Χάρτης συγκεντρώνει τις δεσμεύσεις της DUTT απέναντι στους χρήστες ταχυδρομικών υπηρεσιών και περιγράφει τις υπηρεσίες, τις χρεώσεις, την ποιότητα, την εξυπηρέτηση, τις αποζημιώσεις, τα παράπονα, την προστασία δεδομένων και το απόρρητο των επικοινωνιών.
@@ -489,9 +507,16 @@
           <div class="status-item"><span class="status-label">Ημερομηνία προσχεδίου</span><span class="status-value">22 / 08 / 2026</span></div>
           <div class="status-item"><span class="status-label">Γλώσσα αναφοράς</span><span class="status-value">Ελληνικά</span></div>
         </div>
-        <p class="notice">
-          Το κείμενο θα τεθεί σε ισχύ και θα δημοσιευθεί ως ο επίσημος Χ.Υ.Κ. πριν από την εμπορική έναρξη, μόλις συμπληρωθούν ο αριθμός μητρώου Ε.Ε.Τ.Τ. και οι δηλωμένοι ταχυδρομικοί Κ.Α.Δ. Δεν αποτελεί ακόμη ισχύοντα Χ.Υ.Κ.
-        </p>
+        <div class="notice" role="status">
+          <strong>Δημόσια προεπισκόπηση - δεν αποτελεί ακόμη ισχύοντα Χ.Υ.Κ.</strong>
+          <p>Το κείμενο δημοσιεύεται για έλεγχο της μορφής και του περιεχομένου του. Πριν από την εμπορική έναρξη θα συμπληρωθούν:</p>
+          <ul>
+            <li>το καθεστώς άδειας και ο αριθμός μητρώου Ε.Ε.Τ.Τ.,</li>
+            <li>οι ακριβείς ταχυδρομικοί Κ.Α.Δ.,</li>
+            <li>η οριστική σύνθεση και ο εκπρόσωπος χρηστών της Επιτροπής Επίλυσης Διαφορών,</li>
+            <li>η τεχνική επιβεβαίωση της άμεσης απόδοσης μοναδικού αριθμού αναφοράς στα παράπονα.</li>
+          </ul>
+        </div>
       </header>
 
       <nav class="toc" aria-label="Περιεχόμενα Χάρτη Υποχρεώσεων">
@@ -537,9 +562,9 @@
           Η παροχή πραγματοποιείται στις ενεργές γεωγραφικές ζώνες που εμφανίζονται στα ψηφιακά κανάλια της DUTT και μόνο όταν το σύστημα επιβεβαιώσει διαθεσιμότητα. Η υποδομή υποστηρίζει μοναδικό αριθμό αποστολής, ψηφιακή καταγραφή ανάληψης, ζωντανές καταστάσεις, αποδεικτικά παραλαβής και επίδοσης και ιστορικό συμβάντων.
         </p>
         <div class="identity-grid">
-          <div class="identity-item"><strong>Καθεστώς άδειας Ε.Ε.Τ.Τ.</strong><span>Θα συμπληρωθεί πριν από την εμπορική έναρξη, μετά την ολοκλήρωση της εγγραφής στο Μητρώο Ε.Ε.Τ.Τ.</span></div>
-          <div class="identity-item"><strong>Αριθμός μητρώου Ε.Ε.Τ.Τ.</strong><span>Δεν έχει ακόμη δημοσιευθεί.</span></div>
-          <div class="identity-item"><strong>Ταχυδρομικές δραστηριότητες ανά Κ.Α.Δ.</strong><span>Θα αναγραφούν ακριβώς όπως θα δηλωθούν πριν από την εμπορική έναρξη.</span></div>
+          <div class="identity-item"><strong>Καθεστώς άδειας Ε.Ε.Τ.Τ.</strong><span>Υπό συμπλήρωση πριν από την εμπορική έναρξη.</span></div>
+          <div class="identity-item"><strong>Αριθμός μητρώου Ε.Ε.Τ.Τ.</strong><span>Υπό συμπλήρωση πριν από την εμπορική έναρξη.</span></div>
+          <div class="identity-item"><strong>Ταχυδρομικές δραστηριότητες ανά Κ.Α.Δ.</strong><span>Υπό συμπλήρωση πριν από την εμπορική έναρξη.</span></div>
           <div class="identity-item"><strong>Πιστοποιήσεις</strong><span>Δεν δηλώνεται πιστοποίηση που δεν έχει επισήμως χορηγηθεί.</span></div>
         </div>
         <p>
@@ -718,14 +743,14 @@
           Πρώτο σημείο επαφής είναι το <a href="mailto:info@dutt.gr">info@dutt.gr</a>, η τηλεφωνική γραμμή <a href="tel:+302414005377">241 400 5377</a> ή έγγραφη αποστολή στη διεύθυνση Κουτλιμπάνα 5-7, Λάρισα. Η τηλεφωνική γραμμή λειτουργεί Δευτέρα-Παρασκευή, 09:00-17:00, εκτός επίσημων αργιών, δεν είναι πρόσθετης χρέωσης και χρεώνεται σύμφωνα με τον τιμοκατάλογο του τηλεπικοινωνιακού παρόχου του καλούντος. Το αίτημα πρέπει να περιλαμβάνει ονοματεπώνυμο, στοιχεία επικοινωνίας, αριθμό αποστολής, ημερομηνία, περιγραφή και διαθέσιμα αποδεικτικά.
         </p>
         <p>
-          Η DUTT αποστέλλει άμεσα επιβεβαίωση παραλαβής με μοναδικό αριθμό αναφοράς και ημερομηνία και απαντά τεκμηριωμένα, εγγράφως ή με ηλεκτρονικό μήνυμα, μέσα σε δεκαπέντε εργάσιμες ημέρες. Το υλικό τηρείται για όσο η σύμβαση είναι ενεργή και για έξι επιπλέον μήνες, ή μέχρι να ολοκληρωθεί εκκρεμής διαδικασία ενώπιον αρμόδιας αρχής ή δικαστηρίου.
+          Από την έναρξη ισχύος του Χάρτη, η DUTT θα αποστέλλει άμεσα επιβεβαίωση παραλαβής με μοναδικό αριθμό αναφοράς και ημερομηνία και θα απαντά τεκμηριωμένα, εγγράφως ή με ηλεκτρονικό μήνυμα, μέσα σε δεκαπέντε εργάσιμες ημέρες. Το υλικό θα τηρείται για όσο η σύμβαση είναι ενεργή και για έξι επιπλέον μήνες, ή μέχρι να ολοκληρωθεί εκκρεμής διαδικασία ενώπιον αρμόδιας αρχής ή δικαστηρίου. Η αυτόματη απόδοση μοναδικού αριθμού αναφοράς βρίσκεται υπό τεχνική επιβεβαίωση πριν από την εμπορική έναρξη.
         </p>
         <p>
           Αν η διαφορά δεν επιλυθεί απευθείας, ο χρήστης μπορεί να απευθυνθεί στην ΕΕΤΤ και στις λοιπές αρμόδιες αρχές ή να προσφύγει στα ελληνικά δικαστήρια. Η DUTT δεν δεσμεύεται εκ των προτέρων να χρησιμοποιήσει συγκεκριμένο φορέα εναλλακτικής επίλυσης διαφορών, αλλά ενημερώνει τον καταναλωτή για τις διαθέσιμες επιλογές όταν η απευθείας διαδικασία δεν επιλύσει τη διαφορά.
         </p>
         <h3>Επιτροπή Επίλυσης Διαφορών</h3>
         <p>
-          Αν ο χρήστης δεν ικανοποιηθεί από την αρχική έγγραφη απάντηση, μπορεί να ζητήσει επανεξέταση από Επιτροπή Επίλυσης Διαφορών. Η Επιτροπή συγκροτείται πριν από την εμπορική έναρξη και περιλαμβάνει εκπρόσωπο της DUTT που δεν χειρίστηκε την αρχική εξέταση, αρμόδιο εκπρόσωπο λειτουργίας ή συμμόρφωσης και εκπρόσωπο των χρηστών. Ο ενδιαφερόμενος ειδοποιείται εγγράφως, δικαιούται να παραστεί αυτοπροσώπως ή με εκπρόσωπο, να καταθέσει υπόμνημα και αποδεικτικά και λαμβάνει αιτιολογημένο έγγραφο αποτέλεσμα. Η επανεξέταση δεν περιορίζει την προσφυγή στην Ε.Ε.Τ.Τ., σε άλλη αρμόδια αρχή ή στα δικαστήρια.
+          Αν ο χρήστης δεν ικανοποιηθεί από την αρχική έγγραφη απάντηση, θα μπορεί να ζητήσει επανεξέταση από Επιτροπή Επίλυσης Διαφορών. Η ακριβής σύνθεση και ο εκπρόσωπος των χρηστών είναι υπό συμπλήρωση πριν από την εμπορική έναρξη. Η Επιτροπή θα περιλαμβάνει εκπρόσωπο της DUTT που δεν χειρίστηκε την αρχική εξέταση, αρμόδιο εκπρόσωπο λειτουργίας ή συμμόρφωσης και εκπρόσωπο των χρηστών. Ο ενδιαφερόμενος θα ειδοποιείται εγγράφως, θα δικαιούται να παραστεί αυτοπροσώπως ή με εκπρόσωπο, να καταθέσει υπόμνημα και αποδεικτικά και θα λαμβάνει αιτιολογημένο έγγραφο αποτέλεσμα. Η επανεξέταση δεν θα περιορίζει την προσφυγή στην Ε.Ε.Τ.Τ., σε άλλη αρμόδια αρχή ή στα δικαστήρια.
         </p>
       </section>
 
@@ -780,7 +805,7 @@
 
     <article data-language="en" hidden>
       <header class="hero">
-        <p class="eyebrow">Pre-launch draft</p>
+        <p class="eyebrow">Public draft for review</p>
         <h1>User and Consumer Obligations Charter</h1>
         <p class="lead">
           This Charter brings together DUTT's commitments to postal-service users and explains its services, charges, quality, support, compensation, complaints, data protection and confidentiality of communications.
@@ -790,9 +815,16 @@
           <div class="status-item"><span class="status-label">Draft date</span><span class="status-value">22 / 08 / 2026</span></div>
           <div class="status-item"><span class="status-label">Controlling language</span><span class="status-value">Greek</span></div>
         </div>
-        <p class="notice">
-          This text will take effect and be published as the official Charter before commercial launch, once the EETT registry number and declared postal activity codes have been inserted. It is not yet an effective Charter.
-        </p>
+        <div class="notice" role="status">
+          <strong>Public preview - not yet an effective Charter.</strong>
+          <p>This text is published for review of its structure and content. Before commercial launch, DUTT will complete:</p>
+          <ul>
+            <li>the EETT authorisation status and registry number,</li>
+            <li>the exact postal activity codes,</li>
+            <li>the final committee composition and user representative,</li>
+            <li>technical confirmation that complaints immediately receive a unique reference number.</li>
+          </ul>
+        </div>
       </header>
 
       <nav class="toc" aria-label="Obligations Charter contents">
@@ -838,9 +870,9 @@
           Service is supplied in the active geographical zones displayed through DUTT's digital channels and only when availability is confirmed. The infrastructure supports a unique shipment number, digital acceptance records, live statuses, collection and delivery evidence, and an event history.
         </p>
         <div class="identity-grid">
-          <div class="identity-item"><strong>EETT authorisation status</strong><span>To be completed before commercial launch after registration in the EETT registry.</span></div>
-          <div class="identity-item"><strong>EETT registry number</strong><span>Not yet published.</span></div>
-          <div class="identity-item"><strong>Postal activities by Greek activity code</strong><span>To be listed exactly as declared before commercial launch.</span></div>
+          <div class="identity-item"><strong>EETT authorisation status</strong><span>To be completed before commercial launch.</span></div>
+          <div class="identity-item"><strong>EETT registry number</strong><span>To be completed before commercial launch.</span></div>
+          <div class="identity-item"><strong>Postal activities by Greek activity code</strong><span>To be completed before commercial launch.</span></div>
           <div class="identity-item"><strong>Certifications</strong><span>No certification is claimed unless officially granted.</span></div>
         </div>
         <p>
@@ -1013,14 +1045,14 @@
           The first contact point is <a href="mailto:info@dutt.gr">info@dutt.gr</a>, customer support on <a href="tel:+302414005377">+30 241 400 5377</a>, or written mail to Koutlimpana 5-7, Larissa, Greece. The line operates Monday-Friday, 09:00-17:00 (Europe/Athens), excluding Greek public holidays. It is not a premium-rate line; normal charges under the caller's telecom provider tariff apply. A submission should include the person's name, contact details, shipment number, date, description and available evidence.
         </p>
         <p>
-          DUTT sends immediate acknowledgement with a unique reference number and date and provides a reasoned written or email response within fifteen business days. Material is retained while the agreement is active and for six additional months, or until any pending authority or court process is completed.
+          From the Charter's effective date, DUTT will send immediate acknowledgement with a unique reference number and date and will provide a reasoned written or email response within fifteen business days. Material will be retained while the agreement is active and for six additional months, or until any pending authority or court process is completed. Automatic assignment of a unique reference number is undergoing technical confirmation before commercial launch.
         </p>
         <p>
           If the dispute is not resolved directly, the user may contact EETT and other competent authorities or the Greek courts. DUTT does not commit in advance to a specific alternative dispute resolution body but informs the consumer of available options when the direct process does not resolve the dispute.
         </p>
         <h3>Dispute Resolution Committee</h3>
         <p>
-          If the user is not satisfied with the initial written response, they may request review by a Dispute Resolution Committee. Before commercial launch, the Committee will be constituted with a DUTT representative who did not handle the initial review, an appropriate operations or compliance representative, and a user representative. The interested user is notified in writing, may attend personally or through a representative, may submit a statement and evidence, and receives a reasoned written outcome. Review does not restrict recourse to EETT, another competent authority or the courts.
+          If the user is not satisfied with the initial written response, they will be able to request review by a Dispute Resolution Committee. The exact composition and user representative are to be completed before commercial launch. The Committee will include a DUTT representative who did not handle the initial review, an appropriate operations or compliance representative, and a user representative. The interested user will be notified in writing, may attend personally or through a representative, may submit a statement and evidence, and will receive a reasoned written outcome. Review will not restrict recourse to EETT, another competent authority or the courts.
         </p>
       </section>
 
