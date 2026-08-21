@@ -287,7 +287,35 @@
       }
 
       .nav-inner {
-        min-height: 72px;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px 12px;
+        padding: 10px 0;
+      }
+
+      .nav-right {
+        display: contents;
+      }
+
+      .lang-switcher {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .lang-btn {
+        flex: 1;
+        min-width: 0;
+        padding: 7px 8px;
+      }
+
+      .nav-right > .btn {
+        grid-column: 2;
+        grid-row: 1;
+        min-height: 42px;
+        padding: 9px 14px;
       }
 
       .brand img {
@@ -345,6 +373,10 @@
         <div class="lang-switcher" aria-label="Language switcher">
           <button class="lang-btn active" type="button" data-lang="en">EN</button>
           <button class="lang-btn" type="button" data-lang="el">GR</button>
+          <button class="lang-btn" type="button" data-lang="es">ES</button>
+          <button class="lang-btn" type="button" data-lang="fr">FR</button>
+          <button class="lang-btn" type="button" data-lang="de">DE</button>
+          <button class="lang-btn" type="button" data-lang="it">IT</button>
         </div>
 
         <a href="/" class="btn" data-i18n="backHome">Back to homepage</a>
@@ -361,76 +393,113 @@
 
       <h1 data-i18n="title">Terms of Use</h1>
       <p data-i18n="intro">
-        These Terms of Use describe the general conditions under which users may access and use the dutt website and related communication channels.
+        These Terms govern the DUTT website, applications, e-shop integrations, and delivery services used by individuals and businesses.
       </p>
+      <p data-i18n="updated">Last updated: August 21, 2026</p>
     </section>
 
     <section class="card">
       <h2 data-i18n="s1t">1. Acceptance of terms</h2>
       <p data-i18n="s1p1">
-        By accessing or using this website, users acknowledge that they accept these Terms of Use as they apply at the time of use.
+        By accessing, connecting, or using a DUTT website, application, integration, or delivery service, the user or business confirms that it has read and accepts these Terms. No separate acceptance checkbox is required for each delivery request.
       </p>
     </section>
 
     <section class="card">
-      <h2 data-i18n="s2t">2. Website purpose</h2>
+      <h2 data-i18n="s2t">2. DUTT's role and separate product sale</h2>
       <p data-i18n="s2p1">
-        The website is intended to provide information about dutt, its platform, its services, mobile applications, driver opportunities, and contact methods.
+        DUTT is the contracting provider of the delivery service. DUTT does not sell the transported products. A product purchase is a separate transaction between buyer and seller, and the seller remains responsible for the product, its sale, and the corresponding product receipt or invoice.
+      </p>
+      <p data-i18n="s2p2">
+        Physical collection and delivery may be performed by DUTT-employed couriers and/or independent delivery partners. The status of the person performing the delivery does not change DUTT's contractual role as provider of the delivery service.
       </p>
     </section>
 
     <section class="card">
-      <h2 data-i18n="s3t">3. User submissions</h2>
+      <h2 data-i18n="s3t">3. Customer App</h2>
       <p data-i18n="s3p1">
-        Users may submit information through contact forms or driver application forms. By submitting information, users confirm that the information they provide is accurate and does not violate the rights of any third party.
+        Individuals request delivery directly from DUTT through the Customer App. The delivery charge is separate from any product purchase, and DUTT issues the applicable retail receipt for the delivery service.
+      </p>
+      <p data-i18n="s3p2">
+        Businesses using the Customer App also request delivery directly from DUTT. DUTT issues the applicable receipt for immediate payment or a business invoice under the selected monthly invoicing arrangement.
       </p>
     </section>
 
     <section class="card">
-      <h2 data-i18n="s4t">4. Permitted use</h2>
+      <h2 data-i18n="s4t">4. WooCommerce and custom integrations</h2>
       <p data-i18n="s4p1">
-        Users agree not to misuse the website, attempt unauthorized access, submit false or misleading information, interfere with site functionality, or use the website for unlawful purposes.
+        The merchant remains the seller of its products and manages the customer's checkout, product sale, and its own fiscal obligations. DUTT supplies the separate delivery service to the merchant, charges the merchant under the agreed model, and issues the corresponding receipt or invoice to the merchant.
       </p>
     </section>
 
     <section class="card">
-      <h2 data-i18n="s5t">5. Intellectual property</h2>
+      <h2 data-i18n="s5t">5. Other business customers</h2>
       <p data-i18n="s5p1">
-        The content, branding, design, text, graphics, and visual elements of the website may be protected by intellectual property rights. They may not be copied, reproduced, or distributed without appropriate permission, unless otherwise permitted by law.
+        For direct business deliveries outside an e-shop integration, DUTT supplies the delivery service under the agreed commercial terms and issues the corresponding business invoice. The business remains responsible for the products, order information, packaging, and its own sales documents.
       </p>
     </section>
 
     <section class="card">
-      <h2 data-i18n="s6t">6. Third-party links and services</h2>
+      <h2 data-i18n="s6t">6. Delivery charges and tax documents</h2>
       <p data-i18n="s6p1">
-        The website may include links to third-party websites, app stores, or tools. dutt is not responsible for the content, availability, or policies of third-party services.
+        DUTT charges the person or business that purchases the delivery service through the applicable channel and issues the corresponding receipt or invoice for that service. The product seller separately charges for the product and issues the product receipt or invoice.
+      </p>
+      <p data-i18n="s6p2">
+        In an e-shop integration, any shipping amount displayed or collected by the merchant from its customer belongs to the merchant's own checkout and fiscal flow. It does not merge the product sale with DUTT's separate delivery service to the merchant.
       </p>
     </section>
 
     <section class="card">
-      <h2 data-i18n="s7t">7. Disclaimer</h2>
+      <h2 data-i18n="s7t">7. Merchant invoicing and overdue amounts</h2>
       <p data-i18n="s7p1">
-        The website and its contents are provided on an “as available” and “as is” basis. While reasonable efforts may be made to keep information accurate and updated, no guarantee is given that the website will always be error-free, uninterrupted, or fully up to date.
+        For merchants using monthly postpaid invoicing, delivery charges are consolidated into a monthly invoice. Each invoice is payable within 30 calendar days of receipt unless a different due date is expressly stated. DUTT may send reminders before and after the due date.
+      </p>
+      <p data-i18n="s7p2">
+        If an invoice remains wholly unpaid for five calendar days after its due date, DUTT may suspend new delivery requests until full payment is confirmed by the invoicing or payment provider.
+      </p>
+      <p data-i18n="s7p3">
+        Suspension does not cancel deliveries already in progress and does not restrict support, order history, or issued invoices. New delivery access is restored after full payment is confirmed.
       </p>
     </section>
 
     <section class="card">
-      <h2 data-i18n="s8t">8. Limitation of liability</h2>
+      <h2 data-i18n="s8t">8. User and merchant responsibilities</h2>
       <p data-i18n="s8p1">
-        To the maximum extent permitted by applicable law, dutt shall not be liable for indirect, incidental, or consequential damages arising from the use of, or inability to use, the website.
+        Users and merchants must provide accurate pickup, delivery, recipient, contact, item, and payment information. They must ensure that items are lawful, safe, suitably packaged, and within the accepted limits, and must not misuse the service or attempt unauthorized access.
       </p>
     </section>
 
     <section class="card">
-      <h2 data-i18n="s9t">9. Changes to the terms</h2>
+      <h2 data-i18n="s9t">9. Availability and third-party services</h2>
       <p data-i18n="s9p1">
-        These Terms of Use may be updated from time to time. Any revised version published on this page will replace the previous version.
+        Delivery availability and estimates depend on coverage, demand, traffic, weather, safe access, and other real-world conditions. DUTT also uses payment, mapping, communications, cloud, and other third-party services, whose temporary failure may affect the service.
       </p>
     </section>
 
     <section class="card">
-      <h2 data-i18n="s10t">10. Contact</h2>
+      <h2 data-i18n="s10t">10. Limitation of liability</h2>
       <p data-i18n="s10p1">
+        To the maximum extent permitted by law, DUTT is not liable for indirect or consequential loss or lost profits, or where loss results from incorrect information, unlawful or inadequately packaged items, inaccessible locations, unsafe conditions, or force majeure. Nothing in these Terms excludes mandatory consumer rights or liability that cannot lawfully be limited, and DUTT remains responsible for its delivery-service obligations under applicable law.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="s11t">11. Intellectual property and permitted use</h2>
+      <p data-i18n="s11p1">
+        DUTT branding, software, text, graphics, and service content may be protected by intellectual-property rights. Users must not copy protected material without permission, misuse the service, submit false information, interfere with operations, or use DUTT for unlawful purposes.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="s12t">12. Changes and governing law</h2>
+      <p data-i18n="s12p1">
+        DUTT may update these Terms by publishing a revised version on this page. The Terms are governed by Greek law, without limiting any mandatory protection that applies to the user.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="s13t">13. Contact</h2>
+      <p data-i18n="s13p1">
         For questions regarding these Terms of Use, please contact:
       </p>
       <p><a href="mailto:info@dutt.gr">info@dutt.gr</a></p>
@@ -448,60 +517,106 @@
   <script>
     const translations = {
       en: {
-        backHome: "Back to homepage",
-        eyebrow: "Legal",
-        title: "Terms of Use",
-        intro: "These Terms of Use describe the general conditions under which users may access and use the dutt website and related communication channels.",
-        s1t: "1. Acceptance of terms",
-        s1p1: "By accessing or using this website, users acknowledge that they accept these Terms of Use as they apply at the time of use.",
-        s2t: "2. Website purpose",
-        s2p1: "The website is intended to provide information about dutt, its platform, its services, mobile applications, driver opportunities, and contact methods.",
-        s3t: "3. User submissions",
-        s3p1: "Users may submit information through contact forms or driver application forms. By submitting information, users confirm that the information they provide is accurate and does not violate the rights of any third party.",
-        s4t: "4. Permitted use",
-        s4p1: "Users agree not to misuse the website, attempt unauthorized access, submit false or misleading information, interfere with site functionality, or use the website for unlawful purposes.",
-        s5t: "5. Intellectual property",
-        s5p1: "The content, branding, design, text, graphics, and visual elements of the website may be protected by intellectual property rights. They may not be copied, reproduced, or distributed without appropriate permission, unless otherwise permitted by law.",
-        s6t: "6. Third-party links and services",
-        s6p1: "The website may include links to third-party websites, app stores, or tools. dutt is not responsible for the content, availability, or policies of third-party services.",
-        s7t: "7. Disclaimer",
-        s7p1: "The website and its contents are provided on an “as available” and “as is” basis. While reasonable efforts may be made to keep information accurate and updated, no guarantee is given that the website will always be error-free, uninterrupted, or fully up to date.",
-        s8t: "8. Limitation of liability",
-        s8p1: "To the maximum extent permitted by applicable law, dutt shall not be liable for indirect, incidental, or consequential damages arising from the use of, or inability to use, the website.",
-        s9t: "9. Changes to the terms",
-        s9p1: "These Terms of Use may be updated from time to time. Any revised version published on this page will replace the previous version.",
-        s10t: "10. Contact",
-        s10p1: "For questions regarding these Terms of Use, please contact:",
-        footer1: "© 2026 dutt. All rights reserved.",
-        footer2: "Terms of Use"
+        backHome: "Back to homepage", eyebrow: "Legal", title: "Terms of Use",
+        intro: "These Terms govern the DUTT website, applications, e-shop integrations, and delivery services used by individuals and businesses.", updated: "Last updated: August 21, 2026",
+        s1t: "1. Acceptance of terms", s1p1: "By accessing, connecting, or using a DUTT website, application, integration, or delivery service, the user or business confirms that it has read and accepts these Terms. No separate acceptance checkbox is required for each delivery request.",
+        s2t: "2. DUTT's role and separate product sale", s2p1: "DUTT is the contracting provider of the delivery service. DUTT does not sell the transported products. A product purchase is a separate transaction between buyer and seller, and the seller remains responsible for the product, its sale, and the corresponding product receipt or invoice.", s2p2: "Physical collection and delivery may be performed by DUTT-employed couriers and/or independent delivery partners. The status of the person performing the delivery does not change DUTT's contractual role as provider of the delivery service.",
+        s3t: "3. Customer App", s3p1: "Individuals request delivery directly from DUTT through the Customer App. The delivery charge is separate from any product purchase, and DUTT issues the applicable retail receipt for the delivery service.", s3p2: "Businesses using the Customer App also request delivery directly from DUTT. DUTT issues the applicable receipt for immediate payment or a business invoice under the selected monthly invoicing arrangement.",
+        s4t: "4. WooCommerce and custom integrations", s4p1: "The merchant remains the seller of its products and manages the customer's checkout, product sale, and its own fiscal obligations. DUTT supplies the separate delivery service to the merchant, charges the merchant under the agreed model, and issues the corresponding receipt or invoice to the merchant.",
+        s5t: "5. Other business customers", s5p1: "For direct business deliveries outside an e-shop integration, DUTT supplies the delivery service under the agreed commercial terms and issues the corresponding business invoice. The business remains responsible for the products, order information, packaging, and its own sales documents.",
+        s6t: "6. Delivery charges and tax documents", s6p1: "DUTT charges the person or business that purchases the delivery service through the applicable channel and issues the corresponding receipt or invoice for that service. The product seller separately charges for the product and issues the product receipt or invoice.", s6p2: "In an e-shop integration, any shipping amount displayed or collected by the merchant from its customer belongs to the merchant's own checkout and fiscal flow. It does not merge the product sale with DUTT's separate delivery service to the merchant.",
+        s7t: "7. Merchant invoicing and overdue amounts", s7p1: "For merchants using monthly postpaid invoicing, delivery charges are consolidated into a monthly invoice. Each invoice is payable within 30 calendar days of receipt unless a different due date is expressly stated. DUTT may send reminders before and after the due date.", s7p2: "If an invoice remains wholly unpaid for five calendar days after its due date, DUTT may suspend new delivery requests until full payment is confirmed by the invoicing or payment provider.", s7p3: "Suspension does not cancel deliveries already in progress and does not restrict support, order history, or issued invoices. New delivery access is restored after full payment is confirmed.",
+        s8t: "8. User and merchant responsibilities", s8p1: "Users and merchants must provide accurate pickup, delivery, recipient, contact, item, and payment information. They must ensure that items are lawful, safe, suitably packaged, and within the accepted limits, and must not misuse the service or attempt unauthorized access.",
+        s9t: "9. Availability and third-party services", s9p1: "Delivery availability and estimates depend on coverage, demand, traffic, weather, safe access, and other real-world conditions. DUTT also uses payment, mapping, communications, cloud, and other third-party services, whose temporary failure may affect the service.",
+        s10t: "10. Limitation of liability", s10p1: "To the maximum extent permitted by law, DUTT is not liable for indirect or consequential loss or lost profits, or where loss results from incorrect information, unlawful or inadequately packaged items, inaccessible locations, unsafe conditions, or force majeure. Nothing in these Terms excludes mandatory consumer rights or liability that cannot lawfully be limited, and DUTT remains responsible for its delivery-service obligations under applicable law.",
+        s11t: "11. Intellectual property and permitted use", s11p1: "DUTT branding, software, text, graphics, and service content may be protected by intellectual-property rights. Users must not copy protected material without permission, misuse the service, submit false information, interfere with operations, or use DUTT for unlawful purposes.",
+        s12t: "12. Changes and governing law", s12p1: "DUTT may update these Terms by publishing a revised version on this page. The Terms are governed by Greek law, without limiting any mandatory protection that applies to the user.",
+        s13t: "13. Contact", s13p1: "For questions regarding these Terms of Use, please contact:", footer1: "© 2026 DUTT. All rights reserved.", footer2: "Terms of Use"
       },
       el: {
-        backHome: "Επιστροφή στην αρχική",
-        eyebrow: "Νομικά",
-        title: "Όροι Χρήσης",
-        intro: "Οι παρόντες Όροι Χρήσης περιγράφουν τις γενικές προϋποθέσεις υπό τις οποίες οι χρήστες μπορούν να έχουν πρόσβαση και να χρησιμοποιούν την ιστοσελίδα του dutt και τα σχετικά κανάλια επικοινωνίας.",
-        s1t: "1. Αποδοχή όρων",
-        s1p1: "Με την πρόσβαση ή χρήση της ιστοσελίδας, οι χρήστες αναγνωρίζουν ότι αποδέχονται τους παρόντες Όρους Χρήσης όπως ισχύουν κατά τον χρόνο χρήσης.",
-        s2t: "2. Σκοπός της ιστοσελίδας",
-        s2p1: "Η ιστοσελίδα προορίζεται να παρέχει πληροφορίες σχετικά με το dutt, την πλατφόρμα του, τις υπηρεσίες του, τις mobile εφαρμογές, τις ευκαιρίες για διανομείς και τους τρόπους επικοινωνίας.",
-        s3t: "3. Υποβολές χρηστών",
-        s3p1: "Οι χρήστες μπορούν να υποβάλλουν πληροφορίες μέσω φορμών επικοινωνίας ή αιτήσεων διανομέα. Με την υποβολή πληροφοριών, οι χρήστες επιβεβαιώνουν ότι τα στοιχεία που παρέχουν είναι ακριβή και δεν παραβιάζουν δικαιώματα οποιουδήποτε τρίτου.",
-        s4t: "4. Επιτρεπόμενη χρήση",
-        s4p1: "Οι χρήστες συμφωνούν να μην κάνουν κακή χρήση της ιστοσελίδας, να μην επιχειρούν μη εξουσιοδοτημένη πρόσβαση, να μην υποβάλλουν ψευδείς ή παραπλανητικές πληροφορίες, να μην παρεμβαίνουν στη λειτουργία της ιστοσελίδας και να μην τη χρησιμοποιούν για παράνομους σκοπούς.",
-        s5t: "5. Πνευματική ιδιοκτησία",
-        s5p1: "Το περιεχόμενο, το branding, ο σχεδιασμός, τα κείμενα, τα γραφικά και τα οπτικά στοιχεία της ιστοσελίδας μπορεί να προστατεύονται από δικαιώματα πνευματικής ιδιοκτησίας. Δεν επιτρέπεται η αντιγραφή, αναπαραγωγή ή διανομή τους χωρίς κατάλληλη άδεια, εκτός αν επιτρέπεται διαφορετικά από τον νόμο.",
-        s6t: "6. Σύνδεσμοι και υπηρεσίες τρίτων",
-        s6p1: "Η ιστοσελίδα μπορεί να περιλαμβάνει συνδέσμους προς ιστοσελίδες τρίτων, app stores ή εργαλεία. Το dutt δεν ευθύνεται για το περιεχόμενο, τη διαθεσιμότητα ή τις πολιτικές υπηρεσιών τρίτων.",
-        s7t: "7. Αποποίηση ευθύνης",
-        s7p1: "Η ιστοσελίδα και το περιεχόμενό της παρέχονται με βάση “ως έχουν” και “ως διατίθενται”. Παρότι μπορεί να καταβάλλεται εύλογη προσπάθεια ώστε οι πληροφορίες να είναι ακριβείς και ενημερωμένες, δεν παρέχεται εγγύηση ότι η ιστοσελίδα θα είναι πάντοτε χωρίς σφάλματα, αδιάλειπτη ή πλήρως ενημερωμένη.",
-        s8t: "8. Περιορισμός ευθύνης",
-        s8p1: "Στο μέγιστο βαθμό που επιτρέπεται από το εφαρμοστέο δίκαιο, το dutt δεν φέρει ευθύνη για έμμεσες, παρεπόμενες ή επακόλουθες ζημίες που προκύπτουν από τη χρήση ή την αδυναμία χρήσης της ιστοσελίδας.",
-        s9t: "9. Αλλαγές στους όρους",
-        s9p1: "Οι παρόντες Όροι Χρήσης μπορεί να ενημερώνονται κατά καιρούς. Οποιαδήποτε αναθεωρημένη έκδοση δημοσιεύεται σε αυτή τη σελίδα αντικαθιστά την προηγούμενη.",
-        s10t: "10. Επικοινωνία",
-        s10p1: "Για ερωτήσεις σχετικά με τους παρόντες Όρους Χρήσης, επικοινώνησε στο:",
-        footer1: "© 2026 dutt. Με κάθε επιφύλαξη νόμιμου δικαιώματος.",
-        footer2: "Όροι Χρήσης"
+        backHome: "Επιστροφή στην αρχική", eyebrow: "Νομικά", title: "Όροι Χρήσης",
+        intro: "Οι παρόντες Όροι διέπουν την ιστοσελίδα, τις εφαρμογές, τις συνδέσεις ηλεκτρονικών καταστημάτων και τις υπηρεσίες διανομής της DUTT που χρησιμοποιούν ιδιώτες και επιχειρήσεις.", updated: "Τελευταία ενημέρωση: 21 Αυγούστου 2026",
+        s1t: "1. Αποδοχή όρων", s1p1: "Με την πρόσβαση, σύνδεση ή χρήση ιστοσελίδας, εφαρμογής, σύνδεσης ή υπηρεσίας διανομής της DUTT, ο χρήστης ή η επιχείρηση επιβεβαιώνει ότι έχει διαβάσει και αποδέχεται τους παρόντες Όρους. Δεν απαιτείται ξεχωριστή αποδοχή για κάθε αίτημα διανομής.",
+        s2t: "2. Ρόλος της DUTT και χωριστή πώληση προϊόντος", s2p1: "Η DUTT είναι ο συμβατικός πάροχος της υπηρεσίας διανομής. Η DUTT δεν πωλεί τα μεταφερόμενα προϊόντα. Η αγορά προϊόντος αποτελεί ξεχωριστή συναλλαγή μεταξύ αγοραστή και πωλητή, ο οποίος παραμένει υπεύθυνος για το προϊόν, την πώλησή του και την αντίστοιχη απόδειξη ή το τιμολόγιο προϊόντος.", s2p2: "Η φυσική παραλαβή και παράδοση μπορεί να εκτελείται από μισθωτούς διανομείς της DUTT ή/και από ανεξάρτητους συνεργάτες διανομείς. Η ιδιότητα του προσώπου που εκτελεί τη διανομή δεν μεταβάλλει τον συμβατικό ρόλο της DUTT ως παρόχου της υπηρεσίας.",
+        s3t: "3. Customer App", s3p1: "Οι ιδιώτες ζητούν απευθείας από τη DUTT υπηρεσία διανομής μέσω του Customer App. Η χρέωση διανομής είναι χωριστή από οποιαδήποτε αγορά προϊόντος και η DUTT εκδίδει την προβλεπόμενη απόδειξη για την υπηρεσία.", s3p2: "Οι επιχειρήσεις που χρησιμοποιούν το Customer App ζητούν επίσης τη διανομή απευθείας από τη DUTT. Η DUTT εκδίδει την προβλεπόμενη απόδειξη για άμεση πληρωμή ή επαγγελματικό τιμολόγιο βάσει της επιλεγμένης μηνιαίας τιμολόγησης.",
+        s4t: "4. Συνδέσεις WooCommerce και προσαρμοσμένων ιστοσελίδων", s4p1: "Ο έμπορος παραμένει πωλητής των προϊόντων του και διαχειρίζεται την πληρωμή του πελάτη, την πώληση προϊόντος και τις δικές του φορολογικές υποχρεώσεις. Η DUTT παρέχει στον έμπορο τη χωριστή υπηρεσία διανομής, τον χρεώνει βάσει του συμφωνημένου μοντέλου και εκδίδει προς αυτόν την αντίστοιχη απόδειξη ή το τιμολόγιο.",
+        s5t: "5. Λοιποί επιχειρηματικοί πελάτες", s5p1: "Για απευθείας επαγγελματικές διανομές εκτός σύνδεσης ηλεκτρονικού καταστήματος, η DUTT παρέχει την υπηρεσία βάσει των συμφωνημένων εμπορικών όρων και εκδίδει το αντίστοιχο επαγγελματικό τιμολόγιο. Η επιχείρηση παραμένει υπεύθυνη για τα προϊόντα, τα στοιχεία παραγγελίας, τη συσκευασία και τα δικά της παραστατικά πώλησης.",
+        s6t: "6. Χρεώσεις διανομής και φορολογικά παραστατικά", s6p1: "Η DUTT χρεώνει το πρόσωπο ή την επιχείρηση που αγοράζει την υπηρεσία διανομής μέσω του αντίστοιχου καναλιού και εκδίδει την προβλεπόμενη απόδειξη ή το τιμολόγιο για την υπηρεσία. Ο πωλητής χρεώνει χωριστά το προϊόν και εκδίδει την απόδειξη ή το τιμολόγιο προϊόντος.", s6p2: "Σε σύνδεση ηλεκτρονικού καταστήματος, τυχόν μεταφορικά που εμφανίζει ή εισπράττει ο έμπορος από τον πελάτη του ανήκουν στη δική του ροή πληρωμής και φορολογικής καταχώρισης. Δεν συγχωνεύουν την πώληση προϊόντος με τη χωριστή υπηρεσία διανομής της DUTT προς τον έμπορο.",
+        s7t: "7. Επαγγελματική τιμολόγηση και ληξιπρόθεσμες οφειλές", s7p1: "Για επαγγελματίες με μεταγενέστερη μηνιαία τιμολόγηση, οι χρεώσεις διανομής συγκεντρώνονται σε μηνιαίο τιμολόγιο. Κάθε τιμολόγιο εξοφλείται εντός 30 ημερολογιακών ημερών από την παραλαβή του, εκτός αν αναγράφεται ρητά διαφορετική ημερομηνία λήξης. Η DUTT μπορεί να αποστέλλει υπενθυμίσεις πριν και μετά τη λήξη.", s7p2: "Αν ένα τιμολόγιο παραμένει εξ ολοκλήρου ανεξόφλητο για πέντε ημερολογιακές ημέρες μετά τη λήξη του, η DUTT μπορεί να αναστείλει τα νέα αιτήματα διανομής μέχρι να επιβεβαιωθεί η πλήρης εξόφληση από τον πάροχο τιμολόγησης ή πληρωμών.", s7p3: "Η αναστολή δεν ακυρώνει διανομές που βρίσκονται ήδη σε εξέλιξη και δεν περιορίζει την υποστήριξη, το ιστορικό παραγγελιών ή τα εκδοθέντα τιμολόγια. Η πρόσβαση σε νέες διανομές αποκαθίσταται μετά την επιβεβαίωση της πλήρους εξόφλησης.",
+        s8t: "8. Υποχρεώσεις χρηστών και επαγγελματιών", s8p1: "Χρήστες και επαγγελματίες οφείλουν να παρέχουν ακριβή στοιχεία παραλαβής, παράδοσης, παραλήπτη, επικοινωνίας, αντικειμένων και πληρωμής. Οφείλουν να διασφαλίζουν ότι τα αντικείμενα είναι νόμιμα, ασφαλή, κατάλληλα συσκευασμένα και εντός των αποδεκτών ορίων και να μην κάνουν κατάχρηση της υπηρεσίας ή απόπειρα μη εξουσιοδοτημένης πρόσβασης.",
+        s9t: "9. Διαθεσιμότητα και υπηρεσίες τρίτων", s9p1: "Η διαθεσιμότητα και οι εκτιμήσεις διανομής εξαρτώνται από την κάλυψη, τη ζήτηση, την κυκλοφορία, τον καιρό, την ασφαλή πρόσβαση και άλλες πραγματικές συνθήκες. Η DUTT χρησιμοποιεί επίσης υπηρεσίες πληρωμών, χαρτών, επικοινωνιών, υπολογιστικού νέφους και άλλες υπηρεσίες τρίτων, των οποίων προσωρινή βλάβη μπορεί να επηρεάσει την υπηρεσία.",
+        s10t: "10. Περιορισμός ευθύνης", s10p1: "Στο μέγιστο βαθμό που επιτρέπεται από τον νόμο, η DUTT δεν ευθύνεται για έμμεσες ή επακόλουθες ζημίες ή διαφυγόντα κέρδη ούτε όταν η ζημία οφείλεται σε λανθασμένα στοιχεία, παράνομα ή ανεπαρκώς συσκευασμένα αντικείμενα, μη προσβάσιμες τοποθεσίες, μη ασφαλείς συνθήκες ή ανωτέρα βία. Κανένας όρος δεν αποκλείει υποχρεωτικά δικαιώματα καταναλωτή ή ευθύνη που δεν μπορεί νόμιμα να περιοριστεί, και η DUTT παραμένει υπεύθυνη για τις υποχρεώσεις της ως προς την υπηρεσία διανομής σύμφωνα με το εφαρμοστέο δίκαιο.",
+        s11t: "11. Πνευματική ιδιοκτησία και επιτρεπόμενη χρήση", s11p1: "Η επωνυμία, το λογισμικό, τα κείμενα, τα γραφικά και το περιεχόμενο υπηρεσιών της DUTT μπορεί να προστατεύονται από δικαιώματα πνευματικής ιδιοκτησίας. Απαγορεύεται η αντιγραφή προστατευμένου υλικού χωρίς άδεια, η κατάχρηση της υπηρεσίας, η υποβολή ψευδών στοιχείων, η παρεμβολή στη λειτουργία και η χρήση της DUTT για παράνομους σκοπούς.",
+        s12t: "12. Αλλαγές και εφαρμοστέο δίκαιο", s12p1: "Η DUTT μπορεί να ενημερώνει τους παρόντες Όρους δημοσιεύοντας αναθεωρημένη έκδοση σε αυτή τη σελίδα. Οι Όροι διέπονται από το ελληνικό δίκαιο, χωρίς να περιορίζεται οποιαδήποτε υποχρεωτική προστασία ισχύει για τον χρήστη.",
+        s13t: "13. Επικοινωνία", s13p1: "Για ερωτήσεις σχετικά με τους παρόντες Όρους Χρήσης, επικοινωνήστε στο:", footer1: "© 2026 DUTT. Με κάθε επιφύλαξη νόμιμου δικαιώματος.", footer2: "Όροι Χρήσης"
+      },
+      es: {
+        backHome: "Volver a la página principal", eyebrow: "Información legal", title: "Términos de uso",
+        intro: "Estos Términos regulan el sitio web, las aplicaciones, las integraciones con tiendas en línea y los servicios de entrega de DUTT utilizados por particulares y empresas.", updated: "Última actualización: 21 de agosto de 2026",
+        s1t: "1. Aceptación de los Términos", s1p1: "Al acceder, conectar o utilizar un sitio web, una aplicación, una integración o un servicio de entrega de DUTT, el usuario o la empresa confirma que ha leído y acepta estos Términos. No se requiere una aceptación separada para cada solicitud de entrega.",
+        s2t: "2. Función de DUTT y venta separada del producto", s2p1: "DUTT es el proveedor contractual del servicio de entrega. DUTT no vende los productos transportados. La compra de un producto es una operación separada entre comprador y vendedor, y el vendedor sigue siendo responsable del producto, de su venta y del recibo o factura correspondiente.", s2p2: "La recogida y la entrega físicas pueden ser realizadas por repartidores contratados laboralmente por DUTT y/o por colaboradores de reparto independientes. La condición de la persona que realiza la entrega no modifica la función contractual de DUTT como proveedor del servicio.",
+        s3t: "3. Aplicación para clientes", s3p1: "Los particulares solicitan la entrega directamente a DUTT mediante la aplicación para clientes. El cargo de entrega está separado de cualquier compra de productos y DUTT emite el recibo correspondiente al servicio.", s3p2: "Las empresas que utilizan la aplicación también solicitan la entrega directamente a DUTT. DUTT emite el recibo correspondiente cuando el pago es inmediato o una factura empresarial conforme al plan de facturación mensual seleccionado.",
+        s4t: "4. Integraciones con WooCommerce y sitios web personalizados", s4p1: "El comerciante sigue siendo el vendedor de sus productos y gestiona el pago del cliente, la venta de los productos y sus propias obligaciones fiscales. DUTT presta al comerciante el servicio de entrega separado, le cobra según el modelo acordado y emite a su nombre el recibo o la factura correspondiente.",
+        s5t: "5. Otros clientes empresariales", s5p1: "Para entregas empresariales directas fuera de una integración con una tienda en línea, DUTT presta el servicio conforme a las condiciones comerciales acordadas y emite la factura empresarial correspondiente. La empresa sigue siendo responsable de los productos, los datos del pedido, el embalaje y sus propios documentos de venta.",
+        s6t: "6. Cargos de entrega y documentos fiscales", s6p1: "DUTT cobra a la persona o empresa que adquiere el servicio de entrega a través del canal aplicable y emite el recibo o la factura correspondiente. El vendedor cobra por separado el producto y emite el recibo o la factura del producto.", s6p2: "En una integración con una tienda en línea, cualquier gasto de envío mostrado o cobrado por el comerciante a su cliente pertenece al propio flujo de pago y fiscal del comerciante. No une la venta del producto con el servicio de entrega separado que DUTT presta al comerciante.",
+        s7t: "7. Facturación a comerciantes e importes vencidos", s7p1: "Para los comerciantes con facturación mensual pospago, los cargos de entrega se consolidan en una factura mensual. Cada factura debe pagarse dentro de los 30 días naturales siguientes a su recepción, salvo que se indique expresamente otra fecha de vencimiento. DUTT puede enviar recordatorios antes y después del vencimiento.", s7p2: "Si una factura permanece totalmente impagada durante cinco días naturales después de su vencimiento, DUTT puede suspender nuevas solicitudes de entrega hasta que el proveedor de facturación o pagos confirme el pago total.", s7p3: "La suspensión no cancela entregas ya en curso ni restringe la asistencia, el historial de pedidos o las facturas emitidas. El acceso a nuevas entregas se restablece tras confirmarse el pago total.",
+        s8t: "8. Responsabilidades de usuarios y comerciantes", s8p1: "Los usuarios y comerciantes deben facilitar datos exactos de recogida, entrega, destinatario, contacto, artículos y pago. Deben asegurarse de que los artículos sean lícitos, seguros, estén adecuadamente embalados y dentro de los límites aceptados, y no deben utilizar indebidamente el servicio ni intentar accesos no autorizados.",
+        s9t: "9. Disponibilidad y servicios de terceros", s9p1: "La disponibilidad y las estimaciones de entrega dependen de la cobertura, la demanda, el tráfico, el tiempo, el acceso seguro y otras condiciones reales. DUTT también utiliza servicios de pagos, mapas, comunicaciones, nube y otros servicios de terceros, cuyo fallo temporal puede afectar al servicio.",
+        s10t: "10. Limitación de responsabilidad", s10p1: "En la máxima medida permitida por la ley, DUTT no responde de daños indirectos o consecuenciales ni del lucro cesante, ni cuando el daño se deba a información incorrecta, artículos ilícitos o embalados de forma inadecuada, ubicaciones inaccesibles, condiciones inseguras o fuerza mayor. Nada en estos Términos excluye derechos imperativos de los consumidores o responsabilidades que no puedan limitarse legalmente, y DUTT sigue siendo responsable de sus obligaciones relativas al servicio de entrega conforme a la legislación aplicable.",
+        s11t: "11. Propiedad intelectual y uso permitido", s11p1: "La marca, el software, los textos, los gráficos y el contenido del servicio de DUTT pueden estar protegidos por derechos de propiedad intelectual. Los usuarios no deben copiar material protegido sin permiso, utilizar indebidamente el servicio, presentar información falsa, interferir en las operaciones ni utilizar DUTT para fines ilícitos.",
+        s12t: "12. Modificaciones y legislación aplicable", s12p1: "DUTT puede actualizar estos Términos publicando una versión revisada en esta página. Los Términos se rigen por la legislación griega, sin limitar ninguna protección imperativa aplicable al usuario.",
+        s13t: "13. Contacto", s13p1: "Para consultas sobre estos Términos de uso, póngase en contacto con:", footer1: "© 2026 DUTT. Todos los derechos reservados.", footer2: "Términos de uso"
+      },
+      fr: {
+        backHome: "Retour à l'accueil", eyebrow: "Mentions légales", title: "Conditions d'utilisation",
+        intro: "Les présentes Conditions régissent le site internet, les applications, les intégrations de boutiques en ligne et les services de livraison de DUTT utilisés par les particuliers et les entreprises.", updated: "Dernière mise à jour : 21 août 2026",
+        s1t: "1. Acceptation des Conditions", s1p1: "En accédant à un site, une application, une intégration ou un service de livraison de DUTT, en le connectant ou en l'utilisant, l'utilisateur ou l'entreprise confirme avoir lu et accepté les présentes Conditions. Aucune acceptation distincte n'est requise pour chaque demande de livraison.",
+        s2t: "2. Rôle de DUTT et vente distincte du produit", s2p1: "DUTT est le prestataire contractuel du service de livraison. DUTT ne vend pas les produits transportés. L'achat d'un produit constitue une transaction distincte entre l'acheteur et le vendeur, qui reste responsable du produit, de sa vente et du reçu ou de la facture correspondante.", s2p2: "La collecte et la livraison matérielles peuvent être effectuées par des livreurs salariés de DUTT et/ou par des partenaires de livraison indépendants. Le statut de la personne qui effectue la livraison ne modifie pas le rôle contractuel de DUTT en tant que prestataire du service.",
+        s3t: "3. Application client", s3p1: "Les particuliers demandent directement la livraison à DUTT au moyen de l'application client. Le prix de la livraison est distinct de tout achat de produit et DUTT émet le reçu applicable au service.", s3p2: "Les entreprises qui utilisent l'application demandent également la livraison directement à DUTT. DUTT émet le reçu applicable en cas de paiement immédiat ou une facture professionnelle selon le dispositif de facturation mensuelle choisi.",
+        s4t: "4. Intégrations WooCommerce et sites personnalisés", s4p1: "Le commerçant reste le vendeur de ses produits et gère le paiement de son client, la vente des produits et ses propres obligations fiscales. DUTT fournit au commerçant le service de livraison distinct, lui facture le prix convenu et lui adresse le reçu ou la facture correspondante.",
+        s5t: "5. Autres clients professionnels", s5p1: "Pour les livraisons professionnelles directes hors intégration de boutique en ligne, DUTT fournit le service selon les conditions commerciales convenues et émet la facture professionnelle correspondante. L'entreprise reste responsable des produits, des informations de commande, de l'emballage et de ses propres documents de vente.",
+        s6t: "6. Prix de livraison et documents fiscaux", s6p1: "DUTT facture la personne ou l'entreprise qui achète le service de livraison par le canal applicable et émet le reçu ou la facture correspondant au service. Le vendeur facture séparément le produit et émet le reçu ou la facture du produit.", s6p2: "Dans une intégration de boutique en ligne, les éventuels frais de port affichés ou encaissés par le commerçant auprès de son client relèvent de son propre parcours de paiement et fiscal. Ils ne confondent pas la vente du produit avec le service de livraison distinct fourni par DUTT au commerçant.",
+        s7t: "7. Facturation des commerçants et impayés", s7p1: "Pour les commerçants utilisant la facturation mensuelle à terme, les frais de livraison sont regroupés dans une facture mensuelle. Chaque facture est payable dans les 30 jours calendaires suivant sa réception, sauf échéance différente expressément indiquée. DUTT peut envoyer des rappels avant et après l'échéance.", s7p2: "Si une facture reste entièrement impayée pendant cinq jours calendaires après son échéance, DUTT peut suspendre les nouvelles demandes de livraison jusqu'à confirmation du paiement intégral par le prestataire de facturation ou de paiement.", s7p3: "La suspension n'annule pas les livraisons déjà en cours et ne limite pas l'assistance, l'historique des commandes ou les factures émises. L'accès aux nouvelles livraisons est rétabli après confirmation du paiement intégral.",
+        s8t: "8. Responsabilités des utilisateurs et commerçants", s8p1: "Les utilisateurs et commerçants doivent fournir des informations exactes concernant la collecte, la livraison, le destinataire, les coordonnées, les objets et le paiement. Ils doivent veiller à ce que les objets soient licites, sûrs, convenablement emballés et conformes aux limites acceptées, et ne doivent pas détourner le service ni tenter un accès non autorisé.",
+        s9t: "9. Disponibilité et services tiers", s9p1: "La disponibilité et les estimations de livraison dépendent de la couverture, de la demande, de la circulation, de la météo, de la sécurité d'accès et d'autres conditions réelles. DUTT utilise également des services tiers de paiement, de cartographie, de communication et d'informatique en nuage, dont une défaillance temporaire peut affecter le service.",
+        s10t: "10. Limitation de responsabilité", s10p1: "Dans toute la mesure permise par la loi, DUTT n'est pas responsable des dommages indirects ou consécutifs ni des pertes de bénéfices, ni lorsqu'un dommage résulte d'informations incorrectes, d'objets illicites ou insuffisamment emballés, de lieux inaccessibles, de conditions dangereuses ou d'un cas de force majeure. Aucune disposition n'exclut les droits impératifs des consommateurs ni une responsabilité qui ne peut légalement être limitée, et DUTT reste responsable de ses obligations relatives au service de livraison conformément au droit applicable.",
+        s11t: "11. Propriété intellectuelle et utilisation autorisée", s11p1: "La marque, les logiciels, les textes, les éléments graphiques et le contenu du service de DUTT peuvent être protégés par des droits de propriété intellectuelle. Les utilisateurs ne doivent pas copier de contenu protégé sans autorisation, détourner le service, fournir de fausses informations, perturber les opérations ni utiliser DUTT à des fins illicites.",
+        s12t: "12. Modifications et droit applicable", s12p1: "DUTT peut mettre à jour les présentes Conditions en publiant une version révisée sur cette page. Elles sont régies par le droit grec, sans limiter toute protection impérative applicable à l'utilisateur.",
+        s13t: "13. Contact", s13p1: "Pour toute question concernant les présentes Conditions d'utilisation, veuillez contacter :", footer1: "© 2026 DUTT. Tous droits réservés.", footer2: "Conditions d'utilisation"
+      },
+      de: {
+        backHome: "Zur Startseite", eyebrow: "Rechtliches", title: "Nutzungsbedingungen",
+        intro: "Diese Bedingungen regeln die Website, Anwendungen, Onlineshop-Integrationen und Lieferdienste von DUTT, die von Privatpersonen und Unternehmen genutzt werden.", updated: "Letzte Aktualisierung: 21. August 2026",
+        s1t: "1. Annahme der Bedingungen", s1p1: "Durch den Zugriff auf eine Website, Anwendung, Integration oder einen Lieferdienst von DUTT, deren Verbindung oder Nutzung bestätigt der Nutzer oder das Unternehmen, diese Bedingungen gelesen zu haben und ihnen zuzustimmen. Für einzelne Lieferanfragen ist keine gesonderte Zustimmung erforderlich.",
+        s2t: "2. Rolle von DUTT und gesonderter Produktverkauf", s2p1: "DUTT ist der Vertragspartner und Anbieter des Lieferdienstes. DUTT verkauft die beförderten Produkte nicht. Ein Produktkauf ist ein gesondertes Geschäft zwischen Käufer und Verkäufer; der Verkäufer bleibt für das Produkt, dessen Verkauf und den entsprechenden Beleg oder die Rechnung verantwortlich.", s2p2: "Die tatsächliche Abholung und Lieferung kann durch bei DUTT angestellte Kuriere und/oder unabhängige Lieferpartner erfolgen. Der Status der liefernden Person ändert nichts an der vertraglichen Rolle von DUTT als Anbieter des Dienstes.",
+        s3t: "3. Kunden-App", s3p1: "Privatkunden bestellen die Lieferung über die Kunden-App unmittelbar bei DUTT. Die Liefergebühr ist von jedem Produktkauf getrennt; DUTT stellt den entsprechenden Kassenbeleg für den Dienst aus.", s3p2: "Unternehmen, die die Kunden-App nutzen, bestellen ebenfalls unmittelbar bei DUTT. DUTT stellt bei sofortiger Zahlung den entsprechenden Beleg oder im gewählten monatlichen Abrechnungsmodell eine Geschäftsrechnung aus.",
+        s4t: "4. WooCommerce- und individuelle Website-Integrationen", s4p1: "Der Händler bleibt Verkäufer seiner Produkte und verwaltet die Zahlung seines Kunden, den Produktverkauf und seine eigenen steuerlichen Pflichten. DUTT erbringt für den Händler den gesonderten Lieferdienst, berechnet ihn nach dem vereinbarten Modell und stellt dem Händler den entsprechenden Beleg oder die Rechnung aus.",
+        s5t: "5. Sonstige Geschäftskunden", s5p1: "Bei unmittelbaren Geschäftslieferungen außerhalb einer Onlineshop-Integration erbringt DUTT den Dienst zu den vereinbarten Geschäftsbedingungen und stellt die entsprechende Geschäftsrechnung aus. Das Unternehmen bleibt für Produkte, Bestelldaten, Verpackung und seine eigenen Verkaufsbelege verantwortlich.",
+        s6t: "6. Liefergebühren und Steuerbelege", s6p1: "DUTT belastet die Person oder das Unternehmen, die beziehungsweise das den Lieferdienst über den jeweiligen Kanal erwirbt, und stellt den entsprechenden Beleg oder die Rechnung aus. Der Verkäufer berechnet das Produkt gesondert und stellt den Produktbeleg oder die Produktrechnung aus.", s6p2: "Bei einer Onlineshop-Integration gehören Versandkosten, die der Händler seinem Kunden anzeigt oder von ihm einzieht, zum eigenen Zahlungs- und Steuerablauf des Händlers. Sie verbinden den Produktverkauf nicht mit dem gesonderten Lieferdienst von DUTT für den Händler.",
+        s7t: "7. Händlerabrechnung und überfällige Beträge", s7p1: "Bei monatlicher nachträglicher Abrechnung werden die Liefergebühren in einer Monatsrechnung zusammengefasst. Jede Rechnung ist innerhalb von 30 Kalendertagen nach Erhalt zahlbar, sofern nicht ausdrücklich ein anderes Fälligkeitsdatum angegeben ist. DUTT kann vor und nach Fälligkeit Erinnerungen senden.", s7p2: "Bleibt eine Rechnung fünf Kalendertage nach Fälligkeit vollständig unbezahlt, kann DUTT neue Lieferanfragen aussetzen, bis der Abrechnungs- oder Zahlungsdienstleister die vollständige Zahlung bestätigt.", s7p3: "Die Aussetzung beendet keine bereits laufenden Lieferungen und beschränkt weder Support noch Bestellverlauf oder ausgestellte Rechnungen. Der Zugang zu neuen Lieferungen wird nach Bestätigung der vollständigen Zahlung wiederhergestellt.",
+        s8t: "8. Pflichten von Nutzern und Händlern", s8p1: "Nutzer und Händler müssen richtige Angaben zu Abholung, Lieferung, Empfänger, Kontakt, Gegenständen und Zahlung machen. Sie müssen sicherstellen, dass Gegenstände rechtmäßig, sicher, angemessen verpackt und innerhalb der zulässigen Grenzen sind, und dürfen den Dienst weder missbräuchlich nutzen noch unbefugten Zugriff versuchen.",
+        s9t: "9. Verfügbarkeit und Dienste Dritter", s9p1: "Verfügbarkeit und Lieferprognosen hängen von Abdeckung, Nachfrage, Verkehr, Wetter, sicherem Zugang und anderen tatsächlichen Bedingungen ab. DUTT nutzt außerdem Zahlungs-, Karten-, Kommunikations-, Cloud- und andere Dienste Dritter, deren vorübergehender Ausfall den Dienst beeinträchtigen kann.",
+        s10t: "10. Haftungsbeschränkung", s10p1: "Soweit gesetzlich zulässig, haftet DUTT nicht für mittelbare oder Folgeschäden oder entgangenen Gewinn und nicht, wenn Schäden auf falschen Angaben, rechtswidrigen oder unzureichend verpackten Gegenständen, unzugänglichen Orten, unsicheren Bedingungen oder höherer Gewalt beruhen. Diese Bedingungen schließen weder zwingende Verbraucherrechte noch eine Haftung aus, die gesetzlich nicht beschränkt werden darf; DUTT bleibt für seine gesetzlichen Pflichten aus dem Lieferdienst verantwortlich.",
+        s11t: "11. Geistiges Eigentum und zulässige Nutzung", s11p1: "Marke, Software, Texte, Grafiken und Dienstinhalte von DUTT können durch Rechte des geistigen Eigentums geschützt sein. Nutzer dürfen geschützte Inhalte nicht ohne Erlaubnis kopieren, den Dienst nicht missbrauchen, keine falschen Angaben machen, den Betrieb nicht beeinträchtigen und DUTT nicht für rechtswidrige Zwecke nutzen.",
+        s12t: "12. Änderungen und anwendbares Recht", s12p1: "DUTT kann diese Bedingungen durch Veröffentlichung einer überarbeiteten Fassung auf dieser Seite aktualisieren. Es gilt griechisches Recht, ohne zwingende Schutzvorschriften für den Nutzer einzuschränken.",
+        s13t: "13. Kontakt", s13p1: "Bei Fragen zu diesen Nutzungsbedingungen wenden Sie sich bitte an:", footer1: "© 2026 DUTT. Alle Rechte vorbehalten.", footer2: "Nutzungsbedingungen"
+      },
+      it: {
+        backHome: "Torna alla pagina iniziale", eyebrow: "Informazioni legali", title: "Termini di utilizzo",
+        intro: "I presenti Termini disciplinano il sito web, le applicazioni, le integrazioni con negozi online e i servizi di consegna di DUTT utilizzati da privati e imprese.", updated: "Ultimo aggiornamento: 21 agosto 2026",
+        s1t: "1. Accettazione dei Termini", s1p1: "Accedendo, collegando o utilizzando un sito, un'applicazione, un'integrazione o un servizio di consegna di DUTT, l'utente o l'impresa conferma di aver letto e accettato i presenti Termini. Non è richiesta un'accettazione separata per ogni richiesta di consegna.",
+        s2t: "2. Ruolo di DUTT e vendita separata del prodotto", s2p1: "DUTT è il fornitore contrattuale del servizio di consegna. DUTT non vende i prodotti trasportati. L'acquisto di un prodotto costituisce un'operazione separata tra acquirente e venditore, che resta responsabile del prodotto, della vendita e della relativa ricevuta o fattura.", s2p2: "Il ritiro e la consegna materiali possono essere effettuati da corrieri dipendenti di DUTT e/o da partner di consegna indipendenti. La qualifica della persona che effettua la consegna non modifica il ruolo contrattuale di DUTT quale fornitore del servizio.",
+        s3t: "3. Applicazione per i clienti", s3p1: "I privati richiedono la consegna direttamente a DUTT tramite l'applicazione per i clienti. Il costo della consegna è separato da qualsiasi acquisto di prodotti e DUTT emette la ricevuta applicabile al servizio.", s3p2: "Anche le imprese che utilizzano l'applicazione richiedono la consegna direttamente a DUTT. DUTT emette la ricevuta applicabile per il pagamento immediato oppure una fattura aziendale secondo il piano di fatturazione mensile selezionato.",
+        s4t: "4. Integrazioni WooCommerce e siti web personalizzati", s4p1: "L'esercente resta il venditore dei propri prodotti e gestisce il pagamento del cliente, la vendita dei prodotti e i propri obblighi fiscali. DUTT fornisce all'esercente il servizio di consegna separato, gli addebita il prezzo secondo il modello concordato ed emette nei suoi confronti la relativa ricevuta o fattura.",
+        s5t: "5. Altri clienti aziendali", s5p1: "Per le consegne aziendali dirette al di fuori di un'integrazione con un negozio online, DUTT fornisce il servizio secondo le condizioni commerciali concordate ed emette la relativa fattura aziendale. L'impresa resta responsabile dei prodotti, dei dati dell'ordine, dell'imballaggio e dei propri documenti di vendita.",
+        s6t: "6. Costi di consegna e documenti fiscali", s6p1: "DUTT addebita il servizio alla persona o all'impresa che lo acquista attraverso il canale applicabile ed emette la relativa ricevuta o fattura. Il venditore addebita separatamente il prodotto ed emette la ricevuta o la fattura del prodotto.", s6p2: "In un'integrazione con un negozio online, gli eventuali costi di spedizione mostrati o riscossi dall'esercente nei confronti del cliente appartengono al flusso di pagamento e fiscale dell'esercente. Non uniscono la vendita del prodotto al servizio di consegna separato fornito da DUTT all'esercente.",
+        s7t: "7. Fatturazione degli esercenti e importi scaduti", s7p1: "Per gli esercenti con fatturazione mensile posticipata, i costi di consegna vengono raggruppati in una fattura mensile. Ogni fattura deve essere pagata entro 30 giorni di calendario dal ricevimento, salvo diversa scadenza espressamente indicata. DUTT può inviare promemoria prima e dopo la scadenza.", s7p2: "Se una fattura rimane interamente insoluta per cinque giorni di calendario dopo la scadenza, DUTT può sospendere le nuove richieste di consegna finché il fornitore di fatturazione o di pagamento non conferma il pagamento integrale.", s7p3: "La sospensione non annulla le consegne già in corso e non limita l'assistenza, la cronologia degli ordini o le fatture emesse. L'accesso alle nuove consegne viene ripristinato dopo la conferma del pagamento integrale.",
+        s8t: "8. Responsabilità degli utenti e degli esercenti", s8p1: "Utenti ed esercenti devono fornire dati esatti relativi a ritiro, consegna, destinatario, contatti, oggetti e pagamento. Devono assicurare che gli oggetti siano leciti, sicuri, adeguatamente imballati e nei limiti accettati, e non devono utilizzare impropriamente il servizio né tentare accessi non autorizzati.",
+        s9t: "9. Disponibilità e servizi di terzi", s9p1: "La disponibilità e le stime di consegna dipendono dalla copertura, dalla domanda, dal traffico, dalle condizioni meteorologiche, dall'accesso sicuro e da altre condizioni reali. DUTT utilizza inoltre servizi di pagamento, cartografici, di comunicazione, cloud e altri servizi di terzi, il cui guasto temporaneo può incidere sul servizio.",
+        s10t: "10. Limitazione di responsabilità", s10p1: "Nella misura massima consentita dalla legge, DUTT non è responsabile per danni indiretti o consequenziali o mancati profitti, né quando il danno derivi da informazioni errate, oggetti illeciti o imballati in modo inadeguato, luoghi inaccessibili, condizioni non sicure o forza maggiore. Nessuna disposizione esclude diritti inderogabili dei consumatori o responsabilità che non possano essere legalmente limitate, e DUTT resta responsabile dei propri obblighi relativi al servizio di consegna secondo la legge applicabile.",
+        s11t: "11. Proprietà intellettuale e utilizzo consentito", s11p1: "Il marchio, il software, i testi, la grafica e i contenuti del servizio di DUTT possono essere protetti da diritti di proprietà intellettuale. Gli utenti non devono copiare materiale protetto senza autorizzazione, utilizzare impropriamente il servizio, fornire informazioni false, interferire con le operazioni o utilizzare DUTT per scopi illeciti.",
+        s12t: "12. Modifiche e legge applicabile", s12p1: "DUTT può aggiornare i presenti Termini pubblicando una versione modificata su questa pagina. I Termini sono disciplinati dalla legge greca, senza limitare eventuali tutele inderogabili applicabili all'utente.",
+        s13t: "13. Contatti", s13p1: "Per domande sui presenti Termini di utilizzo, contattare:", footer1: "© 2026 DUTT. Tutti i diritti riservati.", footer2: "Termini di utilizzo"
       }
     };
 
