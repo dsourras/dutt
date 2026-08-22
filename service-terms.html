@@ -317,8 +317,8 @@
       border-bottom: 0;
     }
 
-    .price-table td:last-child,
-    .price-table th:last-child {
+    .price-table td:not(:first-child),
+    .price-table th:not(:first-child) {
       text-align: right;
       font-variant-numeric: tabular-nums;
     }
@@ -410,6 +410,12 @@
       .price-table {
         min-width: 0;
         table-layout: fixed;
+      }
+
+      .price-table th,
+      .price-table td {
+        padding: 10px 6px;
+        font-size: 0.76rem;
       }
     }
 
@@ -603,9 +609,9 @@
 
       <section class="contract-section" id="pricing" data-pricing-policy-version="launch_v12_tiered_customer_uplift">
         <h2>7. Τιμοκατάλογος υπηρεσιών</h2>
-        <p><span class="legal-emphasis">Ημερομηνία έναρξης ισχύος: 21 / 08 / 2026.</span> Νόμισμα: ευρώ. Όλες οι τελικές τιμές περιλαμβάνουν ΦΠΑ 24%.</p>
+        <p><span class="legal-emphasis">Ημερομηνία έναρξης ισχύος: 21 / 08 / 2026.</span> Νόμισμα: ευρώ. Ο πίνακας αναγράφει χωριστά την καθαρή αξία, τον ΦΠΑ 24% και την τελική τιμή.</p>
         <p>
-          Η DUTT χρησιμοποιεί δυναμική τιμολόγηση. Η πραγματική οδική απόσταση υπολογίζεται ψηφιακά και η ακριβής τελική χρέωση εμφανίζεται πριν από την αποδοχή. Ο παρακάτω πίνακας δίνει την τελική τιμή για ακέραιη απόσταση, τυπικό δίκυκλο, χωρίς προσαύξηση ζήτησης και χωρίς ζωνική προσαρμογή. Για ενδιάμεση απόσταση ο υπολογισμός γίνεται συνεχώς και στρογγυλοποιείται στο λεπτό του ευρώ.
+          Η DUTT χρησιμοποιεί δυναμική τιμολόγηση. Η πραγματική οδική απόσταση υπολογίζεται ψηφιακά και η ακριβής τελική χρέωση εμφανίζεται πριν από την αποδοχή. Ο παρακάτω πίνακας αναλύει την τιμή για ακέραιη απόσταση, τυπικό δίκυκλο, χωρίς προσαύξηση ζήτησης και χωρίς ζωνική προσαρμογή. Για ενδιάμεση απόσταση ο υπολογισμός γίνεται συνεχώς και στρογγυλοποιείται στο λεπτό του ευρώ.
         </p>
 
         <div class="rate-grid">
@@ -617,8 +623,8 @@
 
         <div class="table-wrap">
           <table class="price-table">
-            <thead><tr><th>Οδική απόσταση</th><th>Τελική τιμή με ΦΠΑ</th></tr></thead>
-            <tbody data-price-body></tbody>
+            <thead><tr><th>Οδική απόσταση</th><th>Καθαρή αξία</th><th>ΦΠΑ 24%</th><th>Τελική τιμή</th></tr></thead>
+            <tbody data-price-body data-price-locale="el"></tbody>
           </table>
         </div>
 
@@ -855,9 +861,9 @@
 
       <section class="contract-section" id="pricing-en" data-pricing-policy-version="launch_v12_tiered_customer_uplift">
         <h2>7. Service price list</h2>
-        <p><span class="legal-emphasis">Effective date: 21 / 08 / 2026.</span> Currency: euro. All final prices include 24% VAT.</p>
+        <p><span class="legal-emphasis">Effective date: 21 / 08 / 2026.</span> Currency: euro. The table separately states the net amount, 24% VAT and final price.</p>
         <p>
-          DUTT uses dynamic pricing. Actual road distance is calculated digitally and the exact final charge is displayed before acceptance. The table below shows the final price at each whole kilometre for a standard two-wheeler, with no demand or zone adjustment. Intermediate distances are calculated continuously and rounded to the nearest cent.
+          DUTT uses dynamic pricing. Actual road distance is calculated digitally and the exact final charge is displayed before acceptance. The table below provides a price breakdown at each whole kilometre for a standard two-wheeler, with no demand or zone adjustment. Intermediate distances are calculated continuously and rounded to the nearest cent.
         </p>
         <div class="rate-grid">
           <div class="rate-item"><strong>Live demand</strong><span>0%, 1%, 1.5% or 2.5% of the base net value, with VAT included in the final quote.</span></div>
@@ -867,8 +873,8 @@
         </div>
         <div class="table-wrap">
           <table class="price-table">
-            <thead><tr><th>Road distance</th><th>Final price including VAT</th></tr></thead>
-            <tbody data-price-body></tbody>
+            <thead><tr><th>Road distance</th><th>Net amount</th><th>VAT 24%</th><th>Final price</th></tr></thead>
+            <tbody data-price-body data-price-locale="en"></tbody>
           </table>
         </div>
 
@@ -996,9 +1002,34 @@
       37.90, 39.21, 40.53, 41.82, 43.13, 44.44, 45.75, 47.04, 48.36, 49.67
     ];
 
+    const VAT_RATE = 0.24;
+
+    function splitVatIncludedPrice(finalPrice) {
+      const finalCents = Math.round(finalPrice * 100);
+      const netCents = Math.round(finalCents / (1 + VAT_RATE));
+      return {
+        net: netCents / 100,
+        vat: (finalCents - netCents) / 100,
+        final: finalCents / 100
+      };
+    }
+
+    function formatPrice(value, locale) {
+      return new Intl.NumberFormat(locale === "el" ? "el-GR" : "en-IE", {
+        style: "currency",
+        currency: "EUR",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(value);
+    }
+
     document.querySelectorAll("[data-price-body]").forEach((body) => {
+      const locale = body.dataset.priceLocale === "en" ? "en" : "el";
       body.innerHTML = standardPrices
-        .map((price, index) => `<tr><td>${index + 1} km</td><td>€${price.toFixed(2)}</td></tr>`)
+        .map((price, index) => {
+          const amounts = splitVatIncludedPrice(price);
+          return `<tr><td>${index + 1} km</td><td>${formatPrice(amounts.net, locale)}</td><td>${formatPrice(amounts.vat, locale)}</td><td>${formatPrice(amounts.final, locale)}</td></tr>`;
+        })
         .join("");
     });
 

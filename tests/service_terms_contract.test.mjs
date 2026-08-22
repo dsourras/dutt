@@ -107,6 +107,20 @@ test('published standard distance prices match the current canonical policy snap
   assert.match(agreement, /€0,00 \/ €0,09 \/ €0,32 \/ €0,38 \/ €0,68/);
 });
 
+test('public price list separates net amount, VAT and final price without changing totals', () => {
+  assert.match(agreement, /<th>Καθαρή αξία<\/th><th>ΦΠΑ 24%<\/th><th>Τελική τιμή<\/th>/);
+  assert.match(agreement, /<th>Net amount<\/th><th>VAT 24%<\/th><th>Final price<\/th>/);
+  assert.match(agreement, /data-price-locale="el"/);
+  assert.match(agreement, /data-price-locale="en"/);
+
+  for (const finalPrice of scriptValue('standardPrices')) {
+    const finalCents = Math.round(finalPrice * 100);
+    const netCents = Math.round(finalCents / 1.24);
+    const vatCents = finalCents - netCents;
+    assert.equal(netCents + vatCents, finalCents);
+  }
+});
+
 test('cancellation and undelivered-item charges mirror the active policy', () => {
   const markers = [
     'έως 90 δευτερόλεπτα',

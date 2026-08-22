@@ -89,6 +89,15 @@ test('charter price snapshot matches the current agreement', () => {
   );
 });
 
+test('charter and agreement expose the same net, VAT and final price columns', () => {
+  for (const document of [charter, agreement]) {
+    assert.match(document, /<th>Καθαρή αξία<\/th><th>ΦΠΑ 24%<\/th><th>Τελική τιμή<\/th>/);
+    assert.match(document, /<th>Net amount<\/th><th>VAT 24%<\/th><th>Final price<\/th>/);
+    assert.match(document, /const VAT_RATE = 0\.24/);
+    assert.match(document, /vat: \(finalCents - netCents\) \/ 100/);
+  }
+});
+
 test('all charter table-of-contents targets and local document links resolve', () => {
   const ids = new Set([...charter.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]));
   const anchors = [...charter.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);
