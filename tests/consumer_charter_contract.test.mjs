@@ -109,15 +109,14 @@ test('all charter table-of-contents targets and local document links resolve', (
   }
 });
 
-test('draft cannot be mistaken for an effective registered charter', () => {
-  assert.match(charter, /Δημόσιο προσχέδιο για έλεγχο/);
-  assert.match(charter, /δεν αποτελεί ακόμη ισχύοντα Χ\.Υ\.Κ\./i);
-  assert.match(charter, /Αριθμός μητρώου Ε\.Ε\.Τ\.Τ\./);
-  assert.match(charter, /Υπό συμπλήρωση πριν από την εμπορική έναρξη\./);
-  assert.match(charter, /Ταχυδρομικές δραστηριότητες ανά Κ\.Α\.Δ\./);
-  assert.match(charter, /Η ακριβής σύνθεση και ο εκπρόσωπος των χρηστών είναι υπό συμπλήρωση/);
-  assert.match(charter, /Η αυτόματη απόδοση μοναδικού αριθμού αναφοράς βρίσκεται υπό τεχνική επιβεβαίωση/);
-  assert.match(charter, /Public preview - not yet an effective Charter\./);
+test('charter is published as an effective version without unresolved placeholders', () => {
+  assert.match(charter, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.0<\/span>/);
+  assert.match(charter, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">29 \/ 08 \/ 2026<\/span>/);
+  assert.match(charter, /Ο παρών Χάρτης τίθεται σε ισχύ στις 29 \/ 08 \/ 2026\./);
+  assert.match(charter, /This Charter takes effect on 29 \/ 08 \/ 2026\./);
+  assert.match(charter, /Τα ονόματα των μελών γνωστοποιούνται στον ενδιαφερόμενο με την έγγραφη πρόσκληση\./);
+  assert.doesNotMatch(charter, /προσχέδι|προεπισκόπηση|θα συμπληρω|υπό συμπλήρωση|υπό τεχνική επιβεβαίωση|πριν από την εμπορική έναρξη/i);
+  assert.doesNotMatch(charter, /public draft|public preview|draft version|draft date|to be completed|before commercial launch|undergoing technical confirmation/i);
   assert.doesNotMatch(charter, /TODO|TBD|PLACEHOLDER|\{\{[^}]+\}\}/i);
 });
 
