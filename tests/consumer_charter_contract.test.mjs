@@ -143,10 +143,10 @@ test('all charter table-of-contents targets and local document links resolve', (
 });
 
 test('charter is published as an effective version without unresolved placeholders', () => {
-  assert.match(charter, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.0<\/span>/);
-  assert.match(charter, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">29 \/ 08 \/ 2026<\/span>/);
-  assert.match(charter, /Ο παρών Χάρτης τίθεται σε ισχύ στις 29 \/ 08 \/ 2026\./);
-  assert.match(charter, /This Charter takes effect on 29 \/ 08 \/ 2026\./);
+  assert.match(charter, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.1<\/span>/);
+  assert.match(charter, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">30 \/ 08 \/ 2026<\/span>/);
+  assert.match(charter, /Ο παρών Χάρτης τίθεται σε ισχύ στις 30 \/ 08 \/ 2026\./);
+  assert.match(charter, /This Charter takes effect on 30 \/ 08 \/ 2026\./);
   assert.match(charter, /Τα ονόματα των μελών γνωστοποιούνται στον ενδιαφερόμενο με την έγγραφη πρόσκληση\./);
   assert.doesNotMatch(charter, /προσχέδι|προεπισκόπηση|θα συμπληρω|υπό συμπλήρωση|υπό τεχνική επιβεβαίωση|πριν από την εμπορική έναρξη/i);
   assert.doesNotMatch(charter, /public draft|public preview|draft version|draft date|to be completed|before commercial launch|undergoing technical confirmation/i);

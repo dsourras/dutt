@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Αρχείο ισχυουσών και προηγούμενων εκδόσεων των δημόσιων νομικών κειμένων της DUTT.">
+  <title>Αρχείο νομικών κειμένων - DUTT</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07090c;
+      --panel: #10141a;
+      --panel-soft: #0c1015;
+      --line: #29313b;
+      --text: #f5f7fa;
+      --muted: #aeb7c2;
+      --accent: #f5c542;
+      --active: #49c98b;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(7,9,12,.94);
+      backdrop-filter: blur(14px);
+    }
+    .nav-inner,
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand img { display: block; width: 96px; height: auto; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .lang-switch {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .lang-btn,
+    .home-link {
+      min-height: 38px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .lang-btn { width: 44px; }
+    .lang-btn.active { background: var(--accent); color: #111; }
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .wrap { padding: 64px 0 72px; }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; max-width: 760px; font-size: clamp(2.1rem, 5vw, 4.2rem); line-height: 1.05; letter-spacing: 0; }
+    .intro { max-width: 780px; margin: 22px 0 0; color: var(--muted); font-size: 1.05rem; }
+    .notice {
+      margin-top: 28px;
+      padding: 18px 20px;
+      border-left: 3px solid var(--accent);
+      background: var(--panel-soft);
+      color: var(--muted);
+    }
+    .documents { margin-top: 42px; display: grid; gap: 16px; }
+    .document {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      overflow: hidden;
+    }
+    .document-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    h2 { margin: 0; font-size: 1.1rem; }
+    .document-note { margin: 5px 0 0; color: var(--muted); font-size: .92rem; }
+    .current-link {
+      flex: 0 0 auto;
+      padding: 8px 11px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #111;
+      font-size: .85rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .version-list { margin: 0; padding: 0; list-style: none; }
+    .version-row {
+      display: grid;
+      grid-template-columns: 150px 145px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .version-row:first-child { border-top: 0; }
+    .version-id { font-weight: 800; }
+    .date { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .summary { color: var(--muted); }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--active);
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .archived-link { color: var(--text); font-weight: 700; text-underline-offset: 3px; }
+    .footer {
+      margin-top: 42px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    [data-lang-content] { display: none; }
+    [data-lang-content].active { display: block; }
+    @media (max-width: 760px) {
+      .nav-inner { min-height: 64px; }
+      .brand img { width: 82px; }
+      .home-link { display: none; }
+      .wrap { padding-top: 42px; }
+      .document-head { display: block; }
+      .current-link { display: inline-flex; margin-top: 14px; }
+      .version-row { grid-template-columns: 1fr auto; gap: 6px 12px; }
+      .summary { grid-column: 1 / -1; }
+      .archived-link, .status { justify-self: end; }
+      .footer { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="/" aria-label="DUTT"><img src="/logo_white1.png" alt="DUTT"></a>
+      <div class="nav-actions">
+        <div class="lang-switch" aria-label="Language">
+          <button class="lang-btn active" type="button" data-lang="el">GR</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+        </div>
+        <a class="home-link" href="/" data-home-label>Αρχική</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <div data-lang-content="el" class="active">
+      <p class="eyebrow">Νομικά κείμενα</p>
+      <h1>Αρχείο εκδόσεων</h1>
+      <p class="intro">Εδώ δημοσιεύονται η ισχύουσα και οι προηγούμενες εκδόσεις των δημόσιων νομικών κειμένων της DUTT, μαζί με την ημερομηνία έναρξης ισχύος τους.</p>
+      <div class="notice">Η ισχύουσα έκδοση εφαρμόζεται από την ημερομηνία που αναγράφεται σε αυτή. Η σύμβαση κάθε αποστολής παραμένει συνδεδεμένη με την έκδοση που αποδέχθηκε ο χρήστης κατά την καταχώρισή της.</div>
+    </div>
+    <div data-lang-content="en">
+      <p class="eyebrow">Legal documents</p>
+      <h1>Version archive</h1>
+      <p class="intro">This page publishes the current and previous versions of DUTT's public legal documents together with their effective dates.</p>
+      <div class="notice">A current version applies from its stated effective date. Each shipment agreement remains linked to the version accepted by the user when the shipment was submitted.</div>
+    </div>
+
+    <section class="documents" aria-label="Legal document versions">
+      <article class="document">
+        <div class="document-head">
+          <div><h2 data-el="Σύμβαση Όρων Παροχής" data-en="Service Provision Agreement">Σύμβαση Όρων Παροχής</h2><p class="document-note" data-el="Περιλαμβάνει και τον δημόσιο τιμοκατάλογο." data-en="Includes the public price list.">Περιλαμβάνει και τον δημόσιο τιμοκατάλογο.</p></div>
+          <a class="current-link" href="/service-terms.html" data-el="Ισχύουσα έκδοση" data-en="Current version">Ισχύουσα έκδοση</a>
+        </div>
+        <ul class="version-list">
+          <li class="version-row"><span class="version-id">1.2</span><span class="date">30 / 08 / 2026</span><span class="summary" data-el="Εναρμόνιση νομικών κειμένων και δημόσιο ιστορικό εκδόσεων. Οι χρεώσεις δεν μεταβλήθηκαν." data-en="Legal-text alignment and public version history. Charges were not changed.">Εναρμόνιση νομικών κειμένων και δημόσιο ιστορικό εκδόσεων. Οι χρεώσεις δεν μεταβλήθηκαν.</span><span class="status" data-el="Ισχύει" data-en="Current">Ισχύει</span></li>
+          <li class="version-row"><span class="version-id">1.1</span><span class="date">30 / 08 / 2026</span><span class="summary" data-el="Παραλαβή με επιφύλαξη εντός μίας εργάσιμης ημέρας." data-en="Delivery under reservation within one working day.">Παραλαβή με επιφύλαξη εντός μίας εργάσιμης ημέρας.</span><a class="archived-link" href="/legal/versions/service-terms-v1.1-2026-08-30.html" data-el="Προβολή" data-en="View">Προβολή</a></li>
+          <li class="version-row"><span class="version-id">1.0</span><span class="date">21 / 08 / 2026</span><span class="summary" data-el="Αρχική δίγλωσση σύμβαση και τιμοκατάλογος." data-en="Initial bilingual agreement and price list.">Αρχική δίγλωσση σύμβαση και τιμοκατάλογος.</span><a class="archived-link" href="/legal/versions/service-terms-v1.0-2026-08-21.html" data-el="Προβολή" data-en="View">Προβολή</a></li>
+        </ul>
+      </article>
+
+      <article class="document">
+        <div class="document-head">
+          <div><h2 data-el="Χάρτης Υποχρεώσεων προς τον Χρήστη-Καταναλωτή" data-en="User and Consumer Obligations Charter">Χάρτης Υποχρεώσεων προς τον Χρήστη-Καταναλωτή</h2><p class="document-note" data-el="Δεσμεύσεις εξυπηρέτησης, παραπόνων και αποζημιώσεων." data-en="Service, complaint and compensation commitments.">Δεσμεύσεις εξυπηρέτησης, παραπόνων και αποζημιώσεων.</p></div>
+          <a class="current-link" href="/consumer-charter.html" data-el="Ισχύουσα έκδοση" data-en="Current version">Ισχύουσα έκδοση</a>
+        </div>
+        <ul class="version-list">
+          <li class="version-row"><span class="version-id">1.1</span><span class="date">30 / 08 / 2026</span><span class="summary" data-el="Εναρμόνιση προθεσμιών, διατήρησης και ιστορικού εκδόσεων." data-en="Aligned deadlines, retention and version history.">Εναρμόνιση προθεσμιών, διατήρησης και ιστορικού εκδόσεων.</span><span class="status" data-el="Ισχύει" data-en="Current">Ισχύει</span></li>
+          <li class="version-row"><span class="version-id">1.0</span><span class="date">29 / 08 / 2026</span><span class="summary" data-el="Πρώτη οριστική δημόσια έκδοση." data-en="First final public version.">Πρώτη οριστική δημόσια έκδοση.</span><a class="archived-link" href="/legal/versions/consumer-charter-v1.0-2026-08-29.html" data-el="Προβολή" data-en="View">Προβολή</a></li>
+        </ul>
+      </article>
+
+      <article class="document">
+        <div class="document-head">
+          <div><h2 data-el="Όροι Χρήσης" data-en="Terms of Use">Όροι Χρήσης</h2><p class="document-note" data-el="Γενικοί όροι για εφαρμογές, ιστοσελίδα και integrations." data-en="General terms for apps, website and integrations.">Γενικοί όροι για εφαρμογές, ιστοσελίδα και integrations.</p></div>
+          <a class="current-link" href="/terms.html" data-el="Ισχύουσα έκδοση" data-en="Current version">Ισχύουσα έκδοση</a>
+        </div>
+        <ul class="version-list">
+          <li class="version-row"><span class="version-id">1.1</span><span class="date">30 / 08 / 2026</span><span class="summary" data-el="Σαφής αποδοχή ανά αποστολή και δημόσιο ιστορικό." data-en="Clear per-shipment acceptance and public history.">Σαφής αποδοχή ανά αποστολή και δημόσιο ιστορικό.</span><span class="status" data-el="Ισχύει" data-en="Current">Ισχύει</span></li>
+          <li class="version-row"><span class="version-id">1.0</span><span class="date">21 / 08 / 2026</span><span class="summary" data-el="Προηγούμενη γενική έκδοση." data-en="Previous general version.">Προηγούμενη γενική έκδοση.</span><a class="archived-link" href="/legal/versions/terms-v1.0-2026-08-21.html" data-el="Προβολή" data-en="View">Προβολή</a></li>
+        </ul>
+      </article>
+
+      <article class="document">
+        <div class="document-head">
+          <div><h2 data-el="Πολιτική Απορρήτου" data-en="Privacy Policy">Πολιτική Απορρήτου</h2><p class="document-note" data-el="Επεξεργασία δεδομένων στο οικοσύστημα DUTT." data-en="Data processing across the DUTT ecosystem.">Επεξεργασία δεδομένων στο οικοσύστημα DUTT.</p></div>
+          <a class="current-link" href="/privacy.html" data-el="Ισχύουσα έκδοση" data-en="Current version">Ισχύουσα έκδοση</a>
+        </div>
+        <ul class="version-list">
+          <li class="version-row"><span class="version-id">2.0</span><span class="date">30 / 08 / 2026</span><span class="summary" data-el="Πλήρης κάλυψη εφαρμογών, αποστολών, διανομέων, integrations και χρόνων διατήρησης." data-en="Full coverage of apps, shipments, couriers, integrations and retention periods.">Πλήρης κάλυψη εφαρμογών, αποστολών, διανομέων, integrations και χρόνων διατήρησης.</span><span class="status" data-el="Ισχύει" data-en="Current">Ισχύει</span></li>
+          <li class="version-row"><span class="version-id">1.0</span><span class="date">04 / 04 / 2026</span><span class="summary" data-el="Αρχική πολιτική ιστοσελίδας και φορμών." data-en="Initial website and forms policy.">Αρχική πολιτική ιστοσελίδας και φορμών.</span><a class="archived-link" href="/legal/versions/privacy-v1.0-2026-04-04.html" data-el="Προβολή" data-en="View">Προβολή</a></li>
+        </ul>
+      </article>
+    </section>
+
+    <footer class="footer"><span>© 2026 DUTT</span><span data-el="Τα αρχειοθετημένα κείμενα είναι μόνο για αναφορά." data-en="Archived texts are provided for reference only.">Τα αρχειοθετημένα κείμενα είναι μόνο για αναφορά.</span></footer>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('[data-lang]');
+    const contents = document.querySelectorAll('[data-lang-content]');
+    const localized = document.querySelectorAll('[data-el][data-en]');
+    const homeLabel = document.querySelector('[data-home-label]');
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+      localStorage.setItem('dutt_lang', lang);
+      buttons.forEach((button) => button.classList.toggle('active', button.dataset.lang === lang));
+      contents.forEach((content) => content.classList.toggle('active', content.dataset.langContent === lang));
+      localized.forEach((element) => { element.textContent = element.dataset[lang]; });
+      homeLabel.textContent = lang === 'el' ? 'Αρχική' : 'Homepage';
+    }
+    buttons.forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+    setLanguage(localStorage.getItem('dutt_lang') === 'en' ? 'en' : 'el');
+  </script>
+</body>
+</html>

@@ -152,6 +152,14 @@ test('latest 2026 compensation safeguards and complaint deadlines are present', 
   assert.doesNotMatch(agreement, /δύο εργάσιμες ημέρες|two business days/i);
 });
 
+test('agreement exposes the final numbered version and public history', () => {
+  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.2<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">30 \/ 08 \/ 2026<\/span>/);
+  assert.match(agreement, /href="\/legal-archive\.html"/);
+  assert.match(agreement, /προηγούμενες εκδόσεις της σύμβασης και των αντίστοιχων τιμοκαταλόγων/);
+  assert.match(agreement, /Previous versions of the agreement and their corresponding price lists/);
+});
+
 test('agreement has no unresolved legal placeholders or obsolete intermediary disclaimer', () => {
   assert.doesNotMatch(agreement, /TODO|TBD|PLACEHOLDER|θα συμπληρωθεί|να προστεθεί/i);
   assert.doesNotMatch(agreement, /solely (?:a|an) .*intermediar/i);
