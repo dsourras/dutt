@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Υποβολή παραπόνου ή καταγγελίας προς τη DUTT με άμεσο αριθμό πρωτοκόλλου.">
+  <title>Παράπονα και καταγγελίες | DUTT</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17181a;
+      --muted: #60646b;
+      --line: #dedfe2;
+      --soft: #f6f7f8;
+      --green: #18794e;
+      --danger: #9c2d2d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .shell { width: min(780px, calc(100% - 32px)); margin: 0 auto; }
+    header {
+      border-bottom: 1px solid var(--line);
+      background: #17181a;
+      color: #fff;
+    }
+    .topbar {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand img { display: block; width: 102px; height: auto; }
+    .language { display: flex; gap: 6px; }
+    .language button {
+      border: 1px solid #55585e;
+      border-radius: 6px;
+      background: transparent;
+      color: #fff;
+      padding: 7px 10px;
+      cursor: pointer;
+    }
+    .language button[aria-pressed="true"] { background: #fff; color: #17181a; }
+    main { padding: 42px 0 64px; }
+    h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.25rem); line-height: 1.05; letter-spacing: 0; }
+    .lead { margin: 16px 0 30px; color: var(--muted); font-size: 1.05rem; max-width: 680px; }
+    .process {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-bottom: 30px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .process div { background: #fff; padding: 15px; }
+    .process strong { display: block; margin-bottom: 3px; }
+    .process span { color: var(--muted); font-size: .9rem; }
+    form { border-top: 1px solid var(--line); padding-top: 26px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    label { display: block; font-weight: 700; font-size: .9rem; }
+    input, select, textarea {
+      width: 100%;
+      margin-top: 7px;
+      border: 1px solid #bfc1c6;
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      padding: 12px 13px;
+    }
+    textarea { min-height: 170px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: 2px solid #17181a; outline-offset: 1px; }
+    .wide { grid-column: 1 / -1; }
+    .hint { margin-top: 6px; color: var(--muted); font-size: .82rem; }
+    .honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+    .actions { display: flex; align-items: center; gap: 14px; margin-top: 24px; }
+    .submit {
+      border: 0;
+      border-radius: 6px;
+      background: #17181a;
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      padding: 13px 20px;
+      cursor: pointer;
+    }
+    .submit:disabled { opacity: .55; cursor: wait; }
+    .status { min-height: 24px; color: var(--muted); }
+    .status.error { color: var(--danger); }
+    .receipt {
+      display: none;
+      border: 1px solid #aed8c3;
+      border-radius: 6px;
+      background: #f3faf6;
+      padding: 22px;
+    }
+    .receipt.visible { display: block; }
+    .receipt h2 { margin: 0 0 14px; color: var(--green); }
+    .receipt dl { margin: 0; display: grid; grid-template-columns: 190px 1fr; gap: 8px 16px; }
+    .receipt dt { color: var(--muted); }
+    .receipt dd { margin: 0; font-weight: 800; }
+    footer { border-top: 1px solid var(--line); padding: 24px 0 34px; color: var(--muted); font-size: .9rem; }
+    footer .shell { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+    @media (max-width: 650px) {
+      .process, .grid { grid-template-columns: 1fr; }
+      .wide { grid-column: auto; }
+      .receipt dl { grid-template-columns: 1fr; gap: 2px; }
+      .receipt dd { margin-bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell topbar">
+      <a class="brand" href="/" aria-label="DUTT"><img src="logo_white1.png" alt="DUTT"></a>
+      <div class="language" aria-label="Language">
+        <button type="button" data-language="el" aria-pressed="true">ΕΛ</button>
+        <button type="button" data-language="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section id="intro">
+      <h1 data-copy="title">Παράπονα και καταγγελίες</h1>
+      <p class="lead" data-copy="lead">Υπόβαλε το θέμα σου γραπτώς. Θα λάβεις άμεσα email με μοναδικό αριθμό πρωτοκόλλου και ημερομηνία παραλαβής.</p>
+      <div class="process">
+        <div><strong data-copy="step1Title">1. Υποβολή</strong><span data-copy="step1Body">Συμπληρώνεις τα στοιχεία και την περιγραφή.</span></div>
+        <div><strong data-copy="step2Title">2. Πρωτόκολλο</strong><span data-copy="step2Body">Λαμβάνεις άμεση επιβεβαίωση με email.</span></div>
+        <div><strong data-copy="step3Title">3. Απάντηση</strong><span data-copy="step3Body">Η DUTT απαντά τεκμηριωμένα εντός 15 εργάσιμων ημερών.</span></div>
+      </div>
+    </section>
+
+    <form id="complaint-form" novalidate>
+      <div class="grid">
+        <label><span data-copy="name">Ονοματεπώνυμο</span><input name="complainantName" autocomplete="name" required minlength="2" maxlength="240"></label>
+        <label><span>Email</span><input name="contactEmail" type="email" autocomplete="email" required maxlength="320"></label>
+        <label>
+          <span data-copy="category">Κατηγορία</span>
+          <select name="category" required>
+            <option value="lost_item" data-copy="catLost">Απώλεια αντικειμένου</option>
+            <option value="destroyed_item" data-copy="catDamage">Καταστροφή ή ζημιά</option>
+            <option value="delivery_delay" data-copy="catDelay">Καθυστέρηση επίδοσης</option>
+            <option value="delivery_problem" data-copy="catDelivery" selected>Πρόβλημα στην επίδοση</option>
+            <option value="service_quality" data-copy="catQuality">Ποιότητα υπηρεσίας ή εξυπηρέτηση</option>
+            <option value="charge_dispute" data-copy="catCharge">Αμφισβήτηση χρέωσης</option>
+            <option value="other" data-copy="catOther">Άλλο</option>
+          </select>
+        </label>
+        <label><span data-copy="order">Αριθμός αποστολής (προαιρετικά)</span><input name="orderId" maxlength="200"></label>
+        <label class="wide"><span data-copy="description">Περιγραφή</span><textarea name="description" required minlength="20" maxlength="4000"></textarea><div class="hint" data-copy="descriptionHint">Ανάφερε ημερομηνίες, τι συνέβη και τι ζητάς να εξεταστεί.</div></label>
+      </div>
+      <label class="honeypot" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+      <input type="hidden" name="languageCode" value="el">
+      <input type="hidden" name="formStartedAt">
+      <input type="hidden" name="idempotencyKey">
+      <div class="actions">
+        <button class="submit" type="submit" data-copy="submit">Υποβολή</button>
+        <div class="status" role="status" aria-live="polite"></div>
+      </div>
+    </form>
+
+    <section class="receipt" id="receipt" tabindex="-1">
+      <h2 data-copy="success">Το παράπονο καταχωρίστηκε</h2>
+      <dl>
+        <dt data-copy="reference">Αριθμός πρωτοκόλλου</dt><dd id="reference-value"></dd>
+        <dt data-copy="deadline">Προθεσμία απάντησης</dt><dd id="deadline-value"></dd>
+      </dl>
+      <p data-copy="emailSent">Η επιβεβαίωση αποστέλλεται στο email που δήλωσες.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <span>© 2026 DUTT</span>
+      <span><a href="/consumer-charter.html" data-copy="charter">Χάρτης Υποχρεώσεων</a> · <a href="mailto:info@dutt.gr">info@dutt.gr</a> · <a href="tel:+302414005377">+30 241 400 5377</a></span>
+    </div>
+  </footer>
+
+  <script>
+    const endpoint = 'https://us-central1-sendygo-cd034.cloudfunctions.net/duttPublicComplaintSubmission';
+    const copy = {
+      el: {
+        title: 'Παράπονα και καταγγελίες', lead: 'Υπόβαλε το θέμα σου γραπτώς. Θα λάβεις άμεσα email με μοναδικό αριθμό πρωτοκόλλου και ημερομηνία παραλαβής.',
+        step1Title: '1. Υποβολή', step1Body: 'Συμπληρώνεις τα στοιχεία και την περιγραφή.', step2Title: '2. Πρωτόκολλο', step2Body: 'Λαμβάνεις άμεση επιβεβαίωση με email.', step3Title: '3. Απάντηση', step3Body: 'Η DUTT απαντά τεκμηριωμένα εντός 15 εργάσιμων ημερών.',
+        name: 'Ονοματεπώνυμο', category: 'Κατηγορία', order: 'Αριθμός αποστολής (προαιρετικά)', description: 'Περιγραφή', descriptionHint: 'Ανάφερε ημερομηνίες, τι συνέβη και τι ζητάς να εξεταστεί.', submit: 'Υποβολή', sending: 'Γίνεται καταχώριση…', error: 'Η υποβολή δεν ολοκληρώθηκε. Έλεγξε τα στοιχεία και δοκίμασε ξανά.', rate: 'Έχουν γίνει πολλές προσπάθειες. Δοκίμασε ξανά αργότερα.', success: 'Το παράπονο καταχωρίστηκε', reference: 'Αριθμός πρωτοκόλλου', deadline: 'Προθεσμία απάντησης', emailSent: 'Η επιβεβαίωση αποστέλλεται στο email που δήλωσες.', charter: 'Χάρτης Υποχρεώσεων',
+        catLost: 'Απώλεια αντικειμένου', catDamage: 'Καταστροφή ή ζημιά', catDelay: 'Καθυστέρηση επίδοσης', catDelivery: 'Πρόβλημα στην επίδοση', catQuality: 'Ποιότητα υπηρεσίας ή εξυπηρέτηση', catCharge: 'Αμφισβήτηση χρέωσης', catOther: 'Άλλο'
+      },
+      en: {
+        title: 'Complaints', lead: 'Submit your issue in writing. You will immediately receive an email with a unique reference number and receipt date.',
+        step1Title: '1. Submit', step1Body: 'Enter your details and describe the issue.', step2Title: '2. Reference', step2Body: 'Receive immediate confirmation by email.', step3Title: '3. Response', step3Body: 'DUTT provides a reasoned response within 15 working days.',
+        name: 'Full name', category: 'Category', order: 'Delivery number (optional)', description: 'Description', descriptionHint: 'Include dates, what happened and what you want reviewed.', submit: 'Submit', sending: 'Submitting…', error: 'The submission was not completed. Check the details and try again.', rate: 'Too many attempts have been made. Please try again later.', success: 'Complaint submitted', reference: 'Reference number', deadline: 'Response deadline', emailSent: 'Confirmation is being sent to the email address you provided.', charter: 'User and Consumer Obligations Charter',
+        catLost: 'Lost item', catDamage: 'Damage or destruction', catDelay: 'Delivery delay', catDelivery: 'Delivery problem', catQuality: 'Service quality or support', catCharge: 'Charge dispute', catOther: 'Other'
+      }
+    };
+    const form = document.querySelector('#complaint-form');
+    const status = document.querySelector('.status');
+    const submit = document.querySelector('.submit');
+    const receipt = document.querySelector('#receipt');
+    let language = 'el';
+
+    function setLanguage(next) {
+      language = next === 'en' ? 'en' : 'el';
+      document.documentElement.lang = language;
+      document.title = language === 'el' ? 'Παράπονα και καταγγελίες | DUTT' : 'Complaints | DUTT';
+      document.querySelectorAll('[data-copy]').forEach((element) => {
+        const value = copy[language][element.dataset.copy];
+        if (value) element.textContent = value;
+      });
+      document.querySelectorAll('[data-language]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.language === language)));
+      form.elements.languageCode.value = language;
+    }
+
+    document.querySelectorAll('[data-language]').forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.language)));
+    form.elements.formStartedAt.value = String(Date.now());
+    form.elements.idempotencyKey.value = crypto.randomUUID ? crypto.randomUUID() : `web-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      submit.disabled = true;
+      status.className = 'status';
+      status.textContent = copy[language].sending;
+      try {
+        const payload = Object.fromEntries(new FormData(form).entries());
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || result.success !== true) {
+          throw new Error(result.reason === 'complaint_submission_rate_limited' ? 'rate' : 'submit');
+        }
+        document.querySelector('#reference-value').textContent = result.referenceNumber;
+        document.querySelector('#deadline-value').textContent = result.responseDeadlineDate;
+        form.hidden = true;
+        document.querySelector('#intro').hidden = true;
+        receipt.classList.add('visible');
+        receipt.focus();
+      } catch (error) {
+        status.className = 'status error';
+        status.textContent = copy[language][error.message === 'rate' ? 'rate' : 'error'];
+        submit.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

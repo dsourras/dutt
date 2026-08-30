@@ -7,6 +7,7 @@ const charter = readFileSync(new URL('../consumer-charter.html', import.meta.url
 const homepage = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const terms = readFileSync(new URL('../terms.html', import.meta.url), 'utf8');
 const agreement = readFileSync(new URL('../service-terms.html', import.meta.url), 'utf8');
+const complaints = readFileSync(new URL('../complaints.html', import.meta.url), 'utf8');
 
 function scriptValue(name) {
   const marker = `const ${name} = `;
@@ -76,6 +77,21 @@ test('complaint process carries the mandatory operational safeguards', () => {
   for (const safeguard of safeguards) {
     assert.ok(charter.includes(safeguard), `missing complaint safeguard: ${safeguard}`);
   }
+  assert.match(charter, /href="\/complaints\.html"/);
+  assert.match(homepage, /href="\/complaints\.html"/);
+  assert.match(agreement, /href="\/complaints\.html"/);
+});
+
+test('public complaint form submits to the regulated protocol endpoint', () => {
+  assert.match(complaints, /duttPublicComplaintSubmission/);
+  assert.match(complaints, /name="complainantName"/);
+  assert.match(complaints, /name="contactEmail" type="email"/);
+  assert.match(complaints, /name="category"/);
+  assert.match(complaints, /name="description"/);
+  assert.match(complaints, /name="formStartedAt"/);
+  assert.match(complaints, /name="idempotencyKey"/);
+  assert.match(complaints, /15 εργάσιμων ημερών/);
+  assert.match(complaints, /15 working days/);
 });
 
 test('charter price snapshot matches the current agreement', () => {
