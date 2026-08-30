@@ -87,11 +87,28 @@ test('public complaint form submits to the regulated protocol endpoint', () => {
   assert.match(complaints, /name="complainantName"/);
   assert.match(complaints, /name="contactEmail" type="email"/);
   assert.match(complaints, /name="category"/);
+  assert.match(complaints, /name="complaintKind"/);
+  assert.match(complaints, /value="delivery_reservation"/);
+  assert.match(complaints, /name="deliveryReservationIssue"/);
+  assert.match(complaints, /value="damage"/);
+  assert.match(complaints, /value="shortage"/);
+  assert.match(complaints, /orderInput\.required = isReservation/);
   assert.match(complaints, /name="description"/);
   assert.match(complaints, /name="formStartedAt"/);
   assert.match(complaints, /name="idempotencyKey"/);
   assert.match(complaints, /15 εργάσιμων ημερών/);
   assert.match(complaints, /15 working days/);
+  assert.match(complaints, /μία εργάσιμη ημέρα/);
+  assert.match(complaints, /one working day/);
+});
+
+test('delivery-under-reservation copy is linked to one shipment and one working day', () => {
+  for (const document of [agreement, charter]) {
+    assert.match(document, /μία εργάσιμη ημέρα/);
+    assert.match(document, /one working day/);
+    assert.match(document, /αριθμό της συγκεκριμένης αποστολής/);
+    assert.doesNotMatch(document, /δύο εργάσιμες ημέρες|two business days/i);
+  }
 });
 
 test('charter price snapshot matches the current agreement', () => {

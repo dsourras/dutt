@@ -145,10 +145,11 @@ test('latest 2026 compensation safeguards and complaint deadlines are present', 
     'δεκαπέντε εργάσιμων ημερών',
     'έξι μήνες',
     'είκοσι εργάσιμες ημέρες',
-    'δύο εργάσιμες ημέρες',
+    'μία εργάσιμη ημέρα',
     'μοναδικό αριθμό αναφοράς',
   ];
   for (const marker of markers) assert.ok(agreement.includes(marker), `missing safeguard: ${marker}`);
+  assert.doesNotMatch(agreement, /δύο εργάσιμες ημέρες|two business days/i);
 });
 
 test('agreement has no unresolved legal placeholders or obsolete intermediary disclaimer', () => {

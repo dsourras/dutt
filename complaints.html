@@ -17,6 +17,7 @@
       --danger: #9c2d2d;
     }
     * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
     body {
       margin: 0;
       background: #fff;
@@ -145,7 +146,15 @@
       <div class="grid">
         <label><span data-copy="name">Ονοματεπώνυμο</span><input name="complainantName" autocomplete="name" required minlength="2" maxlength="240"></label>
         <label><span>Email</span><input name="contactEmail" type="email" autocomplete="email" required maxlength="320"></label>
-        <label>
+        <label class="wide">
+          <span data-copy="submissionType">Τύπος υποβολής</span>
+          <select name="complaintKind" id="complaint-kind" required>
+            <option value="complaint" data-copy="kindComplaint">Παράπονο ή καταγγελία</option>
+            <option value="delivery_reservation" data-copy="kindReservation">Παραλαβή με επιφύλαξη</option>
+          </select>
+          <div class="hint" id="reservation-hint" data-copy="reservationHint" hidden>Για φθορά, καταστροφή ή έλλειψη, το αργότερο μέσα σε μία εργάσιμη ημέρα από την ημέρα επίδοσης.</div>
+        </label>
+        <label id="category-field">
           <span data-copy="category">Κατηγορία</span>
           <select name="category" required>
             <option value="lost_item" data-copy="catLost">Απώλεια αντικειμένου</option>
@@ -155,6 +164,13 @@
             <option value="service_quality" data-copy="catQuality">Ποιότητα υπηρεσίας ή εξυπηρέτηση</option>
             <option value="charge_dispute" data-copy="catCharge">Αμφισβήτηση χρέωσης</option>
             <option value="other" data-copy="catOther">Άλλο</option>
+          </select>
+        </label>
+        <label id="reservation-issue-field" hidden>
+          <span data-copy="reservationIssue">Τι διαπιστώσατε;</span>
+          <select name="deliveryReservationIssue" disabled>
+            <option value="damage" data-copy="issueDamage">Φθορά ή καταστροφή</option>
+            <option value="shortage" data-copy="issueShortage">Έλλειψη περιεχομένου</option>
           </select>
         </label>
         <label><span data-copy="order">Αριθμός αποστολής (προαιρετικά)</span><input name="orderId" maxlength="200"></label>
@@ -193,13 +209,13 @@
       el: {
         title: 'Παράπονα και καταγγελίες', lead: 'Υπόβαλε το θέμα σου γραπτώς. Θα λάβεις άμεσα email με μοναδικό αριθμό πρωτοκόλλου και ημερομηνία παραλαβής.',
         step1Title: '1. Υποβολή', step1Body: 'Συμπληρώνεις τα στοιχεία και την περιγραφή.', step2Title: '2. Πρωτόκολλο', step2Body: 'Λαμβάνεις άμεση επιβεβαίωση με email.', step3Title: '3. Απάντηση', step3Body: 'Η DUTT απαντά τεκμηριωμένα εντός 15 εργάσιμων ημερών.',
-        name: 'Ονοματεπώνυμο', category: 'Κατηγορία', order: 'Αριθμός αποστολής (προαιρετικά)', description: 'Περιγραφή', descriptionHint: 'Ανάφερε ημερομηνίες, τι συνέβη και τι ζητάς να εξεταστεί.', submit: 'Υποβολή', sending: 'Γίνεται καταχώριση…', error: 'Η υποβολή δεν ολοκληρώθηκε. Έλεγξε τα στοιχεία και δοκίμασε ξανά.', rate: 'Έχουν γίνει πολλές προσπάθειες. Δοκίμασε ξανά αργότερα.', success: 'Το παράπονο καταχωρίστηκε', reference: 'Αριθμός πρωτοκόλλου', deadline: 'Προθεσμία απάντησης', emailSent: 'Η επιβεβαίωση αποστέλλεται στο email που δήλωσες.', charter: 'Χάρτης Υποχρεώσεων',
+        name: 'Ονοματεπώνυμο', submissionType: 'Τύπος υποβολής', kindComplaint: 'Παράπονο ή καταγγελία', kindReservation: 'Παραλαβή με επιφύλαξη', reservationHint: 'Για φθορά, καταστροφή ή έλλειψη, το αργότερο μέσα σε μία εργάσιμη ημέρα από την ημέρα επίδοσης.', reservationIssue: 'Τι διαπιστώσατε;', issueDamage: 'Φθορά ή καταστροφή', issueShortage: 'Έλλειψη περιεχομένου', category: 'Κατηγορία', order: 'Αριθμός αποστολής (προαιρετικά)', orderRequired: 'Αριθμός αποστολής', description: 'Περιγραφή', descriptionHint: 'Ανάφερε ημερομηνίες, τι συνέβη και τι ζητάς να εξεταστεί.', submit: 'Υποβολή', sending: 'Γίνεται καταχώριση…', error: 'Η υποβολή δεν ολοκληρώθηκε. Έλεγξε τα στοιχεία και δοκίμασε ξανά.', reservationExpired: 'Η προθεσμία της μίας εργάσιμης ημέρας έχει λήξει. Μπορείτε να υποβάλετε κανονικό παράπονο.', reservationUnavailable: 'Η αποστολή δεν έχει παραδοθεί ή δεν είναι διαθέσιμη η επιβεβαιωμένη ώρα παράδοσης.', rate: 'Έχουν γίνει πολλές προσπάθειες. Δοκίμασε ξανά αργότερα.', success: 'Το παράπονο καταχωρίστηκε', reservationSuccess: 'Η επιφύλαξη καταχωρίστηκε', reference: 'Αριθμός πρωτοκόλλου', deadline: 'Προθεσμία απάντησης', emailSent: 'Η επιβεβαίωση αποστέλλεται στο email που δήλωσες.', charter: 'Χάρτης Υποχρεώσεων',
         catLost: 'Απώλεια αντικειμένου', catDamage: 'Καταστροφή ή ζημιά', catDelay: 'Καθυστέρηση επίδοσης', catDelivery: 'Πρόβλημα στην επίδοση', catQuality: 'Ποιότητα υπηρεσίας ή εξυπηρέτηση', catCharge: 'Αμφισβήτηση χρέωσης', catOther: 'Άλλο'
       },
       en: {
         title: 'Complaints', lead: 'Submit your issue in writing. You will immediately receive an email with a unique reference number and receipt date.',
         step1Title: '1. Submit', step1Body: 'Enter your details and describe the issue.', step2Title: '2. Reference', step2Body: 'Receive immediate confirmation by email.', step3Title: '3. Response', step3Body: 'DUTT provides a reasoned response within 15 working days.',
-        name: 'Full name', category: 'Category', order: 'Delivery number (optional)', description: 'Description', descriptionHint: 'Include dates, what happened and what you want reviewed.', submit: 'Submit', sending: 'Submitting…', error: 'The submission was not completed. Check the details and try again.', rate: 'Too many attempts have been made. Please try again later.', success: 'Complaint submitted', reference: 'Reference number', deadline: 'Response deadline', emailSent: 'Confirmation is being sent to the email address you provided.', charter: 'User and Consumer Obligations Charter',
+        name: 'Full name', submissionType: 'Submission type', kindComplaint: 'Complaint', kindReservation: 'Delivery under reservation', reservationHint: 'For damage, destruction or shortage, no later than one working day after the day of delivery.', reservationIssue: 'What did you find?', issueDamage: 'Damage or destruction', issueShortage: 'Missing contents', category: 'Category', order: 'Delivery number (optional)', orderRequired: 'Delivery number', description: 'Description', descriptionHint: 'Include dates, what happened and what you want reviewed.', submit: 'Submit', sending: 'Submitting…', error: 'The submission was not completed. Check the details and try again.', reservationExpired: 'The one-working-day deadline has expired. You may still submit a standard complaint.', reservationUnavailable: 'The delivery has not been completed or its confirmed delivery time is unavailable.', rate: 'Too many attempts have been made. Please try again later.', success: 'Complaint submitted', reservationSuccess: 'Reservation recorded', reference: 'Reference number', deadline: 'Response deadline', emailSent: 'Confirmation is being sent to the email address you provided.', charter: 'User and Consumer Obligations Charter',
         catLost: 'Lost item', catDamage: 'Damage or destruction', catDelay: 'Delivery delay', catDelivery: 'Delivery problem', catQuality: 'Service quality or support', catCharge: 'Charge dispute', catOther: 'Other'
       }
     };
@@ -207,7 +223,28 @@
     const status = document.querySelector('.status');
     const submit = document.querySelector('.submit');
     const receipt = document.querySelector('#receipt');
+    const kind = form.elements.complaintKind;
+    const categoryField = document.querySelector('#category-field');
+    const category = form.elements.category;
+    const reservationIssueField = document.querySelector('#reservation-issue-field');
+    const reservationIssue = form.elements.deliveryReservationIssue;
+    const reservationHint = document.querySelector('#reservation-hint');
+    const orderInput = form.elements.orderId;
+    const orderLabel = orderInput.closest('label').querySelector('[data-copy="order"]');
     let language = 'el';
+
+    function syncSubmissionType() {
+      const isReservation = kind.value === 'delivery_reservation';
+      categoryField.hidden = isReservation;
+      category.disabled = isReservation;
+      category.required = !isReservation;
+      reservationIssueField.hidden = !isReservation;
+      reservationIssue.disabled = !isReservation;
+      reservationIssue.required = isReservation;
+      reservationHint.hidden = !isReservation;
+      orderInput.required = isReservation;
+      orderLabel.textContent = copy[language][isReservation ? 'orderRequired' : 'order'];
+    }
 
     function setLanguage(next) {
       language = next === 'en' ? 'en' : 'el';
@@ -219,9 +256,12 @@
       });
       document.querySelectorAll('[data-language]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.language === language)));
       form.elements.languageCode.value = language;
+      syncSubmissionType();
     }
 
     document.querySelectorAll('[data-language]').forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.language)));
+    kind.addEventListener('change', syncSubmissionType);
+    syncSubmissionType();
     form.elements.formStartedAt.value = String(Date.now());
     form.elements.idempotencyKey.value = crypto.randomUUID ? crypto.randomUUID() : `web-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
@@ -240,17 +280,24 @@
         });
         const result = await response.json().catch(() => ({}));
         if (!response.ok || result.success !== true) {
-          throw new Error(result.reason === 'complaint_submission_rate_limited' ? 'rate' : 'submit');
+          const reason = result.reason || '';
+          if (reason === 'complaint_submission_rate_limited') throw new Error('rate');
+          if (reason === 'delivery_reservation_deadline_expired') throw new Error('reservationExpired');
+          if (reason === 'delivery_reservation_order_not_delivered' || reason === 'delivery_reservation_delivery_time_unavailable') {
+            throw new Error('reservationUnavailable');
+          }
+          throw new Error('submit');
         }
         document.querySelector('#reference-value').textContent = result.referenceNumber;
         document.querySelector('#deadline-value').textContent = result.responseDeadlineDate;
+        document.querySelector('#receipt h2').textContent = copy[language][kind.value === 'delivery_reservation' ? 'reservationSuccess' : 'success'];
         form.hidden = true;
         document.querySelector('#intro').hidden = true;
         receipt.classList.add('visible');
         receipt.focus();
       } catch (error) {
         status.className = 'status error';
-        status.textContent = copy[language][error.message === 'rate' ? 'rate' : 'error'];
+        status.textContent = copy[language][error.message] || copy[language].error;
         submit.disabled = false;
       }
     });
