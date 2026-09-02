@@ -1,0 +1,15 @@
+{
+    "id":  "https://dutt.gr/plugin-updates/dutt-same-hour-delivery",
+    "slug":  "dutt-same-hour-delivery",
+    "version":  "1.2.3",
+    "url":  "https://dutt.gr/downloads/woocommerce-installation.html",
+    "package":  "https://dutt.gr/downloads/dutt-same-hour-delivery-1.2.3.zip",
+    "sha256":  "a592f24637a3348e8cb50238f741b50aab8493936de9045bdcd2daeb07c60d1a",
+    "size_bytes":  107152,
+    "requires":  "6.9",
+    "tested":  "7.0",
+    "requires_php":  "8.0",
+    "requires_woocommerce":  "8.8",
+    "tested_woocommerce":  "10.9",
+    "last_updated":  "2026-09-02 05:30:38"
+}
