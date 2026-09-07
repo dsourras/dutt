@@ -18,6 +18,7 @@ const immutableHashes = {
   'legal/versions/privacy-v1.0-2026-04-04.html': 'f51bb34cdb24c01494fa451e307b4e79da71d3d31d6e8f4c73f6070ab69f0cd8',
   'legal/versions/service-terms-v1.0-2026-08-21.html': '6fd16f4c5f6855b4dc4a315aaee04989c3bdf323d387f0a7c700ef6491e58886',
   'legal/versions/service-terms-v1.1-2026-08-30.html': 'c3c2063f1e71090eff26cd69afdcf84bbe4add431832b72c789dcb5f7c1044ff',
+  'legal/versions/service-terms-v1.2-2026-08-30.html': '2691c47da95809f0059f21998cd7ceab31d04de3e3a80a361c1121eee069c03a',
   'legal/versions/terms-v1.0-2026-08-21.html': 'e0dd0cf7620ec8635eb39417d2490d64140bc2ad32ff4eabfee6b536aea92088',
 };
 
@@ -33,6 +34,7 @@ test('archive lists every current and previous public version', () => {
   for (const marker of [
     'service-terms-v1.0-2026-08-21.html',
     'service-terms-v1.1-2026-08-30.html',
+    'service-terms-v1.2-2026-08-30.html',
     'consumer-charter-v1.0-2026-08-29.html',
     'consumer-charter-v1.1-2026-08-30.html',
     'terms-v1.0-2026-08-21.html',
@@ -42,7 +44,7 @@ test('archive lists every current and previous public version', () => {
     if (marker === 'Έκδοση νομικών κειμένων') continue;
     assert.ok(archive.includes(marker), `missing archive marker: ${marker}`);
   }
-  assert.match(archive, /<span class="version-id">1\.2<\/span>/);
+  assert.match(archive, /<span class="version-id">1\.3<\/span>/);
   assert.match(archive, /<span class="version-id">2\.0<\/span>/);
   assert.match(archive, /Οι χρεώσεις δεν μεταβλήθηκαν/);
 });

@@ -125,6 +125,22 @@ test('delivery-under-reservation copy is linked to one shipment and one working 
   }
 });
 
+test('individual agreement publishes the exact licensed postal-provider identity', () => {
+  for (const marker of [
+    'ΣΟΥΡΡΑΣ ΔΗΜΗΤΡΙΟΣ',
+    'ΚΟΥΤΛΙΜΠΑΝΑ 5, ΛΑΡΙΣΑ, ΤΚ 41222',
+    'Α.Μ. ΕΕΤΤ',
+    '26-109',
+    'Γενική Άδεια παροχής ταχυδρομικών υπηρεσιών',
+    'SOURRAS DIMITRIOS',
+    'KOUTLIMPANA 5, LARISSA 41222, GREECE',
+  ]) {
+    assert.ok(agreement.includes(marker), `agreement missing licensed identity marker: ${marker}`);
+  }
+  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.3<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">07 \/ 09 \/ 2026<\/span>/);
+});
+
 test('charter price snapshot matches the current agreement', () => {
   const prices = scriptValue('standardPrices');
   assert.equal(prices.length, 40);

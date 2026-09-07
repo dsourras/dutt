@@ -76,9 +76,12 @@ test('agreement contains every minimum EETT contract topic in both languages', (
 });
 
 test('identity, item limits and current fiscal price metadata are explicit', () => {
-  assert.match(agreement, /ΣΟΥΡΡΑΣ ΔΗΜΗΤΡΙΟΣ ΕΥΑΓΓΕΛΟΣ/);
+  assert.match(agreement, /ΣΟΥΡΡΑΣ ΔΗΜΗΤΡΙΟΣ/);
   assert.match(agreement, /103922076/);
-  assert.match(agreement, /Κουτλιμπάνα 5-7, Λάρισα/);
+  assert.match(agreement, /ΚΟΥΤΛΙΜΠΑΝΑ 5, ΛΑΡΙΣΑ, ΤΚ 41222/);
+  assert.match(agreement, /Α\.Μ\. ΕΕΤΤ/);
+  assert.match(agreement, /26-109/);
+  assert.match(agreement, /Γενική Άδεια παροχής ταχυδρομικών υπηρεσιών/);
   assert.match(agreement, /info@dutt\.gr/);
   assert.match(agreement, /tel:\+302414005377/);
   assert.match(agreement, /241 400 5377/);
@@ -153,8 +156,8 @@ test('latest 2026 compensation safeguards and complaint deadlines are present', 
 });
 
 test('agreement exposes the final numbered version and public history', () => {
-  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.2<\/span>/);
-  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">30 \/ 08 \/ 2026<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.3<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">07 \/ 09 \/ 2026<\/span>/);
   assert.match(agreement, /href="\/legal-archive\.html"/);
   assert.match(agreement, /προηγούμενες εκδόσεις της σύμβασης και των αντίστοιχων τιμοκαταλόγων/);
   assert.match(agreement, /Previous versions of the agreement and their corresponding price lists/);
