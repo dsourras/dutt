@@ -65,6 +65,20 @@ test('charter contains every minimum EETT topic in Greek and English', () => {
   for (const topic of topics) assert.ok(charter.includes(topic), `missing topic: ${topic}`);
 });
 
+test('charter publishes the exact licensed postal-provider identity', () => {
+  for (const marker of [
+    'ΣΟΥΡΡΑΣ ΔΗΜΗΤΡΙΟΣ',
+    'ΚΟΥΤΛΙΜΠΑΝΑ 5, ΛΑΡΙΣΑ, ΤΚ 41222',
+    'Α.Μ. ΕΕΤΤ',
+    '26-109',
+    'Γενική Άδεια παροχής ταχυδρομικών υπηρεσιών',
+    'SOURRAS DIMITRIOS',
+    'KOUTLIMPANA 5, LARISSA 41222, GREECE',
+    'General Authorisation for postal services',
+  ]) assert.ok(charter.includes(marker), `missing licensed-provider marker: ${marker}`);
+  assert.doesNotMatch(charter, /ΣΟΥΡΡΑΣ ΔΗΜΗΤΡΙΟΣ ΕΥΑΓΓΕΛΟΣ|SOURRAS DIMITRIOS EVANGELOS|Κουτλιμπάνα 5-7|Koutlimpana 5-7/);
+});
+
 test('complaint process carries the mandatory operational safeguards', () => {
   const safeguards = [
     'μοναδικό αριθμό αναφοράς',
@@ -143,10 +157,10 @@ test('all charter table-of-contents targets and local document links resolve', (
 });
 
 test('charter is published as an effective version without unresolved placeholders', () => {
-  assert.match(charter, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.1<\/span>/);
-  assert.match(charter, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">30 \/ 08 \/ 2026<\/span>/);
-  assert.match(charter, /Ο παρών Χάρτης τίθεται σε ισχύ στις 30 \/ 08 \/ 2026\./);
-  assert.match(charter, /This Charter takes effect on 30 \/ 08 \/ 2026\./);
+  assert.match(charter, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.2<\/span>/);
+  assert.match(charter, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">07 \/ 09 \/ 2026<\/span>/);
+  assert.match(charter, /Ο παρών Χάρτης τίθεται σε ισχύ στις 07 \/ 09 \/ 2026\./);
+  assert.match(charter, /This Charter takes effect on 07 \/ 09 \/ 2026\./);
   assert.match(charter, /Τα ονόματα των μελών γνωστοποιούνται στον ενδιαφερόμενο με την έγγραφη πρόσκληση\./);
   assert.doesNotMatch(charter, /προσχέδι|προεπισκόπηση|θα συμπληρω|υπό συμπλήρωση|υπό τεχνική επιβεβαίωση|πριν από την εμπορική έναρξη/i);
   assert.doesNotMatch(charter, /public draft|public preview|draft version|draft date|to be completed|before commercial launch|undergoing technical confirmation/i);

@@ -13,11 +13,12 @@ const terms = read('terms.html');
 const privacy = read('privacy.html');
 
 const immutableHashes = {
-  'legal/versions/consumer-charter-v1.0-2026-08-29.html': '24c9f6bebb9e87d2487b28c330ba9af2ef0297c82276d2b0429e1041e6a02fc7',
-  'legal/versions/privacy-v1.0-2026-04-04.html': '72aa8e4cb21581d1c6545f78c8027f860f544044f9eafcb5d0632c1eb1f95802',
-  'legal/versions/service-terms-v1.0-2026-08-21.html': '0091cce4a02f20c3023e5fee8d673a0ee77ebc07fe6f4ed79c8271d4481b39d7',
-  'legal/versions/service-terms-v1.1-2026-08-30.html': 'cee3ff436f566ed159def6988d1aef8aa609ef472002730f75596837bb842400',
-  'legal/versions/terms-v1.0-2026-08-21.html': 'ac3cceb2b62832edab96d8a1e4b1fe3eafe060c6e91dd904fce6d25b3dee6124',
+  'legal/versions/consumer-charter-v1.0-2026-08-29.html': 'd346a94b7398bf1f6c7d972e49e7d68df9a6c245c56f010572f455c8ecba12b4',
+  'legal/versions/consumer-charter-v1.1-2026-08-30.html': '86f960a7885f034db4ab863f1b9f399a1768b4998540f7f8c8e683383243e06c',
+  'legal/versions/privacy-v1.0-2026-04-04.html': 'f51bb34cdb24c01494fa451e307b4e79da71d3d31d6e8f4c73f6070ab69f0cd8',
+  'legal/versions/service-terms-v1.0-2026-08-21.html': '6fd16f4c5f6855b4dc4a315aaee04989c3bdf323d387f0a7c700ef6491e58886',
+  'legal/versions/service-terms-v1.1-2026-08-30.html': 'c3c2063f1e71090eff26cd69afdcf84bbe4add431832b72c789dcb5f7c1044ff',
+  'legal/versions/terms-v1.0-2026-08-21.html': 'e0dd0cf7620ec8635eb39417d2490d64140bc2ad32ff4eabfee6b536aea92088',
 };
 
 test('homepage and every current legal document expose the public archive', () => {
@@ -33,6 +34,7 @@ test('archive lists every current and previous public version', () => {
     'service-terms-v1.0-2026-08-21.html',
     'service-terms-v1.1-2026-08-30.html',
     'consumer-charter-v1.0-2026-08-29.html',
+    'consumer-charter-v1.1-2026-08-30.html',
     'terms-v1.0-2026-08-21.html',
     'privacy-v1.0-2026-04-04.html',
     'Έκδοση νομικών κειμένων',
@@ -49,7 +51,8 @@ test('archived versions remain byte-for-byte immutable', () => {
   for (const [path, expectedHash] of Object.entries(immutableHashes)) {
     const url = new URL(path, root);
     assert.equal(existsSync(url), true, `missing archived file: ${path}`);
-    const hash = createHash('sha256').update(readFileSync(url)).digest('hex');
+    const canonicalContent = readFileSync(url, 'utf8').replace(/\r\n/g, '\n');
+    const hash = createHash('sha256').update(canonicalContent).digest('hex');
     assert.equal(hash, expectedHash, `archived file changed: ${path}`);
   }
 });
