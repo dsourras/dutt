@@ -16,6 +16,7 @@ const immutableHashes = {
   'legal/versions/consumer-charter-v1.0-2026-08-29.html': 'd346a94b7398bf1f6c7d972e49e7d68df9a6c245c56f010572f455c8ecba12b4',
   'legal/versions/consumer-charter-v1.1-2026-08-30.html': '86f960a7885f034db4ab863f1b9f399a1768b4998540f7f8c8e683383243e06c',
   'legal/versions/privacy-v1.0-2026-04-04.html': 'f51bb34cdb24c01494fa451e307b4e79da71d3d31d6e8f4c73f6070ab69f0cd8',
+  'legal/versions/privacy-v2.0-2026-08-30.html': '83730d718cd718ba6607acfc0c809965a6226029991fe9593556367a8836532f',
   'legal/versions/service-terms-v1.0-2026-08-21.html': '6fd16f4c5f6855b4dc4a315aaee04989c3bdf323d387f0a7c700ef6491e58886',
   'legal/versions/service-terms-v1.1-2026-08-30.html': 'c3c2063f1e71090eff26cd69afdcf84bbe4add431832b72c789dcb5f7c1044ff',
   'legal/versions/service-terms-v1.2-2026-08-30.html': '2691c47da95809f0059f21998cd7ceab31d04de3e3a80a361c1121eee069c03a',
@@ -39,6 +40,7 @@ test('archive lists every current and previous public version', () => {
     'consumer-charter-v1.1-2026-08-30.html',
     'terms-v1.0-2026-08-21.html',
     'privacy-v1.0-2026-04-04.html',
+    'privacy-v2.0-2026-08-30.html',
     'Έκδοση νομικών κειμένων',
   ]) {
     if (marker === 'Έκδοση νομικών κειμένων') continue;
@@ -46,6 +48,7 @@ test('archive lists every current and previous public version', () => {
   }
   assert.match(archive, /<span class="version-id">1\.3<\/span>/);
   assert.match(archive, /<span class="version-id">2\.0<\/span>/);
+  assert.match(archive, /<span class="version-id">2\.1<\/span>/);
   assert.match(archive, /Οι χρεώσεις δεν μεταβλήθηκαν/);
 });
 
@@ -76,7 +79,7 @@ test('current legal texts share the mandatory deadlines and retention policy', (
 
 test('privacy policy covers the real ecosystem and data-subject safeguards', () => {
   for (const marker of [
-    'ΣΟΥΡΡΑΣ ΔΗΜΗΤΡΙΟΣ ΕΥΑΓΓΕΛΟΣ',
+    'ΣΟΥΡΡΑΣ ΔΗΜΗΤΡΙΟΣ',
     'WooCommerce',
     'ΣΥ.ΔΕ.ΤΑ.',
     'Google/Firebase',
@@ -86,6 +89,8 @@ test('privacy policy covers the real ecosystem and data-subject safeguards', () 
     'Hellenic Data Protection Authority',
     'legal hold',
   ]) assert.ok(privacy.includes(marker), `missing privacy marker: ${marker}`);
+  assert.match(privacy, /ΚΟΥΤΛΙΜΠΑΝΑ 5, ΛΑΡΙΣΑ, ΤΚ 41222/);
+  assert.doesNotMatch(privacy, /Κουτλιμπάνα 5-7|Koutlimpana 5-7|ΣΟΥΡΡΑΣ ΔΗΜΗΤΡΙΟΣ ΕΥΑΓΓΕΛΟΣ/);
   assert.doesNotMatch(privacy, /for as long as reasonably necessary|για όσο χρονικό διάστημα είναι εύλογα απαραίτητο/i);
 });
 
