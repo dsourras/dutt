@@ -92,19 +92,20 @@ test('identity, item limits and current fiscal price metadata are explicit', () 
   assert.match(homepage, /tel:\+302414005377/);
   assert.match(agreement, /45 × 45 × 45 cm/);
   assert.match(agreement, /20 kg/);
-  assert.match(agreement, /21 \/ 08 \/ 2026/);
+  assert.match(agreement, /16 \/ 10 \/ 2026/);
   assert.match(agreement, /ΦΠΑ 24%/);
-  assert.match(agreement, /data-pricing-policy-version="launch_v12_tiered_customer_uplift"/);
+  assert.match(agreement, /data-pricing-policy-version="launch_v13_selective_distance_pricing"/);
 });
 
 test('published standard distance prices match the current canonical policy snapshot', () => {
   const prices = scriptValue('standardPrices');
   assert.equal(prices.length, 40);
-  assert.equal(prices[0], 4.09);
-  assert.equal(prices[9], 11.52);
-  assert.equal(prices[19], 23.95);
-  assert.equal(prices[29], 36.59);
-  assert.equal(prices[39], 49.67);
+  assert.deepEqual([...prices], [
+    4.84, 5.33, 5.88, 6.89, 7.76, 8.66, 9.82, 10.92, 12.11, 13.50,
+    14.93, 16.24, 17.50, 18.95, 20.30, 21.66, 22.87, 24.06, 25.37, 26.67,
+    27.78, 29.08, 30.38, 31.68, 33.22, 34.32, 35.61, 36.80, 37.99, 39.32,
+    40.62, 41.94, 43.26, 44.55, 45.86, 47.17, 48.48, 49.77, 51.09, 52.40,
+  ]);
   assert.match(agreement, /0%, 1%, 1,5% ή 2,5%/);
   assert.match(agreement, /Προσαύξηση 40%/);
   assert.match(agreement, /€0,00 \/ €0,09 \/ €0,32 \/ €0,38 \/ €0,68/);
@@ -156,8 +157,8 @@ test('latest 2026 compensation safeguards and complaint deadlines are present', 
 });
 
 test('agreement exposes the final numbered version and public history', () => {
-  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.3<\/span>/);
-  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">07 \/ 09 \/ 2026<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.4<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">16 \/ 10 \/ 2026<\/span>/);
   assert.match(agreement, /href="\/legal-archive\.html"/);
   assert.match(agreement, /προηγούμενες εκδόσεις της σύμβασης και των αντίστοιχων τιμοκαταλόγων/);
   assert.match(agreement, /Previous versions of the agreement and their corresponding price lists/);
