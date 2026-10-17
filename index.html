@@ -391,26 +391,20 @@
       50% { transform: perspective(1200px) rotateY(-5deg) rotateX(3deg) translateY(-10px); }
     }
 
-    .phone::before {
-      content: "";
-      position: absolute;
-      width: 38%;
-      height: 28px;
-      background: #070a0f;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 8px;
-      border-radius: 0 0 18px 18px;
-      z-index: 5;
-    }
-
     .screen {
       width: 100%;
       height: 100%;
       border-radius: 32px;
       overflow: hidden;
       position: relative;
-      background: radial-gradient(circle at top left, rgba(112,162,255,0.25), transparent 26%), linear-gradient(180deg, #0a1119 0%, #091019 100%);
+      background: #f4f5f3;
+    }
+
+    .customer-app-screen {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .screen-top {
@@ -1804,44 +1798,7 @@
           <div class="phone-shell">
             <div class="phone">
               <div class="screen">
-                <div class="screen-top">
-                  <span>9:41</span>
-                  <span data-i18n="phoneTop">dutt live</span>
-                </div>
-
-                <div class="screen-body">
-                  <div class="map-card">
-                    <div class="road road-1"></div>
-                    <div class="road road-2"></div>
-                    <div class="dot pickup"></div>
-                    <div class="dot dropoff"></div>
-                    <div class="dot driver"></div>
-                  </div>
-
-                  <div class="ride-sheet">
-                    <div class="ride-head">
-                      <strong data-i18n="rideTitle">Delivery in progress</strong>
-                      <div class="tag-live" data-i18n="liveTag">Live</div>
-                    </div>
-
-                    <div class="line-item">
-                      <span data-i18n="pickupLabel">Pickup</span>
-                      <span data-i18n="pickupValue">Auto Parts Hub</span>
-                    </div>
-
-                    <div class="line-item">
-                      <span data-i18n="dropoffLabel">Dropoff</span>
-                      <span data-i18n="dropoffValue">Downtown Garage</span>
-                    </div>
-
-                    <div class="line-item">
-                      <span data-i18n="etaLabel">ETA</span>
-                      <span data-i18n="etaValue">12 min</span>
-                    </div>
-
-                    <button class="confirm-btn" type="button" data-i18n="trackBtn">Track order</button>
-                  </div>
-                </div>
+                <img class="customer-app-screen" src="customer-app-home-larissa.png" alt="DUTT Customer app home screen in Larissa" width="720" height="1600" decoding="async" fetchpriority="high" />
               </div>
             </div>
           </div>
