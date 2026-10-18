@@ -92,7 +92,7 @@ test('identity, item limits and current fiscal price metadata are explicit', () 
   assert.match(homepage, /tel:\+302414005377/);
   assert.match(agreement, /45 × 45 × 45 cm/);
   assert.match(agreement, /20 kg/);
-  assert.match(agreement, /16 \/ 10 \/ 2026/);
+  assert.match(agreement, /18 \/ 10 \/ 2026/);
   assert.match(agreement, /ΦΠΑ 24%/);
   assert.match(agreement, /data-pricing-policy-version="launch_v13_selective_distance_pricing"/);
 });
@@ -157,8 +157,8 @@ test('latest 2026 compensation safeguards and complaint deadlines are present', 
 });
 
 test('agreement exposes the final numbered version and public history', () => {
-  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.4<\/span>/);
-  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">16 \/ 10 \/ 2026<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.5<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">18 \/ 10 \/ 2026<\/span>/);
   assert.match(agreement, /href="\/legal-archive\.html"/);
   assert.match(agreement, /προηγούμενες εκδόσεις της σύμβασης και των αντίστοιχων τιμοκαταλόγων/);
   assert.match(agreement, /Previous versions of the agreement and their corresponding price lists/);
