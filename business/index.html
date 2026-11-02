@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101112">
+  <meta name="referrer" content="no-referrer">
+  <title>DUTT | Εγγραφή επιχείρησης</title>
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="stylesheet" href="registration.css">
+  <script type="module" src="registration.mjs"></script>
+</head>
+<body>
+  <header><div class="header-inner">
+    <a href="../index.html" aria-label="DUTT"><img src="../logo_white1.png" alt="DUTT" width="114" height="43"></a>
+    <div class="languages" role="group" aria-label="Language"><button type="button" data-lang="el" aria-pressed="true">ΕΛ</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+  </div></header>
+  <main>
+    <a class="back" href="../index.html" data-i18n="home">DUTT / Αρχική</a>
+    <a class="back" href="../business-access.html" data-i18n="accessAccount">Πρόσβαση λογαριασμού</a>
+    <h1 data-i18n="title">Εγγραφή επιχείρησης</h1>
+    <p id="availability" class="notice" role="status" data-i18n="checking">Έλεγχος διαθεσιμότητας…</p>
+    <noscript>Για την εγγραφή απαιτείται JavaScript. Επικοινωνία: info@dutt.gr</noscript>
+    <form id="registration-form" novalidate>
+      <fieldset id="fields" disabled>
+        <legend data-i18n="business">Στοιχεία επιχείρησης</legend>
+        <div class="grid">
+          <label class="full"><span data-i18n="legalName">Επωνυμία</span><input name="legalName" required maxlength="200" autocomplete="organization"></label>
+          <label><span data-i18n="afm">ΑΦΜ</span><input name="afm" required inputmode="numeric" pattern="[0-9]{9}" minlength="9" maxlength="9" autocomplete="off"></label>
+          <label><span data-i18n="taxOffice">ΔΟΥ (προαιρετικό)</span><input name="taxOffice" maxlength="200" autocomplete="off"></label>
+          <label class="full"><span data-i18n="contactName">Ονοματεπώνυμο εκπροσώπου</span><input name="contactName" required maxlength="200" autocomplete="name"></label>
+          <label><span data-i18n="email">Email</span><input name="email" type="email" required maxlength="254" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+          <label><span data-i18n="phone">Τηλέφωνο</span><input name="phone" type="tel" required maxlength="80" autocomplete="tel"></label>
+        </div>
+        <h2 data-i18n="address">Φορολογική διεύθυνση</h2>
+        <div class="grid address">
+          <label><span data-i18n="street">Οδός</span><input name="street" required maxlength="200" autocomplete="address-line1"></label>
+          <label><span data-i18n="number">Αριθμός</span><input name="number" required maxlength="30" autocomplete="address-line2"></label>
+          <label><span data-i18n="city">Πόλη</span><input name="city" required maxlength="100" autocomplete="address-level2"></label>
+          <label><span data-i18n="postalCode">Ταχυδρομικός κώδικας</span><input name="postalCode" required maxlength="6" inputmode="numeric" autocomplete="postal-code"></label>
+        </div>
+        <h2 id="credentials-title" data-i18n="credentials">Στοιχεία νέου λογαριασμού</h2>
+        <div class="grid" id="credentials-fields">
+          <label><span data-i18n="password">Κωδικός</span><input name="password" type="password" required minlength="8" maxlength="4096" autocomplete="new-password"></label>
+          <label><span data-i18n="confirm">Επιβεβαίωση κωδικού</span><input name="confirmPassword" type="password" required minlength="8" maxlength="4096" autocomplete="new-password"></label>
+        </div>
+      </fieldset>
+      <div id="result" role="status" aria-live="polite" tabindex="-1" hidden></div>
+      <div class="actions">
+        <button id="submit" class="primary" type="submit" disabled data-i18n="submit">Δημιουργία εταιρικού λογαριασμού</button>
+        <button id="retry" type="button" hidden data-i18n="retry">Επανάληψη ίδιας αίτησης</button>
+        <button id="correct" type="button" hidden data-i18n="correct">Διόρθωση στοιχείων</button>
+        <button id="recheck" type="button" hidden data-i18n="recheck">Νέος έλεγχος διαθεσιμότητας</button>
+      </div>
+    </form>
+    <footer><a href="../privacy.html" data-i18n="privacy">Πολιτική απορρήτου</a><a href="../terms.html" data-i18n="terms">Όροι χρήσης</a><a href="mailto:info@dutt.gr">info@dutt.gr</a></footer>
+  </main>
+</body>
+</html>

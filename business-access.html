@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101112"><meta name="referrer" content="no-referrer">
+  <title>DUTT | Εταιρικός λογαριασμός</title>
+  <link rel="icon" href="favicon.png" type="image/png"><link rel="stylesheet" href="business/registration.css">
+  <link rel="stylesheet" href="business/billing.css">
+  <script type="module" src="business/access.mjs"></script>
+</head>
+<body>
+  <header><div class="header-inner"><a href="index.html" aria-label="DUTT"><img src="logo_white1.png" alt="DUTT" width="114" height="43"></a>
+    <div class="languages" role="group" aria-label="Language"><button type="button" data-lang="el" aria-pressed="true">ΕΛ</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+  </div></header>
+  <main>
+    <a class="back" href="business/" data-i18n="registration">Εγγραφή επιχείρησης</a>
+    <h1 data-i18n="title">Εταιρικός λογαριασμός</h1>
+    <p id="availability" class="notice" role="status" data-i18n="checking">Έλεγχος διαθεσιμότητας…</p>
+    <noscript>Για την πρόσβαση απαιτείται JavaScript. info@dutt.gr</noscript>
+    <section id="signin-section">
+      <h2 data-i18n="signin">Σύνδεση</h2>
+      <form id="signin-form"><fieldset id="signin-fields" disabled><div class="grid">
+        <label><span data-i18n="email">Email</span><input id="login-email" type="email" required maxlength="254" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+        <label><span data-i18n="password">Κωδικός</span><input id="login-password" type="password" required maxlength="4096" autocomplete="current-password"></label>
+      </div><div class="actions"><button type="submit" class="primary" data-i18n="signin">Σύνδεση</button></div></fieldset></form>
+    </section>
+    <section id="account-section" hidden>
+      <h2 data-i18n="account">Στοιχεία λογαριασμού</h2><dl id="account-details"></dl>
+      <div class="actions"><button id="refresh" type="button" data-i18n="refresh">Ανανέωση στοιχείων</button><button id="verify-email" type="button" hidden data-i18n="verifyEmail">Επαλήθευση email</button>
+        <button id="complete-access" type="button" hidden data-i18n="completeAccess">Επιβεβαίωση πρόσβασης</button><button id="signout" type="button" data-i18n="signout">Αποσύνδεση</button>
+        <a id="open-billing" href="#incoming-billing" data-i18n="incomingCharges">Εισερχόμενες χρεώσεις</a></div>
+      <section id="consent-section">
+        <h2 data-i18n="collaboration">Συνεργασία</h2>
+        <p id="consent-status" role="status"></p><p id="policy-version"></p>
+        <pre id="policy-text" tabindex="0" aria-label="Κείμενο συνεργασίας"></pre>
+        <form id="consent-form"><fieldset id="consent-fields" disabled>
+          <label class="choice"><input id="authority" type="checkbox" required><span data-i18n="authority">Έχω εξουσιοδότηση να δεσμεύσω αυτή την επιχείρηση.</span></label>
+          <label class="choice"><input id="accepted-policy" type="checkbox" required><span data-i18n="acceptedPolicy">Έχω διαβάσει και αποδέχομαι το εμφανιζόμενο κείμενο συνεργασίας.</span></label>
+          <fieldset class="scope"><legend data-i18n="scope">Αποστολείς που επιτρέπεται να χρεώνουν την επιχείρηση</legend>
+            <label class="choice"><input type="radio" name="scope" value="verified_business_senders" required><span data-i18n="allSenders">Όλοι οι επαληθευμένοι εταιρικοί αποστολείς</span></label>
+            <label class="choice"><input type="radio" name="scope" value="approved_sender_uids" required><span data-i18n="selectedSenders">Μόνο συγκεκριμένοι αποστολείς</span></label>
+            <label id="sender-list" hidden><span data-i18n="senderUids">UID αποστολέων</span><textarea id="sender-uids" maxlength="12900" rows="3"></textarea></label>
+          </fieldset>
+          <button id="accept-consent" type="submit" class="primary" data-i18n="accept">Αποδοχή συνεργασίας</button>
+        </fieldset></form>
+        <div class="actions"><button id="retry-consent" type="button" hidden data-i18n="retryConsent">Επανάληψη ίδιας αποδοχής</button><button id="review-policy" type="button" hidden data-i18n="review">Νέα ανάγνωση πολιτικής</button></div>
+      </section>
+    </section>
+    <section id="incoming-billing" hidden aria-labelledby="incoming-billing-title">
+      <h2 id="incoming-billing-title" data-billing="billingTitle">Εισερχόμενες χρεώσεις</h2>
+      <div class="billing-toolbar"><label><span data-billing="billingPeriod">Περίοδος χρέωσης</span><input id="billing-period" type="month" min="2000-01" max="2199-12" required></label>
+        <button id="billing-refresh" type="button" data-billing="billingRefresh" title="Ανανέωση χρεώσεων" aria-label="Ανανέωση χρεώσεων">↻</button></div>
+      <p id="billing-state" role="status" aria-live="polite" hidden></p>
+      <div id="billing-invoice"></div><div id="billing-charges"></div>
+      <nav id="billing-pages" class="billing-pages" aria-label="Σελίδες χρεώσεων" hidden>
+        <button id="billing-previous" type="button" data-billing="billingPrevious" aria-label="Προηγούμενη σελίδα">←</button><span id="billing-page-label"></span>
+        <button id="billing-next" type="button" data-billing="billingNext" aria-label="Επόμενη σελίδα">→</button></nav>
+    </section>
+    <section id="recovery-section">
+      <h2 data-i18n="recovery">Απόκτηση ή ανάκτηση πρόσβασης</h2>
+      <form id="recovery-form"><fieldset id="recovery-fields" disabled>
+        <label><span data-i18n="accessEmail">Email λογαριασμού</span><input id="access-email" type="email" required maxlength="254" autocomplete="email" autocapitalize="none" spellcheck="false"></label>
+        <div class="actions"><button id="request-access" type="submit" data-i18n="requestAccess">Αίτημα πρόσβασης</button><button id="resend-access" type="button" hidden data-i18n="resend">Νέο αίτημα αποστολής</button></div>
+      </fieldset></form>
+    </section>
+    <div id="access-result" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    <div class="actions"><button id="recheck-access" type="button" hidden data-i18n="recheck">Νέος έλεγχος διαθεσιμότητας</button></div>
+    <footer><a href="privacy.html" data-i18n="privacy">Πολιτική απορρήτου</a><a href="terms.html" data-i18n="terms">Όροι χρήσης</a><a href="mailto:info@dutt.gr">info@dutt.gr</a></footer>
+  </main>
+</body>
+</html>

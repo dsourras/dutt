@@ -1,0 +1,13 @@
+#incoming-billing { border-top: 1px solid #d4d8dc; margin-top: 32px; padding-top: 8px; }
+.billing-toolbar { display: flex; align-items: end; gap: 12px; margin: 16px 0; }
+.billing-toolbar label { flex: 1; max-width: 240px; }
+.billing-toolbar button, .billing-pages button { width: 44px; height: 46px; padding: 6px; font-size: 20px; }
+.billing-charge { border-top: 1px solid #d4d8dc; padding: 18px 0; }
+#incoming-billing h3 { font-size: 15px; margin: 16px 0 6px; overflow-wrap: anywhere; }
+.billing-stage { color: #535b62; font-size: 13px; margin: 4px 0 14px; }
+.billing-amounts { grid-template-columns: minmax(0, 1fr) minmax(100px, 1fr); max-width: 500px; }
+#incoming-billing dd { text-align: right; font-variant-numeric: tabular-nums; }
+.billing-pages { display: flex; justify-content: center; align-items: center; gap: 16px; padding: 12px 0; }
+.billing-pending { color: #8a5410; border-left: 3px solid #d5a51d; padding: 8px 12px; }
+#billing-state { color: #9f2533; padding: 12px 0; }
+#open-billing { align-self: center; font-size: 14px; }
