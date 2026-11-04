@@ -160,3 +160,18 @@ test('actual page has unchecked explicit declarations separate credit state and 
   assert.ok(sdk.includes('ReCaptchaV3Provider')); assert.ok(sdk.includes('signInWithEmailAndPassword')); assert.ok(sdk.includes('sendEmailVerification'));
   assert.ok(sdk.includes('https://dutt.gr/business-access.html')); assert.ok(html.includes('business/access.mjs'));
 });
+
+test('explicitly closed website presents native handoff without claiming verification or enabling Auth', async () => {
+  const f = fixture({ available: false }); await f.flow.initialize();
+  assert.equal(f.flow.config.available, false); assert.equal(f.calls.auth, 0); assert.equal(f.calls.verify, 0); assert.equal(f.flow.account, null);
+  const html = readFileSync(new URL('../business-access.html', import.meta.url), 'utf8');
+  const view = readFileSync(new URL('../business/access.mjs', import.meta.url), 'utf8');
+  assert.match(html, /id="native-handoff" hidden data-i18n="nativeHandoff"/);
+  assert.ok(view.includes('const nativeOnly = !checking && flow.config?.available === false;'));
+  assert.ok(view.includes("$('#signin-section').hidden = Boolean(account) || nativeOnly"));
+  assert.ok(view.includes("$('#recovery-section').hidden = nativeOnly"));
+  assert.ok(view.includes("$('.back').hidden = nativeOnly"));
+  assert.ok(view.includes('Continue in the DUTT Customer app.'));
+  assert.ok(view.includes('Συνέχισε στην εφαρμογή DUTT Customer.'));
+  assert.equal(f.calls.posted.length, 1); assert.equal(f.calls.posted[0].body.action, 'website_business_access_availability');
+});

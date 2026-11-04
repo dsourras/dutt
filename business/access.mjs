@@ -3,6 +3,7 @@ import { registrationAuth } from './firebase-auth.mjs';
 import { attachBillingView } from './billing-view.mjs';
 const messages = {
   el: { incomingCharges: 'Εισερχόμενες χρεώσεις', title: 'Εταιρικός λογαριασμός', registration: 'Εγγραφή επιχείρησης', checking: 'Έλεγχος διαθεσιμότητας…', unavailable: 'Η πρόσβαση εταιρικών λογαριασμών δεν είναι διαθέσιμη αυτή τη στιγμή.',
+    nativeOnly: 'Συνέχισε στην εφαρμογή DUTT Customer.', nativeHandoff: 'Επίστρεψε στην εφαρμογή, άνοιξε τον Εταιρικό λογαριασμό και πάτησε Ανανέωση.',
     available: 'Πρόσβαση εταιρικού λογαριασμού', signin: 'Σύνδεση', signout: 'Αποσύνδεση', email: 'Email', password: 'Κωδικός', account: 'Στοιχεία λογαριασμού',
     refresh: 'Ανανέωση στοιχείων', verifyEmail: 'Επαλήθευση email', completeAccess: 'Επιβεβαίωση πρόσβασης', collaboration: 'Συνεργασία',
     authority: 'Έχω εξουσιοδότηση να δεσμεύσω αυτή την επιχείρηση.', acceptedPolicy: 'Έχω διαβάσει και αποδέχομαι το εμφανιζόμενο κείμενο συνεργασίας.',
@@ -22,6 +23,7 @@ const messages = {
     consentRequired: 'Επιβεβαιώστε εξουσιοδότηση, αποδοχή κειμένου και επιτρεπόμενους αποστολείς.', ownerRequired: 'Η πρόσβαση δεν επιβεβαιώθηκε. Συνδεθείτε μετά την ολοκλήρωση των οδηγιών πρόσβασης.',
     accountUnavailable: 'Δεν είναι διαθέσιμος επιβεβαιωμένος εταιρικός λογαριασμός για αυτή τη σύνδεση.', storage: 'Δεν είναι διαθέσιμη η αποθήκευση της συνεδρίας.', wait: 'Περιμένετε πριν υποβάλετε νέο αίτημα αποστολής.' },
   en: { incomingCharges: 'Incoming charges', title: 'Business account', registration: 'Business registration', checking: 'Checking availability…', unavailable: 'Business account access is currently unavailable.',
+    nativeOnly: 'Continue in the DUTT Customer app.', nativeHandoff: 'Return to the app, open Business account and select Refresh.',
     available: 'Business account access', signin: 'Sign in', signout: 'Sign out', email: 'Email', password: 'Password', account: 'Account details',
     refresh: 'Refresh details', verifyEmail: 'Verify email', completeAccess: 'Confirm owner access', collaboration: 'Collaboration',
     authority: 'I am authorized to bind this business.', acceptedPolicy: 'I have read and accept the displayed collaboration terms.',
@@ -74,9 +76,13 @@ function render() {
   document.documentElement.lang = language; document.title = `DUTT | ${tr('title')}`;
   document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = tr(node.dataset.i18n); });
   document.querySelectorAll('[data-lang]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === language)));
-  $('#availability').textContent = tr(checking ? 'checking' : flow.config?.available ? 'available' : 'unavailable');
+  const nativeOnly = !checking && flow.config?.available === false;
+  $('#availability').textContent = tr(nativeOnly ? 'nativeOnly' : checking ? 'checking' : flow.config?.available ? 'available' : 'unavailable');
+  $('#native-handoff').hidden = !nativeOnly;
+  $('.back').hidden = nativeOnly;
   const enabled = !busy && !checking && flow.config?.available, account = flow.account;
-  $('#signin-section').hidden = Boolean(account); $('#signin-fields').disabled = !enabled;
+  $('#signin-section').hidden = Boolean(account) || nativeOnly; $('#signin-fields').disabled = !enabled;
+  $('#recovery-section').hidden = nativeOnly;
   $('#recovery-fields').disabled = !enabled; $('#account-section').hidden = !account;
   $('#recheck-access').hidden = checking || busy || Boolean(flow.config?.available);
   $('#account-details').replaceChildren();
