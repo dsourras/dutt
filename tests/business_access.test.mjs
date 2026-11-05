@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { WebsiteAccessApi, WebsiteAccessFlow, AccessError, validatePolicy } from '../business/access-client.mjs';
 const text = 'SYNTHETIC TEST TERMS ONLY.\nNot a real legal agreement.', policy = { version: 'synthetic-v1', hash: createHash('sha256').update(text).digest('hex'), text };
+const termsPolicy = { ...policy, version: 'synthetic-terms-only-v1', acceptanceMode: 'terms_only' };
 const own = { uid: 'synthetic-owner', email: 'owner@example.invalid' }, requestId = 'a'.repeat(64);
 const REQUEST = 'dutt-business-owner-request-v1', CONSENT = 'dutt-business-consent-v1';
 function fixture(options = {}) {
@@ -154,11 +155,86 @@ test('native fetch default stays bound to its global receiver', async () => {
     await new WebsiteAccessApi({ endpoint: 'http://127.0.0.1/local' }).post({ action: 'website_business_access_availability' });
   } finally { globalThis.fetch = original; }
 });
-test('actual page has unchecked explicit declarations separate credit state and pinned lazy SDK protection', () => {
+test('actual page has only one unchecked terms choice and preserves pinned lazy SDK protection', () => {
   const html = readFileSync(new URL('../business-access.html', import.meta.url), 'utf8'), sdk = readFileSync(new URL('../business/firebase-auth.mjs', import.meta.url), 'utf8');
-  assert.ok(html.includes('id="authority"')); assert.ok(html.includes('id="accepted-policy"')); assert.ok(!/\schecked(?:\s|=|>)/.test(html));
+  assert.equal((html.match(/type="checkbox"/g) || []).length, 1); assert.ok(html.includes('id="accepted-policy"')); assert.ok(!/\schecked(?:\s|=|>)/.test(html));
+  assert.ok(!html.includes('id="authority"')); assert.ok(!html.includes('name="scope"')); assert.ok(!html.includes('sender-uids'));
   assert.ok(sdk.includes('ReCaptchaV3Provider')); assert.ok(sdk.includes('signInWithEmailAndPassword')); assert.ok(sdk.includes('sendEmailVerification'));
   assert.ok(sdk.includes('https://dutt.gr/business-access.html')); assert.ok(html.includes('business/access.mjs'));
+});
+
+test('trusted terms-only policy mode is validated and unknown or null modes fail closed', async () => {
+  assert.deepEqual(await validatePolicy(termsPolicy), termsPolicy);
+  for (const acceptanceMode of [null, '', 'legacy', 'future', true]) await assert.rejects(validatePolicy({ ...policy, acceptanceMode }), /policy_invalid/);
+});
+
+test('one-checkbox acceptance sends no invented authority declaration or sender scope', async () => {
+  const f = fixture({ policy: termsPolicy }); await f.flow.initialize();
+  assert.equal(f.flow.termsOnlyPolicy, true); assert.equal(acceptance(f).length, 0);
+  await f.flow.acceptTerms({ acceptedPolicy: true });
+  const body = acceptance(f)[0].body;
+  assert.deepEqual(Object.keys(body).sort(), ['action', 'idempotencyKey', 'expectedIdentityRevision', 'expectedControlRevision', 'policyVersion', 'policyHash', 'acceptedPolicy', 'ownerProofId'].sort());
+  assert.equal(body.acceptedPolicy, true); assert.equal(body.policyVersion, termsPolicy.version); assert.equal(body.policyHash, termsPolicy.hash);
+  assert.equal(body.ownerProofId, requestId); assert.equal(body.authorityDeclaration, undefined); assert.equal(body.scope, undefined);
+  assert.equal(f.account.creditState, 'unapproved'); assert.equal(f.flow.pending, null);
+});
+
+test('one-checkbox requests require explicit acceptance and never reinterpret a legacy policy', async () => {
+  for (const options of [{ policy: termsPolicy }, { policy }]) {
+    const f = fixture(options); await f.flow.initialize();
+    await assert.rejects(f.flow.acceptTerms(), /consent_required/);
+    await assert.rejects(f.flow.acceptTerms({ acceptedPolicy: false }), /consent_required/);
+    if (options.policy === policy) await assert.rejects(f.flow.acceptTerms({ acceptedPolicy: true }), /consent_required/);
+    else await assert.rejects(f.flow.accept(declaration), /consent_required/);
+    assert.equal(acceptance(f).length, 0);
+  }
+});
+
+test('terms-only still requires own verified email and owner proof with separate unapproved credit', async () => {
+  for (const account of [{ emailVerified: false }, { ownerProofId: null }, { creditState: 'active' }, { creditState: 'suspended' }, { consentRecorded: true }]) {
+    const f = fixture({ policy: termsPolicy, account }); await f.flow.initialize();
+    await assert.rejects(f.flow.acceptTerms({ acceptedPolicy: true }), /consent_required/); assert.equal(acceptance(f).length, 0);
+  }
+  const f = fixture({ policy: termsPolicy }); await f.flow.initialize(); f.setCurrent({ uid: 'foreign' });
+  await assert.rejects(f.flow.acceptTerms({ acceptedPolicy: true }), /unauthorized/); assert.equal(acceptance(f).length, 0);
+});
+
+test('a lost terms-only acknowledgement restores and retries the exact original body without legacy fields', async () => {
+  let first = true;
+  const f = fixture({ policy: termsPolicy, post: body => { if (body.action === 'accept_website_business_consent' && first) { first = false; throw new AccessError('website_access_unavailable', true); } } });
+  await f.flow.initialize(); await assert.rejects(f.flow.acceptTerms({ acceptedPolicy: true }));
+  const frozen = structuredClone(f.flow.pending), restored = new WebsiteAccessFlow(f.args);
+  assert.deepEqual(restored.pending, frozen); await restored.initialize(); await restored.accept({});
+  assert.deepEqual(acceptance(f)[0], acceptance(f)[1]); assert.equal(acceptance(f)[1].body.scope, undefined); assert.equal(restored.pending, null);
+});
+
+test('legacy limited-sender pending replay remains exact after web UI no longer offers sender controls', async () => {
+  let first = true;
+  const f = fixture({ post: body => { if (body.action === 'accept_website_business_consent' && first) { first = false; throw new AccessError('website_access_unavailable', true); } } });
+  await f.flow.initialize(); await assert.rejects(f.flow.accept({ ...declaration, scope: { mode: 'approved_sender_uids', senderUids: ['sender-only'] } }));
+  const restored = new WebsiteAccessFlow(f.args); await restored.initialize(); await restored.accept({});
+  assert.deepEqual(acceptance(f)[0], acceptance(f)[1]); assert.deepEqual(acceptance(f)[1].body.scope, { mode: 'approved_sender_uids', senderUids: ['sender-only'] });
+});
+
+test('half-legacy or altered pending shapes are discarded rather than receiving fabricated missing fields', async () => {
+  const f = fixture({ policy: termsPolicy, post: body => { if (body.action === 'accept_website_business_consent') throw new AccessError('website_access_unavailable', true); } });
+  await f.flow.initialize(); await assert.rejects(f.flow.acceptTerms({ acceptedPolicy: true }));
+  const original = structuredClone(f.flow.pending);
+  for (const extra of [{ authorityDeclaration: true }, { scope: { mode: 'verified_business_senders' } }, { authorityDeclaration: false, scope: { mode: 'verified_business_senders' } }, { acceptedPolicy: false }, { acceptanceMode: 'terms_only' }]) {
+    f.data.set(CONSENT, JSON.stringify({ ...original, body: { ...original.body, ...extra } }));
+    assert.equal(new WebsiteAccessFlow(f.args).pending, null);
+  }
+});
+
+test('minimal web terms are linked exact text in a dialog without main-page technical identifiers', () => {
+  const html = readFileSync(new URL('../business-access.html', import.meta.url), 'utf8'), view = readFileSync(new URL('../business/access.mjs', import.meta.url), 'utf8');
+  assert.ok(html.includes('id="open-terms"')); assert.ok(html.includes('<dialog id="collaboration-terms"'));
+  assert.ok(html.indexOf('id="policy-text"') > html.indexOf('<dialog id="collaboration-terms"'));
+  assert.ok(!html.includes('id="policy-version"')); assert.ok(!view.includes("['uid', account.customerUid]"));
+  assert.ok(view.includes("$('#policy-text').textContent = flow.policy.text")); assert.ok(!view.includes('innerHTML'));
+  assert.ok(view.includes('flow.acceptTerms({ acceptedPolicy })')); assert.ok(view.includes("$('#consent-form').hidden = account.consentRecorded || Boolean(flow.pending) || !flow.termsOnlyPolicy"));
+  assert.ok(html.includes('<details id="recovery-section">')); assert.ok(view.includes('account.ownerProofId'));
+  assert.ok(html.indexOf('id="access-result"') < html.indexOf('id="account-section"'));
 });
 
 test('explicitly closed website presents native handoff without claiming verification or enabling Auth', async () => {

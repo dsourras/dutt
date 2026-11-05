@@ -7,7 +7,8 @@ const emailOf = value => { if (typeof value !== 'string' || value.length > 254 |
 export async function validatePolicy(policy) {
   if (policy === null) return null;
   if (!policy || typeof policy.version !== 'string' || !policy.version.trim() || policy.version.length > 100 || !hex(policy.hash) ||
-      typeof policy.text !== 'string' || !policy.text.trim() || new TextEncoder().encode(policy.text).length > 128 * 1024) throw new AccessError('policy_invalid');
+      typeof policy.text !== 'string' || !policy.text.trim() || new TextEncoder().encode(policy.text).length > 128 * 1024 ||
+      Object.hasOwn(policy, 'acceptanceMode') && policy.acceptanceMode !== 'terms_only') throw new AccessError('policy_invalid');
   const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(policy.text)))].map(n => n.toString(16).padStart(2, '0')).join('');
   if (hash !== policy.hash) throw new AccessError('policy_invalid'); return policy;
 }
@@ -38,9 +39,11 @@ const validScope = scope => closed(scope, ['mode', 'senderUids']) && (scope.mode
   scope.mode === 'approved_sender_uids' && Array.isArray(scope.senderUids) && scope.senderUids.length > 0 && scope.senderUids.length <= 100 && scope.senderUids.every(uid) && new Set(scope.senderUids).size === scope.senderUids.length);
 function validPending(value) {
   const body = value?.body;
+  const legacy = record(body) && Object.hasOwn(body, 'authorityDeclaration') && Object.hasOwn(body, 'scope') && body.authorityDeclaration === true && validScope(body.scope);
+  const termsOnly = record(body) && !Object.hasOwn(body, 'authorityDeclaration') && !Object.hasOwn(body, 'scope');
   return closed(value, ['customerUid', 'body']) && uid(value.customerUid) && closed(body, ['idempotencyKey', 'expectedIdentityRevision', 'expectedControlRevision', 'policyVersion', 'policyHash', 'authorityDeclaration', 'acceptedPolicy', 'scope', 'ownerProofId']) &&
     keyValid(body.idempotencyKey) && Number.isSafeInteger(body.expectedIdentityRevision) && body.expectedIdentityRevision > 0 && Number.isSafeInteger(body.expectedControlRevision) && body.expectedControlRevision >= 0 &&
-    typeof body.policyVersion === 'string' && body.policyVersion.trim().length > 0 && body.policyVersion.length <= 100 && hex(body.policyHash) && body.authorityDeclaration === true && body.acceptedPolicy === true && validScope(body.scope) &&
+    typeof body.policyVersion === 'string' && body.policyVersion.trim().length > 0 && body.policyVersion.length <= 100 && hex(body.policyHash) && body.acceptedPolicy === true && (legacy || termsOnly) &&
     (!Object.hasOwn(body, 'ownerProofId') || hex(body.ownerProofId));
 }
 function validRequest(value) {
@@ -115,19 +118,25 @@ export class WebsiteAccessFlow {
     if (data.status !== 'owner_verified' || data.customerUid !== user?.uid) throw new AccessError('access_confirmation_required'); await this.load();
   }
   async verifyEmail() { const user = await this.auth.current(); if (!user) throw new AccessError('website_access_unauthorized'); await this.auth.protectionToken(); await this.auth.verifyEmail(user); }
-  async accept({ authority, acceptedPolicy, scope }) {
+  get termsOnlyPolicy() { return this.policy?.acceptanceMode === 'terms_only'; }
+  accept(values = {}) { return this.submitConsent(values, false); }
+  acceptTerms({ acceptedPolicy = false } = {}) { return this.submitConsent({ acceptedPolicy }, true); }
+  async submitConsent({ authority, acceptedPolicy, scope }, termsOnly) {
     if (this.busy) throw new AccessError('in_progress');
     this.busy = true;
     try {
       const user = await this.auth.current();
       if (!user || !this.account || user.uid !== this.account.customerUid) throw new AccessError('website_access_unauthorized');
       if (!this.pending) {
-        if (!this.policy || !this.account.emailVerified || this.account.ownerProofRequired && !this.account.ownerProofId || authority !== true || acceptedPolicy !== true ||
+        if (!this.policy || !this.account.emailVerified || this.account.ownerProofRequired && !this.account.ownerProofId || acceptedPolicy !== true ||
+            this.account.consentRecorded || this.account.creditState !== 'unapproved') throw new AccessError('consent_required');
+        if (termsOnly !== this.termsOnlyPolicy) throw new AccessError('consent_required');
+        if (!termsOnly && (authority !== true ||
             !scope || !['verified_business_senders', 'approved_sender_uids'].includes(scope.mode) || scope.mode === 'approved_sender_uids' &&
-            (!Array.isArray(scope.senderUids) || !scope.senderUids.length || scope.senderUids.length > 100 || scope.senderUids.some(value => !uid(value)) || new Set(scope.senderUids).size !== scope.senderUids.length)) throw new AccessError('consent_required');
+            (!Array.isArray(scope.senderUids) || !scope.senderUids.length || scope.senderUids.length > 100 || scope.senderUids.some(value => !uid(value)) || new Set(scope.senderUids).size !== scope.senderUids.length))) throw new AccessError('consent_required');
         this.pending = { customerUid: user.uid, body: { idempotencyKey: this.newKey(), expectedIdentityRevision: this.account.identityRevision, expectedControlRevision: this.account.controlRevision,
-          policyVersion: this.policy.version, policyHash: this.policy.hash, authorityDeclaration: true, acceptedPolicy: true,
-          scope: scope.mode === 'verified_business_senders' ? { mode: scope.mode } : { mode: scope.mode, senderUids: [...scope.senderUids] },
+          policyVersion: this.policy.version, policyHash: this.policy.hash, acceptedPolicy: true,
+          ...(!termsOnly ? { authorityDeclaration: true, scope: scope.mode === 'verified_business_senders' ? { mode: scope.mode } : { mode: scope.mode, senderUids: [...scope.senderUids] } } : {}),
           ...(this.account.ownerProofRequired ? { ownerProofId: this.account.ownerProofId } : {}) } }; this.save(CONSENT, this.pending);
       }
       if (this.pending.customerUid !== user.uid) throw new AccessError('website_access_unauthorized');

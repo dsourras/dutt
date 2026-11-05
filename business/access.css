@@ -1,0 +1,14 @@
+#collaboration-summary { line-height: 1.5; }
+.provider { color: #535b62; font-size: 14px; }
+#open-terms { display: inline-block; padding: 8px 0; }
+#recovery-section summary { cursor: pointer; font-size: 14px; }
+#recovery-form { margin-top: 20px; }
+#collaboration-terms { width: min(720px, calc(100% - 24px)); height: min(720px, calc(100dvh - 24px)); max-height: calc(100dvh - 24px); padding: 20px; border: 1px solid #a9afb5; border-radius: 4px; color: #191b1d; background: #fff; }
+#collaboration-terms[open] { display: flex; flex-direction: column; overflow: hidden; }
+body:has(#collaboration-terms[open]) { overflow: hidden; }
+#collaboration-terms::backdrop { background: rgb(16 17 18 / 50%); }
+.terms-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex: 0 0 auto; }
+.terms-heading h2 { margin: 0; font-size: 18px; line-height: 1.4; }
+.terms-heading button { flex: 0 0 auto; white-space: nowrap; }
+#collaboration-terms #policy-text { flex: 1 1 auto; min-height: 0; border: 0; padding: 0; margin: 20px 0 0; max-height: none; }
+#access-result { margin-bottom: 24px; }

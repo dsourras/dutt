@@ -6,6 +6,7 @@
   <title>DUTT | Εταιρικός λογαριασμός</title>
   <link rel="icon" href="favicon.png" type="image/png"><link rel="stylesheet" href="business/registration.css">
   <link rel="stylesheet" href="business/billing.css">
+  <link rel="stylesheet" href="business/access.css">
   <script type="module" src="business/access.mjs"></script>
 </head>
 <body>
@@ -17,6 +18,7 @@
     <h1 data-i18n="title">Εταιρικός λογαριασμός</h1>
     <p id="availability" class="notice" role="status" data-i18n="checking">Έλεγχος διαθεσιμότητας…</p>
     <p id="native-handoff" hidden data-i18n="nativeHandoff">Επίστρεψε στην εφαρμογή, άνοιξε τον Εταιρικό λογαριασμό και πάτησε Ανανέωση.</p>
+    <div id="access-result" role="status" aria-live="polite" tabindex="-1" hidden></div>
     <noscript>Για την πρόσβαση απαιτείται JavaScript. info@dutt.gr</noscript>
     <section id="signin-section">
       <h2 data-i18n="signin">Σύνδεση</h2>
@@ -32,19 +34,15 @@
         <a id="open-billing" href="#incoming-billing" data-i18n="incomingCharges">Εισερχόμενες χρεώσεις</a></div>
       <section id="consent-section">
         <h2 data-i18n="collaboration">Συνεργασία</h2>
-        <p id="consent-status" role="status"></p><p id="policy-version"></p>
-        <pre id="policy-text" tabindex="0" aria-label="Κείμενο συνεργασίας"></pre>
+        <p id="consent-status" role="status" aria-live="polite" tabindex="-1"></p>
+        <p id="collaboration-summary" data-i18n="collaborationSummary">Χρέωση εταιρικών παραλαβών, μετά την έγκριση της πίστωσης.</p>
+        <p class="provider" data-i18n="providerIdentity">DUTT · ΑΦΜ 103922076</p>
+        <a id="open-terms" href="#collaboration-terms" data-i18n="collaborationTerms">Όροι συνεργασίας</a>
         <form id="consent-form"><fieldset id="consent-fields" disabled>
-          <label class="choice"><input id="authority" type="checkbox" required><span data-i18n="authority">Έχω εξουσιοδότηση να δεσμεύσω αυτή την επιχείρηση.</span></label>
-          <label class="choice"><input id="accepted-policy" type="checkbox" required><span data-i18n="acceptedPolicy">Έχω διαβάσει και αποδέχομαι το εμφανιζόμενο κείμενο συνεργασίας.</span></label>
-          <fieldset class="scope"><legend data-i18n="scope">Αποστολείς που επιτρέπεται να χρεώνουν την επιχείρηση</legend>
-            <label class="choice"><input type="radio" name="scope" value="verified_business_senders" required><span data-i18n="allSenders">Όλοι οι επαληθευμένοι εταιρικοί αποστολείς</span></label>
-            <label class="choice"><input type="radio" name="scope" value="approved_sender_uids" required><span data-i18n="selectedSenders">Μόνο συγκεκριμένοι αποστολείς</span></label>
-            <label id="sender-list" hidden><span data-i18n="senderUids">UID αποστολέων</span><textarea id="sender-uids" maxlength="12900" rows="3"></textarea></label>
-          </fieldset>
+          <label class="choice"><input id="accepted-policy" type="checkbox" required><span data-i18n="acceptedPolicy">Αποδέχομαι τους όρους συνεργασίας.</span></label>
           <button id="accept-consent" type="submit" class="primary" data-i18n="accept">Αποδοχή συνεργασίας</button>
         </fieldset></form>
-        <div class="actions"><button id="retry-consent" type="button" hidden data-i18n="retryConsent">Επανάληψη ίδιας αποδοχής</button><button id="review-policy" type="button" hidden data-i18n="review">Νέα ανάγνωση πολιτικής</button></div>
+        <div class="actions"><button id="retry-consent" type="button" hidden data-i18n="retryConsent">Επανάληψη αποδοχής</button><button id="review-policy" type="button" hidden data-i18n="review">Έλεγχος συνεργασίας</button></div>
       </section>
     </section>
     <section id="incoming-billing" hidden aria-labelledby="incoming-billing-title">
@@ -57,16 +55,19 @@
         <button id="billing-previous" type="button" data-billing="billingPrevious" aria-label="Προηγούμενη σελίδα">←</button><span id="billing-page-label"></span>
         <button id="billing-next" type="button" data-billing="billingNext" aria-label="Επόμενη σελίδα">→</button></nav>
     </section>
-    <section id="recovery-section">
-      <h2 data-i18n="recovery">Απόκτηση ή ανάκτηση πρόσβασης</h2>
+    <details id="recovery-section">
+      <summary data-i18n="recovery">Βοήθεια σύνδεσης</summary>
       <form id="recovery-form"><fieldset id="recovery-fields" disabled>
         <label><span data-i18n="accessEmail">Email λογαριασμού</span><input id="access-email" type="email" required maxlength="254" autocomplete="email" autocapitalize="none" spellcheck="false"></label>
         <div class="actions"><button id="request-access" type="submit" data-i18n="requestAccess">Αίτημα πρόσβασης</button><button id="resend-access" type="button" hidden data-i18n="resend">Νέο αίτημα αποστολής</button></div>
       </fieldset></form>
-    </section>
-    <div id="access-result" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    </details>
     <div class="actions"><button id="recheck-access" type="button" hidden data-i18n="recheck">Νέος έλεγχος διαθεσιμότητας</button></div>
     <footer><a href="privacy.html" data-i18n="privacy">Πολιτική απορρήτου</a><a href="terms.html" data-i18n="terms">Όροι χρήσης</a><a href="mailto:info@dutt.gr">info@dutt.gr</a></footer>
   </main>
+  <dialog id="collaboration-terms" aria-labelledby="terms-title">
+    <div class="terms-heading"><h2 id="terms-title" data-i18n="collaborationTerms">Όροι συνεργασίας</h2><button id="close-terms" type="button" data-i18n="closeTerms">Κλείσιμο</button></div>
+    <pre id="policy-text" tabindex="0" aria-label="Κείμενο συνεργασίας"></pre>
+  </dialog>
 </body>
 </html>
