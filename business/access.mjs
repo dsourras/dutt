@@ -16,6 +16,7 @@ const messages = {
     emailPending: 'Εκκρεμεί επαλήθευση email.', proofPending: 'Εκκρεμεί επιβεβαίωση πρόσβασης ιδιοκτήτη.', policyMissing: 'Δεν είναι διαθέσιμο επαληθευμένο κείμενο συνεργασίας.',
     policyChanged: 'Απαιτείται έλεγχος της συνεργασίας.', consentRecorded: 'Η συνεργασία έγινε αποδεκτή.', consentPending: 'Εκκρεμεί αποδοχή συνεργασίας.',
     acceptanceUnavailable: 'Η αποδοχή συνεργασίας δεν είναι διαθέσιμη αυτή τη στιγμή.',
+    clientUpdate: 'Ανανέωσε τη σελίδα για την αποδοχή των όρων συνεργασίας.',
     requested: 'Το αίτημα καταχωρίστηκε. Εφόσον ο λογαριασμός είναι επιλέξιμος, θα λάβετε οδηγίες στο email του. Η παράδοση μηνύματος δεν επιβεβαιώνεται εδώ.',
     verificationRequested: 'Το αίτημα επαλήθευσης email υποβλήθηκε. Ελέγξτε το email σας και ανανεώστε τα στοιχεία μετά την επαλήθευση.',
     signedIn: 'Η σύνδεση ολοκληρώθηκε.', signedOut: 'Έγινε αποσύνδεση.', ownerVerified: 'Η πρόσβαση ιδιοκτήτη επιβεβαιώθηκε.',
@@ -38,6 +39,7 @@ const messages = {
     emailPending: 'Email verification is pending.', proofPending: 'Owner access confirmation is pending.', policyMissing: 'Verified collaboration terms are unavailable.',
     policyChanged: 'The collaboration needs to be checked.', consentRecorded: 'Collaboration accepted.', consentPending: 'Collaboration acceptance is pending.',
     acceptanceUnavailable: 'Collaboration acceptance is currently unavailable.',
+    clientUpdate: 'Reload the page to accept the collaboration terms.',
     requested: 'Request recorded. If the account is eligible, instructions will be delivered to its email. Message delivery is not confirmed here.',
     verificationRequested: 'Email verification was requested. Check your email and refresh details after verification.',
     signedIn: 'Signed in.', signedOut: 'Signed out.', ownerVerified: 'Owner access confirmed.', invalidEmail: 'The email is invalid.', invalidLogin: 'Sign-in was not confirmed. Check your email and password.',
@@ -61,6 +63,7 @@ try { if (incoming) flow.captureRequestId(incoming); } catch { status = 'storage
 const tr = key => messages[language][key] || messages[language].unavailableError;
 function errorMessage(error) {
   const code = error.code || '';
+  if (code === 'credit_client_update_required') return 'clientUpdate';
   if (code === 'invalid_email') return 'invalidEmail';
   if (code.startsWith('auth/')) return 'invalidLogin';
   if (['website_access_unauthorized', 'credit_owner_verification_required', 'credit_unauthorized'].includes(code)) return 'freshLogin';

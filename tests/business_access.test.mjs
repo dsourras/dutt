@@ -31,6 +31,20 @@ function fixture(options = {}) {
 }
 const declaration = { authority: true, acceptedPolicy: true, scope: { mode: 'verified_business_senders' } };
 const acceptance = f => f.calls.posted.filter(call => call.body.action === 'accept_website_business_consent');
+
+test('HTTP declares the terms-only protocol only for agreement reads/acceptance without changing any frozen body', async () => {
+  const pending = { action: 'accept_website_business_consent', idempotencyKey: 'synthetic-old-request', acceptedPolicy: true,
+    authorityDeclaration: true, scope: { mode: 'approved_sender_uids', senderUids: ['only-sender'] }, policyVersion: 'synthetic-legacy', policyHash: 'a'.repeat(64) };
+  const frozen = JSON.stringify(pending), seen = [];
+  const api = new WebsiteAccessApi({ endpoint: 'https://example.invalid/synthetic', fetcher: async (url, options) => {
+    seen.push(options); return new Response('{"success":true}', { status: 200 });
+  } });
+  for (const body of [{ action: 'website_business_access_availability' }, { action: 'request_website_business_access', email: own.email },
+    { action: 'read_website_business_account' }, pending, pending]) await api.post(body, 'synthetic-token', 'synthetic-protection');
+  assert.deepEqual(seen.map(call => call.headers['X-DUTT-Consent-Protocol']), [undefined, undefined, 'terms-only-v1', 'terms-only-v1', 'terms-only-v1']);
+  assert.equal(seen[3].body, frozen); assert.equal(seen[4].body, frozen); assert.equal(JSON.stringify(pending), frozen);
+  for (const call of seen) { assert.equal(call.headers.Authorization, 'Bearer synthetic-token'); assert.equal(call.headers['X-Firebase-AppCheck'], 'synthetic-protection'); }
+});
 test('policy is displayed only with the exact raw UTF8 SHA256 binding', async () => { assert.deepEqual(await validatePolicy(policy), policy); assert.equal(await validatePolicy(null), null); });
 test('missing corrupt oversized or mismatched policy is never accepted as verified text', async () => {
   for (const value of [{}, { ...policy, text: '' }, { ...policy, hash: 'b'.repeat(64) }, { ...policy, text: 'x'.repeat(131073) }]) await assert.rejects(validatePolicy(value), /policy_invalid/);
