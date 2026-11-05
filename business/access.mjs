@@ -96,9 +96,17 @@ function render() {
   $('#account-details').replaceChildren();
   if (displayedPolicy && (displayedPolicy.uid !== account?.customerUid || displayedPolicy.hash !== flow.policy?.hash || displayedPolicy.version !== flow.policy?.version)) closeTerms();
   $('#open-terms').hidden = !flow.policy;
+  const registeredBusiness = account?.billingBasis === 'business_registration';
+  $('#consent-section').hidden = registeredBusiness;
+  $('#refresh').hidden = registeredBusiness;
+  $('#signout').hidden = registeredBusiness;
   if (account) {
     for (const [name, value] of [['legalName', account.legalName], ['afm', account.afm], ['email', account.email], ['creditState', tr(account.creditState)]]) {
+      if (registeredBusiness && name === 'creditState') continue;
       const dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = tr(name); dd.textContent = value; $('#account-details').append(dt, dd);
+    }
+    if (registeredBusiness) {
+      const dd = document.createElement('dd'); dd.textContent = language === 'el' ? 'Μηνιαίο τιμολόγιο' : 'Monthly invoice'; $('#account-details').append(dd);
     }
     $('#verify-email').hidden = account.emailVerified; $('#verify-email').disabled = !enabled || Date.now() - verificationAt < 60000;
     $('#complete-access').hidden = !flow.request?.requestId || !account.emailVerified || !account.ownerProofRequired || Boolean(account.ownerProofId); $('#complete-access').disabled = !enabled;

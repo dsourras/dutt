@@ -41,7 +41,7 @@ test('HTTP declares the terms-only protocol only for agreement reads/acceptance 
   } });
   for (const body of [{ action: 'website_business_access_availability' }, { action: 'request_website_business_access', email: own.email },
     { action: 'read_website_business_account' }, pending, pending]) await api.post(body, 'synthetic-token', 'synthetic-protection');
-  assert.deepEqual(seen.map(call => call.headers['X-DUTT-Consent-Protocol']), [undefined, undefined, 'terms-only-v1', 'terms-only-v1', 'terms-only-v1']);
+  assert.deepEqual(seen.map(call => call.headers['X-DUTT-Consent-Protocol']), [undefined, undefined, 'billing-registration-v1', 'billing-registration-v1', 'billing-registration-v1']);
   assert.equal(seen[3].body, frozen); assert.equal(seen[4].body, frozen); assert.equal(JSON.stringify(pending), frozen);
   for (const call of seen) { assert.equal(call.headers.Authorization, 'Bearer synthetic-token'); assert.equal(call.headers['X-Firebase-AppCheck'], 'synthetic-protection'); }
 });
@@ -264,4 +264,13 @@ test('explicitly closed website presents native handoff without claiming verific
   assert.ok(view.includes('Continue in the DUTT Customer app.'));
   assert.ok(view.includes('Συνέχισε στην εφαρμογή DUTT Customer.'));
   assert.equal(f.calls.posted.length, 1); assert.equal(f.calls.posted[0].body.action, 'website_business_access_availability');
+});
+
+test('registered business account loads without policy or a second acceptance', async () => {
+  const f = fixture({ policy: null, account: { billingBasis: 'business_registration', billingState: 'active', monthlyInvoicing: true, ownerProofRequired: false, ownerProofId: null } });
+  await f.flow.initialize();
+  assert.equal(f.flow.account.monthlyInvoicing, true); assert.equal(f.flow.policy, null); assert.equal(acceptance(f).length, 0);
+  const view = readFileSync(new URL('../business/access.mjs', import.meta.url), 'utf8');
+  assert.ok(view.includes("$('#consent-section').hidden = registeredBusiness"));
+  assert.ok(view.includes("$('#refresh').hidden = registeredBusiness"));
 });

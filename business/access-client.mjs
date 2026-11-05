@@ -19,7 +19,7 @@ export class WebsiteAccessApi {
     try {
       const response = await this.fetcher(this.endpoint, { method: 'POST', redirect: 'error', cache: 'no-store', credentials: 'omit', signal: controller.signal,
         headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}), ...(protectionToken ? { 'X-Firebase-AppCheck': protectionToken } : {}),
-          ...(['read_website_business_account', 'accept_website_business_consent'].includes(body.action) ? { 'X-DUTT-Consent-Protocol': 'terms-only-v1' } : {}) }, body: JSON.stringify(body) });
+          ...(['read_website_business_account', 'accept_website_business_consent'].includes(body.action) ? { 'X-DUTT-Consent-Protocol': 'billing-registration-v1' } : {}) }, body: JSON.stringify(body) });
       const text = await response.text(); if (text.length > 256 * 1024) throw new Error('oversized');
       const data = JSON.parse(text);
       const accepted = body.action === 'request_website_business_access' && data?.accepted === true;
