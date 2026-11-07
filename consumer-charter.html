@@ -341,6 +341,10 @@
       font-variant-numeric: tabular-nums;
     }
 
+    .tariff-summary { min-width: 0; table-layout: fixed; }
+    .tariff-summary th:first-child { width: 47%; }
+    .tariff-summary th, .tariff-summary td { overflow-wrap: anywhere; }
+
     .legal-emphasis {
       color: var(--text);
       font-weight: 750;
@@ -509,8 +513,8 @@
           Ο παρών Χάρτης συγκεντρώνει τις δεσμεύσεις της DUTT απέναντι στους χρήστες ταχυδρομικών υπηρεσιών και περιγράφει τις υπηρεσίες, τις χρεώσεις, την ποιότητα, την εξυπηρέτηση, τις αποζημιώσεις, τα παράπονα, την προστασία δεδομένων και το απόρρητο των επικοινωνιών.
         </p>
         <div class="status-row">
-          <div class="status-item"><span class="status-label">Έκδοση</span><span class="status-value">1.4</span></div>
-          <div class="status-item"><span class="status-label">Έναρξη ισχύος</span><span class="status-value">18 / 10 / 2026</span></div>
+          <div class="status-item"><span class="status-label">Έκδοση</span><span class="status-value">1.5</span></div>
+          <div class="status-item"><span class="status-label">Έναρξη ισχύος</span><span class="status-value">07 / 11 / 2026</span></div>
           <div class="status-item"><span class="status-label">Γλώσσα αναφοράς</span><span class="status-value">Ελληνικά</span></div>
         </div>
       </header>
@@ -634,12 +638,38 @@
         </ul>
       </section>
 
-      <section class="contract-section" id="pricing" data-pricing-policy-version="launch_v13_selective_distance_pricing">
+      <section class="contract-section" id="pricing" data-pricing-policy-version="launch_v14_restored_customer_tariff">
         <h2>7. Τιμοκατάλογος υπηρεσιών</h2>
-        <p><span class="legal-emphasis">Ημερομηνία έναρξης ισχύος: 16 / 10 / 2026.</span> Νόμισμα: ευρώ. Ο πίνακας αναγράφει χωριστά την καθαρή αξία, τον ΦΠΑ 24% και την τελική τιμή.</p>
-        <p data-weight-pricing-clarification="2026-10-29">
-          <strong>Διευκρίνιση βάρους και διαστάσεων - 29 / 10 / 2026:</strong> Οι αναγραφόμενες βασικές τιμές ισχύουν για φακέλους και δέματα βάρους έως 20 κιλά και διαστάσεων έως 45 × 45 × 45 εκατοστά, κατάλληλα για ασφαλή μεταφορά με δίκυκλο. Εντός αυτών των ορίων δεν εφαρμόζεται πρόσθετη χρέωση βάσει βάρους. Όταν απαιτείται αυτοκίνητο ή βαν, εφαρμόζεται προσαύξηση 40%, υπό την προϋπόθεση διαθεσιμότητας κατάλληλου οχήματος και δυνατότητας ασφαλούς φόρτωσης. Η διευκρίνιση δεν μεταβάλλει τις ισχύουσες τιμές ή την πολιτική επιστροφών.
+        <p><span class="legal-emphasis">Ημερομηνία έναρξης ισχύος: 07 / 11 / 2026.</span> Επαναφορά των βασικών τιμών που ίσχυαν πριν από την αύξηση της 16 / 10 / 2026. Νόμισμα: ευρώ. Χωριστή αναγραφή καθαρής αξίας, ΦΠΑ 24% και τελικής τιμής. Η αλλαγή αφορά νέες προσφορές, όχι ήδη συμφωνημένες αποστολές.</p>
+        <p data-weight-pricing-clarification="2026-11-07">
+          <strong>Δεν υπάρχει χρέωση ανά κιλό ή ανά «ογκομετρικό κιλό».</strong> Το πραγματικό βάρος και οι εξωτερικές διαστάσεις της συσκευασίας καθορίζουν το κατάλληλο όχημα. Η τιμή εξαρτάται από τη διαδρομή και τις παρακάτω δηλωμένες προσαρμογές.
         </p>
+        <h3>Ποιο όχημα χρειάζεται και τι πληρώνω;</h3>
+        <div class="table-wrap">
+          <table class="tariff-summary" data-tariff-decision-table>
+            <thead><tr><th>Βάρος και εξωτερικές διαστάσεις</th><th>Όχημα και χρέωση</th></tr></thead>
+            <tbody>
+              <tr><td>Έως και 20 kg ΚΑΙ έως 45 × 45 × 45 cm.</td><td>Τυπικό δίκυκλο: βασική τιμή διαδρομής. Καμία πρόσθετη χρέωση βάρους ή όγκου.</td></tr>
+              <tr><td>Πάνω από 20 kg Ή έστω μία διάσταση πάνω από 45 cm, ή άλλη δηλωμένη ανάγκη αυτοκινήτου.</td><td>Αυτοκίνητο/βαν: προσαύξηση 40% για την ίδια διαδρομή. Χωρίς επιπλέον ποσό ανά κιλό ή ανά ογκομετρικό κιλό.</td></tr>
+              <tr><td>Δεν υπάρχει κατάλληλο διαθέσιμο όχημα ή δεν είναι δυνατή η ασφαλής φόρτωση.</td><td>Η αποστολή δεν γίνεται αυτομάτως αποδεκτή. Η προσαύξηση 40% δεν συνεπάγεται αποδοχή απεριόριστου βάρους ή μεγέθους.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Τα 20 kg περιλαμβάνονται στο βασικό όριο. Μετρούμε μήκος, πλάτος και ύψος μαζί με τη συσκευασία. Δεν μετατρέπουμε τον όγκο σε χρεώσιμο βάρος με διαιρέτη 5.000 ή άλλο τύπο ογκομέτρησης. Για μεγαλύτερο ή βαρύτερο δέμα δηλώνεται ανάγκη αυτοκινήτου/βαν πριν από την προσφορά· η αποδοχή εξαρτάται από την καταλληλότητα και την ασφαλή χωρητικότητα του διαθέσιμου οχήματος.</p>
+        <h3>Παραδείγματα ίδιας διαδρομής 5 χλμ.</h3>
+        <div class="table-wrap">
+          <table class="tariff-summary" data-tariff-examples>
+            <thead><tr><th>Δέμα</th><th>Τελική τιμή με ΦΠΑ 24%</th></tr></thead>
+            <tbody>
+              <tr><td>5 kg, 30 × 30 × 30 cm</td><td>Δίκυκλο: 6,52 € (καθαρή αξία 5,26 € + ΦΠΑ 1,26 €).</td></tr>
+              <tr><td>20 kg, 45 × 45 × 45 cm</td><td>Δίκυκλο, εφόσον μεταφέρεται ασφαλώς: 6,52 €.</td></tr>
+              <tr><td>3 kg, 60 × 40 × 40 cm</td><td>Αυτοκίνητο/βαν λόγω μεγέθους: 9,13 € (καθαρή αξία 7,36 € + ΦΠΑ 1,77 €).</td></tr>
+              <tr><td>21 kg, 30 × 30 × 30 cm</td><td>Αυτοκίνητο/βαν λόγω βάρους: 9,13 €, εφόσον μπορεί να εξυπηρετηθεί ασφαλώς.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Τα παραδείγματα δεν περιλαμβάνουν προσαύξηση ζήτησης ή ζωνική προσαρμογή. Η επιβάρυνση αυτοκινήτου εφαρμόζεται μία φορά στην αντίστοιχη διαδρομή· ακολουθούν ΦΠΑ και στρογγυλοποίηση στο λεπτό. Η δεσμευτική τελική τιμή εμφανίζεται πριν από την αποδοχή.</p>
+        <p class="source-links"><a href="/documents/DUTT-Timokatalogos-2026-11-07.pdf">Λήψη αναλυτικού τιμοκαταλόγου PDF</a></p>
         <p>
           Η DUTT χρησιμοποιεί δυναμική τιμολόγηση. Η πραγματική οδική απόσταση υπολογίζεται ψηφιακά και η ακριβής τελική χρέωση εμφανίζεται πριν από την αποδοχή. Ο παρακάτω πίνακας αναλύει την τιμή για ακέραιη απόσταση, τυπικό δίκυκλο, χωρίς προσαύξηση ζήτησης και χωρίς ζωνική προσαρμογή. Για ενδιάμεση απόσταση ο υπολογισμός γίνεται συνεχώς και στρογγυλοποιείται στο λεπτό του ευρώ.
         </p>
@@ -796,7 +826,7 @@
           Η σύμβαση διέπεται από το ελληνικό δίκαιο, τον ν. 4053/2012, τους ισχύοντες κανονισμούς και τις αποφάσεις της ΕΕΤΤ και τη νομοθεσία προστασίας καταναλωτή. Τυχόν υποχρεωτική διάταξη υπερισχύει αντίθετου όρου. Ο χρήστης διατηρεί τη δυνατότητα προσφυγής στα ελληνικά δικαστήρια.
         </p>
         <p>
-          Ο παρών Χάρτης τίθεται σε ισχύ στις 18 / 10 / 2026. Νέα έκδοση εφαρμόζεται από τη δημοσίευσή της και δεν μεταβάλλει αναδρομικά ήδη καταρτισμένη ατομική σύμβαση. Η ισχύουσα και οι προηγούμενες εκδόσεις παραμένουν διαθέσιμες για αποθήκευση ή εκτύπωση στο <a href="/legal-archive.html">Αρχείο νομικών κειμένων</a>.
+          Ο παρών Χάρτης τίθεται σε ισχύ στις 07 / 11 / 2026. Νέα έκδοση εφαρμόζεται από τη δημοσίευσή της και δεν μεταβάλλει αναδρομικά ήδη καταρτισμένη ατομική σύμβαση. Η ισχύουσα και οι προηγούμενες εκδόσεις παραμένουν διαθέσιμες για αποθήκευση ή εκτύπωση στο <a href="/legal-archive.html">Αρχείο νομικών κειμένων</a>.
         </p>
         <div class="source-links">
           <a href="https://www.eett.gr/wp-content/uploads/2024/02/%CE%91%CE%A01101-003.%CE%A6%CE%95%CE%9A.pdf" target="_blank" rel="noopener">Κανονισμός ΕΕΤΤ 1101/3/2024</a>
@@ -814,8 +844,8 @@
           This Charter brings together DUTT's commitments to postal-service users and explains its services, charges, quality, support, compensation, complaints, data protection and confidentiality of communications.
         </p>
         <div class="status-row">
-          <div class="status-item"><span class="status-label">Version</span><span class="status-value">1.4</span></div>
-          <div class="status-item"><span class="status-label">Effective date</span><span class="status-value">18 / 10 / 2026</span></div>
+          <div class="status-item"><span class="status-label">Version</span><span class="status-value">1.5</span></div>
+          <div class="status-item"><span class="status-label">Effective date</span><span class="status-value">07 / 11 / 2026</span></div>
           <div class="status-item"><span class="status-label">Controlling language</span><span class="status-value">Greek</span></div>
         </div>
       </header>
@@ -937,12 +967,38 @@
         </ul>
       </section>
 
-      <section class="contract-section" id="pricing-en" data-pricing-policy-version="launch_v13_selective_distance_pricing">
+      <section class="contract-section" id="pricing-en" data-pricing-policy-version="launch_v14_restored_customer_tariff">
         <h2>7. Service price list</h2>
-        <p><span class="legal-emphasis">Effective date: 16 / 10 / 2026.</span> Currency: euro. The table separately states the net amount, 24% VAT and final price.</p>
-        <p data-weight-pricing-clarification="2026-10-29">
-          <strong>Weight and dimensions clarification - 29 / 10 / 2026:</strong> The stated base prices apply to envelopes and parcels weighing up to 20 kg and measuring up to 45 × 45 × 45 cm, suitable for safe transport by two-wheeler. Within these limits, no additional weight-based charge applies. Where a car or van is required, a 40% surcharge applies, subject to a suitable vehicle being available and safe loading being possible. This clarification does not change the current prices or return policy.
+        <p><span class="legal-emphasis">Effective date: 07 / 11 / 2026.</span> Restores the base prices in force before the increase of 16 / 10 / 2026. Currency: euro. Net amount, 24% VAT and final price are shown separately. Applies to new quotes, not previously agreed shipments.</p>
+        <p data-weight-pricing-clarification="2026-11-07">
+          <strong>No per-kilogram or volumetric-kilogram charge applies.</strong> Actual weight and external packaging dimensions determine the suitable vehicle. Pricing depends on the route and the disclosed adjustments below.
         </p>
+        <h3>Which vehicle is needed and what does it cost?</h3>
+        <div class="table-wrap">
+          <table class="tariff-summary" data-tariff-decision-table>
+            <thead><tr><th>Actual weight and external dimensions</th><th>Vehicle and charge</th></tr></thead>
+            <tbody>
+              <tr><td>Up to and including 20 kg AND up to 45 × 45 × 45 cm.</td><td>Standard two-wheeler: base route price. No extra weight or volume charge.</td></tr>
+              <tr><td>Above 20 kg OR any dimension above 45 cm, or another declared need for a car.</td><td>Car/van: 40% surcharge for the same route. No additional price per kilogram or volumetric kilogram.</td></tr>
+              <tr><td>No suitable available vehicle or safe loading is not possible.</td><td>The shipment is not automatically accepted. The 40% surcharge does not imply unlimited weight or size acceptance.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Exactly 20 kg is within the base limit. Measure length, width and height including packaging. Volume is not converted into chargeable weight using a divisor of 5,000 or another volumetric formula. Declare a larger or heavier parcel as requiring a car/van before requesting the quote; acceptance depends on the suitability and safe capacity of the available vehicle.</p>
+        <h3>Examples for the same 5 km route</h3>
+        <div class="table-wrap">
+          <table class="tariff-summary" data-tariff-examples>
+            <thead><tr><th>Parcel</th><th>Final price including 24% VAT</th></tr></thead>
+            <tbody>
+              <tr><td>5 kg, 30 × 30 × 30 cm</td><td>Two-wheeler: €6.52 (€5.26 net + €1.26 VAT).</td></tr>
+              <tr><td>20 kg, 45 × 45 × 45 cm</td><td>Two-wheeler if safe transport is possible: €6.52.</td></tr>
+              <tr><td>3 kg, 60 × 40 × 40 cm</td><td>Car/van due to size: €9.13 (€7.36 net + €1.77 VAT).</td></tr>
+              <tr><td>21 kg, 30 × 30 × 30 cm</td><td>Car/van due to weight: €9.13, subject to safe transport being possible.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Examples exclude demand and zone adjustments. The vehicle surcharge applies once to the corresponding route, followed by VAT and cent rounding. The binding final quote is displayed before acceptance.</p>
+        <p class="source-links"><a href="/documents/DUTT-Timokatalogos-2026-11-07.pdf">Download the detailed price list PDF (Greek)</a></p>
         <p>
           DUTT uses dynamic pricing. Actual road distance is calculated digitally and the exact final charge is displayed before acceptance. The table below provides a price breakdown at each whole kilometre for a standard two-wheeler, with no demand or zone adjustment. Intermediate distances are calculated continuously and rounded to the nearest cent.
         </p>
@@ -1095,7 +1151,7 @@
           This agreement is governed by Greek law, Law 4053/2012, current EETT regulations and decisions, and consumer-protection law. A mandatory rule prevails over any conflicting term. The user may bring proceedings before the Greek courts.
         </p>
         <p>
-          This Charter takes effect on 18 / 10 / 2026. A new version applies from publication and does not retroactively alter an existing individual agreement. Current and earlier versions remain available for saving or printing in the <a href="/legal-archive.html">Legal document archive</a>.
+          This Charter takes effect on 07 / 11 / 2026. A new version applies from publication and does not retroactively alter an existing individual agreement. Current and earlier versions remain available for saving or printing in the <a href="/legal-archive.html">Legal document archive</a>.
         </p>
         <div class="source-links">
           <a href="https://www.eett.gr/wp-content/uploads/2024/02/%CE%91%CE%A01101-003.%CE%A6%CE%95%CE%9A.pdf" target="_blank" rel="noopener">EETT Regulation 1101/3/2024</a>
@@ -1116,10 +1172,10 @@
 
   <script>
     const standardPrices = [
-      4.84, 5.33, 5.88, 6.89, 7.76, 8.66, 9.82, 10.92, 12.11, 13.50,
-      14.93, 16.24, 17.50, 18.95, 20.30, 21.66, 22.87, 24.06, 25.37, 26.67,
-      27.78, 29.08, 30.38, 31.68, 33.22, 34.32, 35.61, 36.80, 37.99, 39.32,
-      40.62, 41.94, 43.26, 44.55, 45.86, 47.17, 48.48, 49.77, 51.09, 52.40
+      4.09, 4.59, 5.13, 5.90, 6.52, 7.25, 8.24, 9.19, 10.25, 11.52,
+      12.82, 14.01, 15.10, 16.38, 17.57, 18.93, 20.14, 21.33, 22.64, 23.95,
+      25.05, 26.35, 27.65, 28.96, 30.49, 31.59, 32.89, 34.08, 35.27, 36.59,
+      37.90, 39.21, 40.53, 41.82, 43.13, 44.44, 45.75, 47.04, 48.36, 49.67
     ];
 
     const VAT_RATE = 0.24;

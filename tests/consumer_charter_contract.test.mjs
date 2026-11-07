@@ -137,15 +137,15 @@ test('individual agreement publishes the exact licensed postal-provider identity
   ]) {
     assert.ok(agreement.includes(marker), `agreement missing licensed identity marker: ${marker}`);
   }
-  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.5<\/span>/);
-  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">18 \/ 10 \/ 2026<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.6<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">07 \/ 11 \/ 2026<\/span>/);
 });
 
 test('charter price snapshot matches the current agreement', () => {
   const prices = scriptValue('standardPrices');
   assert.equal(prices.length, 40);
-  assert.equal(prices[0], 4.84);
-  assert.equal(prices[39], 52.40);
+  assert.equal(prices[0], 4.09);
+  assert.equal(prices[39], 49.67);
   const agreementPrices = vm.runInNewContext(`(${agreement.match(/const standardPrices = (\[[\s\S]*?\]);/)?.[1]})`);
   assert.deepEqual([...prices], [...agreementPrices]);
   assert.equal(
@@ -175,10 +175,10 @@ test('all charter table-of-contents targets and local document links resolve', (
 });
 
 test('charter is published as an effective version without unresolved placeholders', () => {
-  assert.match(charter, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.4<\/span>/);
-  assert.match(charter, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">18 \/ 10 \/ 2026<\/span>/);
-  assert.match(charter, /Ο παρών Χάρτης τίθεται σε ισχύ στις 18 \/ 10 \/ 2026\./);
-  assert.match(charter, /This Charter takes effect on 18 \/ 10 \/ 2026\./);
+  assert.match(charter, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.5<\/span>/);
+  assert.match(charter, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">07 \/ 11 \/ 2026<\/span>/);
+  assert.match(charter, /Ο παρών Χάρτης τίθεται σε ισχύ στις 07 \/ 11 \/ 2026\./);
+  assert.match(charter, /This Charter takes effect on 07 \/ 11 \/ 2026\./);
   assert.match(charter, /Τα ονόματα των μελών γνωστοποιούνται στον ενδιαφερόμενο με την έγγραφη πρόσκληση\./);
   assert.doesNotMatch(charter, /προσχέδι|προεπισκόπηση|θα συμπληρω|υπό συμπλήρωση|υπό τεχνική επιβεβαίωση|πριν από την εμπορική έναρξη/i);
   assert.doesNotMatch(charter, /public draft|public preview|draft version|draft date|to be completed|before commercial launch|undergoing technical confirmation/i);

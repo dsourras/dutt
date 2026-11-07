@@ -4,12 +4,12 @@ import test from 'node:test';
 
 for (const file of ['service-terms.html', 'consumer-charter.html']) {
   const html = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
-  test(`${file}: publishes the balanced refusal tariff in both languages without changing outbound pricing`, () => {
+  test(`${file}: preserves the balanced refusal tariff in both languages while restoring outbound pricing`, () => {
     for (const marker of ['max(€1,50, €0,50 × d) + €0,30', 'max(€1.50, €0.50 × d) + €0.30',
       '€2,23 με ΦΠΑ', '€6,57 με ΦΠΑ', '€2.23 including VAT', '€6.57 including VAT',
       'Google Pay', 'Apple Pay', 'χωρίς πρόσθετη χρέωση ή δέσμευση', 'no additional card charge or hold',
       'χωρίς δεύτερη είσπραξη της αρχικής χρέωσης', 'without an automatic second attempt',
-      'Ήδη επιβεβαιωμένες επιστροφές', 'Already confirmed returns', 'launch_v13_selective_distance_pricing']) {
+      'Ήδη επιβεβαιωμένες επιστροφές', 'Already confirmed returns', 'launch_v14_restored_customer_tariff']) {
       assert.ok(html.includes(marker), `${file} missing ${marker}`);
     }
   });

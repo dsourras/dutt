@@ -7,8 +7,8 @@ const read = (name) => readFileSync(new URL(name, root), 'utf8').replace(/\r\n/g
 const clarification = /\r?\n        <p data-weight-pricing-clarification="2026-10-29">[\s\S]*?<\/p>/g;
 
 for (const [current, previous] of [
-  ['service-terms.html', 'legal/versions/service-terms-v1.5-2026-10-18.html'],
-  ['consumer-charter.html', 'legal/versions/consumer-charter-v1.4-2026-10-18.html'],
+  ['legal/versions/service-terms-v1.5-2026-10-29.html', 'legal/versions/service-terms-v1.5-2026-10-18.html'],
+  ['legal/versions/consumer-charter-v1.4-2026-10-29.html', 'legal/versions/consumer-charter-v1.4-2026-10-18.html'],
 ]) {
   test(`${current}: only the dated weight clarification is added`, () => {
     const html = read(current);
