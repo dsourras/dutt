@@ -3,6 +3,13 @@ import {readFileSync} from 'node:fs';
 import test from 'node:test';
 const root=new URL('../',import.meta.url);
 const read=file=>readFileSync(new URL(file,root),'utf8').replace(/\r\n/g,'\n');
+test('the current full agreement and charter PDFs are directly discoverable',()=>{
+ const archive=read('legal-archive.html');
+ for(const file of ['DUTT-Service-Terms-v1.6-2026-11-07.pdf','DUTT-Consumer-Charter-v1.5-2026-11-07.pdf']){
+  assert.ok(archive.includes(`href="/documents/${file}"`));
+  assert.equal(readFileSync(new URL('documents/'+file,root)).subarray(0,5).toString('ascii'),'%PDF-');
+ }
+});
 for(const file of ['service-terms.html','consumer-charter.html']){
  const html=read(file);
  test(`${file}: weight, volume and car pricing are explicit in both languages`,()=>{
