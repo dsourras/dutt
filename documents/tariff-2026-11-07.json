@@ -1,0 +1,529 @@
+{
+  "effectiveDate": "2026-11-07",
+  "pricingPolicy": "launch_v14_restored_customer_tariff",
+  "previousTariffSource": "3369ff747814c680b8c4a5c40a06728e0bf04c48",
+  "vatRate": 0.24,
+  "carMultiplier": 1.4,
+  "rows": [
+    {
+      "km": 1,
+      "standard": {
+        "net": 3.3,
+        "vat": 0.79,
+        "gross": 4.09
+      },
+      "car": {
+        "net": 4.62,
+        "vat": 1.11,
+        "gross": 5.73
+      }
+    },
+    {
+      "km": 2,
+      "standard": {
+        "net": 3.7,
+        "vat": 0.89,
+        "gross": 4.59
+      },
+      "car": {
+        "net": 5.18,
+        "vat": 1.24,
+        "gross": 6.42
+      }
+    },
+    {
+      "km": 3,
+      "standard": {
+        "net": 4.14,
+        "vat": 0.99,
+        "gross": 5.13
+      },
+      "car": {
+        "net": 5.8,
+        "vat": 1.39,
+        "gross": 7.19
+      }
+    },
+    {
+      "km": 4,
+      "standard": {
+        "net": 4.76,
+        "vat": 1.14,
+        "gross": 5.9
+      },
+      "car": {
+        "net": 6.66,
+        "vat": 1.6,
+        "gross": 8.26
+      }
+    },
+    {
+      "km": 5,
+      "standard": {
+        "net": 5.26,
+        "vat": 1.26,
+        "gross": 6.52
+      },
+      "car": {
+        "net": 7.36,
+        "vat": 1.77,
+        "gross": 9.13
+      }
+    },
+    {
+      "km": 6,
+      "standard": {
+        "net": 5.85,
+        "vat": 1.4,
+        "gross": 7.25
+      },
+      "car": {
+        "net": 8.19,
+        "vat": 1.97,
+        "gross": 10.16
+      }
+    },
+    {
+      "km": 7,
+      "standard": {
+        "net": 6.65,
+        "vat": 1.59,
+        "gross": 8.24
+      },
+      "car": {
+        "net": 9.31,
+        "vat": 2.23,
+        "gross": 11.54
+      }
+    },
+    {
+      "km": 8,
+      "standard": {
+        "net": 7.41,
+        "vat": 1.78,
+        "gross": 9.19
+      },
+      "car": {
+        "net": 10.37,
+        "vat": 2.49,
+        "gross": 12.86
+      }
+    },
+    {
+      "km": 9,
+      "standard": {
+        "net": 8.27,
+        "vat": 1.98,
+        "gross": 10.25
+      },
+      "car": {
+        "net": 11.58,
+        "vat": 2.78,
+        "gross": 14.36
+      }
+    },
+    {
+      "km": 10,
+      "standard": {
+        "net": 9.29,
+        "vat": 2.23,
+        "gross": 11.52
+      },
+      "car": {
+        "net": 13.01,
+        "vat": 3.12,
+        "gross": 16.13
+      }
+    },
+    {
+      "km": 11,
+      "standard": {
+        "net": 10.34,
+        "vat": 2.48,
+        "gross": 12.82
+      },
+      "car": {
+        "net": 14.48,
+        "vat": 3.48,
+        "gross": 17.96
+      }
+    },
+    {
+      "km": 12,
+      "standard": {
+        "net": 11.3,
+        "vat": 2.71,
+        "gross": 14.01
+      },
+      "car": {
+        "net": 15.82,
+        "vat": 3.8,
+        "gross": 19.62
+      }
+    },
+    {
+      "km": 13,
+      "standard": {
+        "net": 12.18,
+        "vat": 2.92,
+        "gross": 15.1
+      },
+      "car": {
+        "net": 17.05,
+        "vat": 4.09,
+        "gross": 21.14
+      }
+    },
+    {
+      "km": 14,
+      "standard": {
+        "net": 13.21,
+        "vat": 3.17,
+        "gross": 16.38
+      },
+      "car": {
+        "net": 18.49,
+        "vat": 4.44,
+        "gross": 22.93
+      }
+    },
+    {
+      "km": 15,
+      "standard": {
+        "net": 14.17,
+        "vat": 3.4,
+        "gross": 17.57
+      },
+      "car": {
+        "net": 19.84,
+        "vat": 4.76,
+        "gross": 24.6
+      }
+    },
+    {
+      "km": 16,
+      "standard": {
+        "net": 15.27,
+        "vat": 3.66,
+        "gross": 18.93
+      },
+      "car": {
+        "net": 21.38,
+        "vat": 5.13,
+        "gross": 26.51
+      }
+    },
+    {
+      "km": 17,
+      "standard": {
+        "net": 16.24,
+        "vat": 3.9,
+        "gross": 20.14
+      },
+      "car": {
+        "net": 22.74,
+        "vat": 5.46,
+        "gross": 28.2
+      }
+    },
+    {
+      "km": 18,
+      "standard": {
+        "net": 17.2,
+        "vat": 4.13,
+        "gross": 21.33
+      },
+      "car": {
+        "net": 24.08,
+        "vat": 5.78,
+        "gross": 29.86
+      }
+    },
+    {
+      "km": 19,
+      "standard": {
+        "net": 18.26,
+        "vat": 4.38,
+        "gross": 22.64
+      },
+      "car": {
+        "net": 25.56,
+        "vat": 6.13,
+        "gross": 31.69
+      }
+    },
+    {
+      "km": 20,
+      "standard": {
+        "net": 19.31,
+        "vat": 4.64,
+        "gross": 23.95
+      },
+      "car": {
+        "net": 27.03,
+        "vat": 6.49,
+        "gross": 33.52
+      }
+    },
+    {
+      "km": 21,
+      "standard": {
+        "net": 20.2,
+        "vat": 4.85,
+        "gross": 25.05
+      },
+      "car": {
+        "net": 28.28,
+        "vat": 6.79,
+        "gross": 35.07
+      }
+    },
+    {
+      "km": 22,
+      "standard": {
+        "net": 21.25,
+        "vat": 5.1,
+        "gross": 26.35
+      },
+      "car": {
+        "net": 29.75,
+        "vat": 7.14,
+        "gross": 36.89
+      }
+    },
+    {
+      "km": 23,
+      "standard": {
+        "net": 22.3,
+        "vat": 5.35,
+        "gross": 27.65
+      },
+      "car": {
+        "net": 31.22,
+        "vat": 7.49,
+        "gross": 38.71
+      }
+    },
+    {
+      "km": 24,
+      "standard": {
+        "net": 23.35,
+        "vat": 5.61,
+        "gross": 28.96
+      },
+      "car": {
+        "net": 32.69,
+        "vat": 7.85,
+        "gross": 40.54
+      }
+    },
+    {
+      "km": 25,
+      "standard": {
+        "net": 24.59,
+        "vat": 5.9,
+        "gross": 30.49
+      },
+      "car": {
+        "net": 34.43,
+        "vat": 8.26,
+        "gross": 42.69
+      }
+    },
+    {
+      "km": 26,
+      "standard": {
+        "net": 25.48,
+        "vat": 6.11,
+        "gross": 31.59
+      },
+      "car": {
+        "net": 35.67,
+        "vat": 8.56,
+        "gross": 44.23
+      }
+    },
+    {
+      "km": 27,
+      "standard": {
+        "net": 26.52,
+        "vat": 6.37,
+        "gross": 32.89
+      },
+      "car": {
+        "net": 37.13,
+        "vat": 8.91,
+        "gross": 46.04
+      }
+    },
+    {
+      "km": 28,
+      "standard": {
+        "net": 27.48,
+        "vat": 6.6,
+        "gross": 34.08
+      },
+      "car": {
+        "net": 38.47,
+        "vat": 9.23,
+        "gross": 47.7
+      }
+    },
+    {
+      "km": 29,
+      "standard": {
+        "net": 28.44,
+        "vat": 6.83,
+        "gross": 35.27
+      },
+      "car": {
+        "net": 39.82,
+        "vat": 9.56,
+        "gross": 49.38
+      }
+    },
+    {
+      "km": 30,
+      "standard": {
+        "net": 29.51,
+        "vat": 7.08,
+        "gross": 36.59
+      },
+      "car": {
+        "net": 41.31,
+        "vat": 9.91,
+        "gross": 51.22
+      }
+    },
+    {
+      "km": 31,
+      "standard": {
+        "net": 30.56,
+        "vat": 7.34,
+        "gross": 37.9
+      },
+      "car": {
+        "net": 42.78,
+        "vat": 10.27,
+        "gross": 53.05
+      }
+    },
+    {
+      "km": 32,
+      "standard": {
+        "net": 31.62,
+        "vat": 7.59,
+        "gross": 39.21
+      },
+      "car": {
+        "net": 44.27,
+        "vat": 10.62,
+        "gross": 54.89
+      }
+    },
+    {
+      "km": 33,
+      "standard": {
+        "net": 32.69,
+        "vat": 7.84,
+        "gross": 40.53
+      },
+      "car": {
+        "net": 45.77,
+        "vat": 10.98,
+        "gross": 56.75
+      }
+    },
+    {
+      "km": 34,
+      "standard": {
+        "net": 33.73,
+        "vat": 8.09,
+        "gross": 41.82
+      },
+      "car": {
+        "net": 47.22,
+        "vat": 11.33,
+        "gross": 58.55
+      }
+    },
+    {
+      "km": 35,
+      "standard": {
+        "net": 34.78,
+        "vat": 8.35,
+        "gross": 43.13
+      },
+      "car": {
+        "net": 48.69,
+        "vat": 11.69,
+        "gross": 60.38
+      }
+    },
+    {
+      "km": 36,
+      "standard": {
+        "net": 35.84,
+        "vat": 8.6,
+        "gross": 44.44
+      },
+      "car": {
+        "net": 50.18,
+        "vat": 12.04,
+        "gross": 62.22
+      }
+    },
+    {
+      "km": 37,
+      "standard": {
+        "net": 36.9,
+        "vat": 8.85,
+        "gross": 45.75
+      },
+      "car": {
+        "net": 51.66,
+        "vat": 12.4,
+        "gross": 64.06
+      }
+    },
+    {
+      "km": 38,
+      "standard": {
+        "net": 37.94,
+        "vat": 9.1,
+        "gross": 47.04
+      },
+      "car": {
+        "net": 53.12,
+        "vat": 12.75,
+        "gross": 65.87
+      }
+    },
+    {
+      "km": 39,
+      "standard": {
+        "net": 39,
+        "vat": 9.36,
+        "gross": 48.36
+      },
+      "car": {
+        "net": 54.6,
+        "vat": 13.1,
+        "gross": 67.7
+      }
+    },
+    {
+      "km": 40,
+      "standard": {
+        "net": 40.06,
+        "vat": 9.61,
+        "gross": 49.67
+      },
+      "car": {
+        "net": 56.08,
+        "vat": 13.46,
+        "gross": 69.54
+      }
+    }
+  ]
+}

@@ -94,17 +94,17 @@ test('identity, item limits and current fiscal price metadata are explicit', () 
   assert.match(agreement, /20 kg/);
   assert.match(agreement, /18 \/ 10 \/ 2026/);
   assert.match(agreement, /ΦΠΑ 24%/);
-  assert.match(agreement, /data-pricing-policy-version="launch_v13_selective_distance_pricing"/);
+  assert.match(agreement, /data-pricing-policy-version="launch_v14_restored_customer_tariff"/);
 });
 
 test('published standard distance prices match the current canonical policy snapshot', () => {
   const prices = scriptValue('standardPrices');
   assert.equal(prices.length, 40);
   assert.deepEqual([...prices], [
-    4.84, 5.33, 5.88, 6.89, 7.76, 8.66, 9.82, 10.92, 12.11, 13.50,
-    14.93, 16.24, 17.50, 18.95, 20.30, 21.66, 22.87, 24.06, 25.37, 26.67,
-    27.78, 29.08, 30.38, 31.68, 33.22, 34.32, 35.61, 36.80, 37.99, 39.32,
-    40.62, 41.94, 43.26, 44.55, 45.86, 47.17, 48.48, 49.77, 51.09, 52.40,
+    4.09, 4.59, 5.13, 5.90, 6.52, 7.25, 8.24, 9.19, 10.25, 11.52,
+    12.82, 14.01, 15.10, 16.38, 17.57, 18.93, 20.14, 21.33, 22.64, 23.95,
+    25.05, 26.35, 27.65, 28.96, 30.49, 31.59, 32.89, 34.08, 35.27, 36.59,
+    37.90, 39.21, 40.53, 41.82, 43.13, 44.44, 45.75, 47.04, 48.36, 49.67,
   ]);
   assert.match(agreement, /0%, 1%, 1,5% ή 2,5%/);
   assert.match(agreement, /Προσαύξηση 40%/);
@@ -157,8 +157,8 @@ test('latest 2026 compensation safeguards and complaint deadlines are present', 
 });
 
 test('agreement exposes the final numbered version and public history', () => {
-  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.5<\/span>/);
-  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">18 \/ 10 \/ 2026<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έκδοση<\/span><span class="status-value">1\.6<\/span>/);
+  assert.match(agreement, /<span class="status-label">Έναρξη ισχύος<\/span><span class="status-value">07 \/ 11 \/ 2026<\/span>/);
   assert.match(agreement, /href="\/legal-archive\.html"/);
   assert.match(agreement, /προηγούμενες εκδόσεις της σύμβασης και των αντίστοιχων τιμοκαταλόγων/);
   assert.match(agreement, /Previous versions of the agreement and their corresponding price lists/);
