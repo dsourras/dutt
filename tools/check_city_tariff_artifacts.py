@@ -1,5 +1,6 @@
 """Verify every price in the draft HTML and PDF against the backend export."""
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -8,7 +9,7 @@ from lxml.html import fromstring
 from pypdf import PdfReader
 
 site = Path(__file__).resolve().parents[1]
-backend = site.parent / "backend"
+backend = Path(os.environ.get("DUTT_BACKEND_SOURCE", site.parent / "backend-git"))
 data = json.loads(subprocess.check_output(["node", str(backend / "tools/exportCityTariff.js")]))
 documents = site / "documents"
 
@@ -26,7 +27,7 @@ for name in ("service-terms", "consumer-charter"):
     for section, decimal in (("pricing", ","), ("pricing-en", ".")):
         pricing = doc.get_element_by_id(section)
         assert pricing.get("data-pricing-policy-version") == data["version"]
-        assert "10 kg" in pricing.text_content() and "40 km" in pricing.text_content()
+        assert f"{data['motorbikeMaxKg']} kg" in pricing.text_content() and "40 km" in pricing.text_content()
         for city in data["cities"]:
             rows = pricing.xpath(f'.//tbody[@data-city-tariff="{city}"]/tr')
             assert len(rows) == 40
@@ -39,7 +40,7 @@ pdf = PdfReader(documents / "DUTT-City-Tariff-Draft.pdf")
 assert len(pdf.pages) == len(data["cities"])
 for city, page in zip(data["cities"], pdf.pages, strict=True):
     text = page.extract_text()
-    assert "10 kg" in text and "ΠΡΟΣΧΕΔΙΟ" in text
+    assert f"{data['motorbikeMaxKg']} kg" in text and "ΠΡΟΣΧΕΔΙΟ" in text
     tokens = re.findall(r"\d+,\d{2}", text)
     actual = [int(token.replace(",", "")) for token in tokens]
     expected = [cents for row in data["rows"] for cents in cents_for(row, city)]

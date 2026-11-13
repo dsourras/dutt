@@ -1,5 +1,8 @@
 """Prepare the draft tariff and advance notice from the same code as checkout."""
+import argparse
+from datetime import date
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -11,7 +14,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import LongTable, PageBreak, Paragraph, SimpleDocTemplate, TableStyle
 
 SITE = Path(__file__).resolve().parents[1]
-BACKEND = SITE.parent / "backend"
+BACKEND = Path(os.environ.get("DUTT_BACKEND_SOURCE", SITE.parent / "backend-git"))
 DATA = json.loads(subprocess.check_output(
     ["node", str(BACKEND / "tools/exportCityTariff.js")], text=True, encoding="utf-8"
 ))
@@ -22,6 +25,11 @@ assert [row["km"] for row in DATA["rows"]] == list(range(1, 41))
 pdfmetrics.registerFont(TTFont("Dutt", "C:/Windows/Fonts/arial.ttf"))
 pdfmetrics.registerFont(TTFont("DuttBold", "C:/Windows/Fonts/arialbd.ttf"))
 OUT = SITE / "documents"
+parser = argparse.ArgumentParser()
+parser.add_argument("--effective-date", type=date.fromisoformat)
+args = parser.parse_args()
+effective = args.effective_date
+kg = DATA["motorbikeMaxKg"]
 TITLE = ParagraphStyle("Title", fontName="DuttBold", fontSize=23, leading=29, spaceAfter=12)
 BODY = ParagraphStyle("Body", fontName="Dutt", fontSize=9.5, leading=13, spaceAfter=8)
 
@@ -34,7 +42,8 @@ def footer(canvas, doc):
     canvas.setStrokeColor(colors.HexColor("#C8A200"))
     canvas.line(39, 40, A4[0] - 39, 40)
     canvas.setFont("Dutt", 9)
-    canvas.drawString(39, 27, "DUTT | ΠΡΟΣΧΕΔΙΟ, ΟΧΙ ΣΕ ΙΣΧΥ | info@dutt.gr")
+    status = effective.strftime("%d/%m/%Y") if effective else "ΠΡΟΣΧΕΔΙΟ, ΟΧΙ ΣΕ ΙΣΧΥ"
+    canvas.drawString(39, 27, f"DUTT | {status} | info@dutt.gr")
     canvas.drawRightString(A4[0] - 39, 27, str(doc.page))
 
 
@@ -44,8 +53,9 @@ for city, (name, _) in NAMES.items():
         story.append(PageBreak())
     story.extend([
         Paragraph(f"DUTT | Τιμοκατάλογος: {name}", TITLE),
-        Paragraph("Προτεινόμενες τιμές. Η ημερομηνία έναρξης θα ανακοινωθεί πριν από την εφαρμογή.", BODY),
-        Paragraph("Δίκυκλο: έως 10 kg και έως 45 × 45 × 45 cm. Πάνω από 10 kg ή εκτός διαστάσεων: "
+        Paragraph(f"Έναρξη ισχύος: {effective:%d/%m/%Y}." if effective else
+                  "Προτεινόμενες τιμές. Η ημερομηνία έναρξης θα ανακοινωθεί πριν από την εφαρμογή.", BODY),
+        Paragraph(f"Δίκυκλο: έως {kg} kg και έως 45 × 45 × 45 cm. Πάνω από {kg} kg ή εκτός διαστάσεων: "
                   "αυτοκίνητο/βαν, εφόσον είναι διαθέσιμο και μπορεί να φορτωθεί με ασφάλεια.", BODY),
         Paragraph("Οδική απόσταση έως 40 km, ελάχιστη τιμή 1 km. Αναλογική χρέωση για ενδιάμεσες "
                   "αποστάσεις, χωρίς προσαύξηση ζήτησης ή ζώνης. Αυτοκίνητο/βαν: +40%. "
@@ -72,7 +82,7 @@ for city, (name, _) in NAMES.items():
     ]))
     story.append(price_table)
 
-pdf = OUT / "DUTT-City-Tariff-Draft.pdf"
+pdf = OUT / (f"DUTT-City-Tariff-{effective.isoformat()}.pdf" if effective else "DUTT-City-Tariff-Draft.pdf")
 SimpleDocTemplate(str(pdf), pagesize=A4, leftMargin=39, rightMargin=39, topMargin=34,
                   bottomMargin=50, title="DUTT | Τιμοκατάλογος ανά πόλη (προσχέδιο)").build(
     story, onFirstPage=footer, onLaterPages=footer

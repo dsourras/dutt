@@ -1,14 +1,24 @@
 """Build a preview of the new terms/charter; never overwrite the current pages."""
+import argparse
+from datetime import date
 import json
+import os
 import subprocess
 from pathlib import Path
 
 from lxml.html import Element, fromstring, tostring
 
 ROOT = Path(__file__).resolve().parents[1]
+BACKEND = Path(os.environ.get("DUTT_BACKEND_SOURCE", ROOT.parent / "backend-git"))
 DATA = json.loads(subprocess.check_output(
-    ["node", str(ROOT.parent / "backend/tools/exportCityTariff.js")], encoding="utf-8"
+    ["node", str(BACKEND / "tools/exportCityTariff.js")], encoding="utf-8"
 ))
+parser = argparse.ArgumentParser()
+parser.add_argument("--effective-date", type=date.fromisoformat)
+args = parser.parse_args()
+effective = args.effective_date
+date_label = effective.strftime("%d / %m / %Y") if effective else None
+kg = DATA["motorbikeMaxKg"]
 NAMES = {"larisa": ("Λάρισα", "Larissa"), "thessaloniki": ("Θεσσαλονίκη", "Thessaloniki"),
          "athens": ("Αθήνα", "Athens")}
 
@@ -22,13 +32,16 @@ def add(parent, tag, text=None, **attrs):
 
 for file in ("service-terms", "consumer-charter"):
     document = fromstring((ROOT / f"{file}.html").read_text(encoding="utf-8"))
+    version = "1.7" if file == "service-terms" else "1.6"
+    suffix = f"v{version}-{effective.isoformat()}" if effective else "city-tariff-preview"
     for article in document.xpath("//article[@data-language]"):
         el = article.get("data-language") == "el"
         status = article.xpath("./header//span[@class='status-value']")
-        status[0].text = "Προσχέδιο" if el else "Draft"
-        status[1].text = "Δεν έχει οριστεί" if el else "Not yet set"
+        status[0].text = version if effective else ("Προσχέδιο" if el else "Draft")
+        status[1].text = date_label if effective else ("Δεν έχει οριστεί" if el else "Not yet set")
         article.xpath("./header/p[@class='eyebrow']")[0].text = (
-            "Προσχέδιο, όχι σε ισχύ" if el else "Draft, not in effect"
+            ("Νέα έκδοση" if el else "New edition") if effective else
+            ("Προσχέδιο, όχι σε ισχύ" if el else "Draft, not in effect")
         )
     for section_id, lang in (("pricing", 0), ("pricing-en", 1)):
         el = lang == 0
@@ -41,11 +54,12 @@ for file in ("service-terms", "consumer-charter"):
         tail = list(section)[1:]
         for child in tail:
             section.remove(child)
-        add(section, "p", "Προσχέδιο, όχι σε ισχύ. Η ημερομηνία εφαρμογής θα ανακοινωθεί πριν από την έναρξη."
-            if el else "Draft, not in effect. The effective date will be announced in advance.")
-        add(section, "p", ("Δίκυκλο: έως 10 kg και έως 45 × 45 × 45 cm. Πάνω από 10 kg ή πάνω από 45 cm σε οποιαδήποτε πλευρά "
+        add(section, "p", (f"Έναρξη ισχύος: {date_label}." if el else f"Effective date: {date_label}.")
+            if effective else ("Προσχέδιο, όχι σε ισχύ. Η ημερομηνία εφαρμογής θα ανακοινωθεί πριν από την έναρξη."
+            if el else "Draft, not in effect. The effective date will be announced in advance."))
+        add(section, "p", (f"Δίκυκλο: έως {kg} kg και έως 45 × 45 × 45 cm. Πάνω από {kg} kg ή πάνω από 45 cm σε οποιαδήποτε πλευρά "
             "απαιτείται αυτοκίνητο/βαν, εφόσον υπάρχει κατάλληλο διαθέσιμο όχημα και είναι εφικτή η ασφαλής φόρτωση.")
-            if el else ("Two-wheeler: up to 10 kg and 45 × 45 × 45 cm. A car or van is required above 10 kg or above "
+            if el else (f"Two-wheeler: up to {kg} kg and 45 × 45 × 45 cm. A car or van is required above {kg} kg or above "
                         "45 cm on any side, subject to availability and safe loading."))
         add(section, "p", ("Τιμή ανά πόλη παραλαβής, οδική απόσταση 1–40 km και όχημα. Ελάχιστη χρέωση 1 km. "
             "Αναλογική χρέωση ενδιάμεσων αποστάσεων, χωρίς προσαύξηση ζήτησης ή ζώνης. "
@@ -53,10 +67,10 @@ for file in ("service-terms", "consumer-charter"):
             if el else ("Prices vary by pickup city, road distance (1–40 km) and vehicle. Minimum 1 km fare. "
                         "Intermediate distances are prorated, with no demand or zone surcharge. "
                         "Car/van: +40%. The tariff in other cities is unchanged."))
-        add(add(section, "p"), "a", "Λήψη προσχεδίου PDF" if el else "Download draft PDF",
-            href="DUTT-City-Tariff-Draft.pdf")
-        add(add(section, "p"), "a", "Ισχύων τιμοκατάλογος" if el else "Current tariff",
-            href=f"/{file}.html#{section_id}")
+        add(add(section, "p"), "a", "Τιμοκατάλογος PDF" if el else "Tariff PDF",
+            href=f"/documents/DUTT-City-Tariff-{effective.isoformat() if effective else 'Draft'}.pdf")
+        add(add(section, "p"), "a", "Προηγούμενος τιμοκατάλογος και λοιπές πόλεις" if el else
+            "Previous tariff and other cities", href="/documents/DUTT-Timokatalogos-2026-11-07.pdf")
         for city in DATA["cities"]:
             add(section, "h3", NAMES[city][lang])
             table = add(add(section, "div", **{"class": "table-wrap"}), "table")
@@ -74,12 +88,6 @@ for file in ("service-terms", "consumer-charter"):
                         add(tr, "td", f"{cents // 100}{',' if el else '.'}{cents % 100:02d} €")
             assert len(body) == 40
         section.extend(tail)
-    for identity in ("el-items", "en-items"):
-        matches = document.xpath(f'//*[@id="{identity}"]')
-        if matches:
-            for item in matches[0].xpath(".//span"):
-                if item.text == "20 kg":
-                    item.text = "10 kg"
-    out = ROOT / "documents" / f"{file}-city-tariff-preview.html"
+    out = ROOT / "documents" / f"{file}-{suffix}.html"
     out.write_text(tostring(document, encoding="unicode", doctype="<!doctype html>"), encoding="utf-8")
     print(out)
