@@ -472,8 +472,6 @@
       delivery_address_required: "Συμπληρώστε τη διεύθυνση παράδοσης.",
       recipient_phone_invalid: "Ελέγξτε το τηλέφωνο παραλήπτη.",
       cart_subtotal_invalid: "Ελέγξτε την αξία της παραγγελίας.",
-      package_weight_invalid: "Ελέγξτε το συνολικό βάρος του δέματος.",
-      motorbike_weight_confirmation_required: "Συμπληρώστε το συνολικό βάρος του δέματος.",
     };
     return messages[reason] || "Δεν ήταν δυνατή η σύνδεση με τη DUTT. Δοκιμάστε ξανά.";
   }
@@ -550,7 +548,6 @@
                 <label>Πόλη<input name="city" autocomplete="address-level2" maxlength="120" required value="Λάρισα"></label>
                 <label>Τ.Κ.<input name="postcode" autocomplete="postal-code" maxlength="20"></label>
                 <label class="wide subtotal-field">Αξία παραγγελίας (€)<input name="subtotal" inputmode="decimal" required></label>
-                <label class="wide">Συνολικό βάρος δέματος (kg)<input name="weight" type="number" min="0.001" step="0.001" required></label>
                 <label class="wide">Σημειώσεις<textarea name="notes" maxlength="500"></textarea></label>
                 <label class="wide consent"><input name="privacy" type="checkbox" required><span>Έχω διαβάσει την <a href="https://dutt.gr/privacy.html" target="_blank" rel="noopener">Πολιτική Απορρήτου</a> και συμφωνώ να διαβιβαστούν τα στοιχεία παράδοσης στη DUTT.</span></label>
               </div>
@@ -717,7 +714,6 @@
           customer_privacy_notice_accepted: form.get("privacy") === "on",
           client_reference: clientReference(),
           cart_subtotal: subtotal,
-          package_weight_kg: form.get("weight"),
           customer: {
             name: form.get("name"),
             phone: form.get("phone"),
