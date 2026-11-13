@@ -1,4 +1,6 @@
 """Render current Greek legal documents from their canonical HTML and checked prices."""
+import argparse
+from datetime import date
 import hashlib
 import json
 from html import escape
@@ -16,6 +18,16 @@ from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "documents"
+parser = argparse.ArgumentParser()
+mode = parser.add_mutually_exclusive_group()
+mode.add_argument("--city-preview", action="store_true")
+mode.add_argument("--city-effective-date", type=date.fromisoformat)
+args = parser.parse_args()
+effective = args.city_effective_date
+city = args.city_preview or effective is not None
+date_label = effective.strftime("%d/%m/%Y") if effective else (
+    "ΠΡΟΣΧΕΔΙΟ, ΟΧΙ ΣΕ ΙΣΧΥ" if city else "07/11/2026"
+)
 DATA = json.loads((OUT / "tariff-2026-11-07.json").read_text(encoding="utf-8"))
 assert len(DATA["rows"]) == 40
 pdfmetrics.registerFont(TTFont("Dutt", "C:/Windows/Fonts/arial.ttf"))
@@ -94,7 +106,8 @@ def blocks(parent):
             result.extend([table(rows, widths), Spacer(1, 10)])
         elif element.tag == "div" and any(name in element.get("class", "").split() for name in ("identity-grid", "rate-grid")):
             for item in element:
-                result.append(para(rich(item)))
+                parts = [rich(part) for part in item]
+                result.append(para(": ".join(parts) if city and len(parts) == 2 else rich(item)))
     return result
 
 
@@ -103,7 +116,7 @@ def footer(canvas, document):
     canvas.setStrokeColor(colors.HexColor("#d1aa00"))
     canvas.line(50, 42, A4[0] - 50, 42)
     canvas.setFont("Dutt", 8)
-    canvas.drawString(50, 28, "DUTT | Έναρξη ισχύος 07/11/2026 | info@dutt.gr")
+    canvas.drawString(50, 28, f"DUTT | {date_label} | info@dutt.gr")
     canvas.drawRightString(A4[0] - 50, 28, f"Σελίδα {document.page}")
     canvas.restoreState()
 
@@ -121,19 +134,38 @@ def build(filename, title, subtitle, content):
     text = "\n".join(page.extract_text() or "" for page in reader.pages)
     assert all(len(page.extract_text() or "") > 80 for page in reader.pages)
     assert "103922076" in text and "20 kg" in text
-    assert "6,52" in text and "9,13" in text
+    if city:
+        assert "7,50" in text and "60,50" in text
+        assert date_label in text
+    else:
+        assert "6,52" in text and "9,13" in text
     assert "\ufffd" not in text
     return {"file": filename, "pages": len(reader.pages), "bytes": target.stat().st_size, "sha256": hashlib.sha256(target.read_bytes()).hexdigest()}
 
 
-terms = fromstring((ROOT / "service-terms.html").read_text(encoding="utf-8"))
-charter = fromstring((ROOT / "consumer-charter.html").read_text(encoding="utf-8"))
-records = [build("DUTT-Timokatalogos-2026-11-07.pdf", "Τιμοκατάλογος υπηρεσιών", "Επαναφορά προηγούμενων βασικών τιμών και σαφείς όροι βάρους, διαστάσεων και αυτοκινήτου", blocks(terms.get_element_by_id("pricing")))]
-for tree, filename, title, version in [(terms, "DUTT-Service-Terms-v1.6-2026-11-07.pdf", "Σύμβαση Όρων Παροχής", "1.6"), (charter, "DUTT-Consumer-Charter-v1.5-2026-11-07.pdf", "Χάρτης Υποχρεώσεων προς τον Χρήστη-Καταναλωτή", "1.5")]:
+records = []
+if not city:
+    terms = fromstring((ROOT / "service-terms.html").read_text(encoding="utf-8"))
+    records.append(build("DUTT-Timokatalogos-2026-11-07.pdf", "Τιμοκατάλογος υπηρεσιών",
+        "Επαναφορά προηγούμενων βασικών τιμών και σαφείς όροι βάρους, διαστάσεων και αυτοκινήτου",
+        blocks(terms.get_element_by_id("pricing"))))
+
+for slug, stem, title, current, new in (
+    ("service-terms", "DUTT-Service-Terms", "Σύμβαση Όρων Παροχής", "1.6", "1.7"),
+    ("consumer-charter", "DUTT-Consumer-Charter", "Χάρτης Υποχρεώσεων προς τον Χρήστη-Καταναλωτή", "1.5", "1.6"),
+):
+    version = new if city else current
+    suffix = f"v{version}-{effective.isoformat()}" if effective else (
+        "city-tariff-preview" if city else f"v{version}-2026-11-07"
+    )
+    source = OUT / f"{slug}-{suffix}.html" if city else ROOT / f"{slug}.html"
+    tree = fromstring(source.read_text(encoding="utf-8"))
     content = []
     for section in tree.xpath('//article[@data-language="el"]/section'):
         content.extend(blocks(section))
-    records.append(build(filename, title, "Έκδοση " + version + " | 07/11/2026 | Χωρίς αναδρομική μεταβολή υφιστάμενων συμφωνιών", content))
+    records.append(build(f"{stem}-{suffix}.pdf", title,
+        f"Έκδοση {version} | {date_label} | Χωρίς αναδρομική μεταβολή υφιστάμενων συμφωνιών", content))
 
-(OUT / "document-manifest-2026-11-07.json").write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+manifest = effective.isoformat() if effective else ("city-preview" if city else "2026-11-07")
+(OUT / f"document-manifest-{manifest}.json").write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print(json.dumps(records, ensure_ascii=False, indent=2))

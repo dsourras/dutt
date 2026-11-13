@@ -34,6 +34,8 @@ for file in ("service-terms", "consumer-charter"):
     document = fromstring((ROOT / f"{file}.html").read_text(encoding="utf-8"))
     version = "1.7" if file == "service-terms" else "1.6"
     suffix = f"v{version}-{effective.isoformat()}" if effective else "city-tariff-preview"
+    for logo in document.xpath("//img[@src='logo_white1.png']"):
+        logo.set("src", "/logo_white1.png")
     for article in document.xpath("//article[@data-language]"):
         el = article.get("data-language") == "el"
         status = article.xpath("./header//span[@class='status-value']")
@@ -69,6 +71,9 @@ for file in ("service-terms", "consumer-charter"):
                         "Car/van: +40%. The tariff in other cities is unchanged."))
         add(add(section, "p"), "a", "Τιμοκατάλογος PDF" if el else "Tariff PDF",
             href=f"/documents/DUTT-City-Tariff-{effective.isoformat() if effective else 'Draft'}.pdf")
+        document_name = "DUTT-Service-Terms" if file == "service-terms" else "DUTT-Consumer-Charter"
+        add(add(section, "p"), "a", "Πλήρες έγγραφο PDF" if el else "Full document PDF (Greek)",
+            href=f"/documents/{document_name}-{suffix}.pdf")
         add(add(section, "p"), "a", "Προηγούμενος τιμοκατάλογος και λοιπές πόλεις" if el else
             "Previous tariff and other cities", href="/documents/DUTT-Timokatalogos-2026-11-07.pdf")
         for city in DATA["cities"]:
