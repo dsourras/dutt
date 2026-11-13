@@ -1,4 +1,6 @@
 """Verify every price in the draft HTML and PDF against the backend export."""
+import argparse
+from datetime import date
 import json
 import os
 import re
@@ -12,6 +14,9 @@ site = Path(__file__).resolve().parents[1]
 backend = Path(os.environ.get("DUTT_BACKEND_SOURCE", site.parent / "backend-git"))
 data = json.loads(subprocess.check_output(["node", str(backend / "tools/exportCityTariff.js")]))
 documents = site / "documents"
+parser = argparse.ArgumentParser()
+parser.add_argument("--effective-date", type=date.fromisoformat)
+effective = parser.parse_args().effective_date
 
 
 def cents_for(row, city):
@@ -22,12 +27,15 @@ def cents_for(row, city):
     ]
 
 
-for name in ("service-terms", "consumer-charter"):
-    doc = fromstring((documents / f"{name}-city-tariff-preview.html").read_text(encoding="utf-8"))
+for name, version in (("service-terms", "1.7"), ("consumer-charter", "1.6")):
+    suffix = f"v{version}-{effective.isoformat()}" if effective else "city-tariff-preview"
+    doc = fromstring((documents / f"{name}-{suffix}.html").read_text(encoding="utf-8"))
     for section, decimal in (("pricing", ","), ("pricing-en", ".")):
         pricing = doc.get_element_by_id(section)
         assert pricing.get("data-pricing-policy-version") == data["version"]
         assert f"{data['motorbikeMaxKg']} kg" in pricing.text_content() and "40 km" in pricing.text_content()
+        if effective:
+            assert effective.strftime("%d / %m / %Y") in pricing.text_content()
         for city in data["cities"]:
             rows = pricing.xpath(f'.//tbody[@data-city-tariff="{city}"]/tr')
             assert len(rows) == 40
@@ -36,11 +44,12 @@ for name in ("service-terms", "consumer-charter"):
                 assert int(cells[0]) == expected["km"]
                 assert [int(value.removesuffix(" €").replace(decimal, "")) for value in cells[1:]] == cents_for(expected, city)
 
-pdf = PdfReader(documents / "DUTT-City-Tariff-Draft.pdf")
+pdf = PdfReader(documents / f"DUTT-City-Tariff-{effective.isoformat() if effective else 'Draft'}.pdf")
 assert len(pdf.pages) == len(data["cities"])
 for city, page in zip(data["cities"], pdf.pages, strict=True):
     text = page.extract_text()
-    assert f"{data['motorbikeMaxKg']} kg" in text and "ΠΡΟΣΧΕΔΙΟ" in text
+    status = effective.strftime("%d/%m/%Y") if effective else "ΠΡΟΣΧΕΔΙΟ"
+    assert f"{data['motorbikeMaxKg']} kg" in text and status in text
     tokens = re.findall(r"\d+,\d{2}", text)
     actual = [int(token.replace(",", "")) for token in tokens]
     expected = [cents for row in data["rows"] for cents in cents_for(row, city)]
