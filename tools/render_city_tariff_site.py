@@ -22,6 +22,14 @@ def add(parent, tag, text=None, **attrs):
 
 for file in ("service-terms", "consumer-charter"):
     document = fromstring((ROOT / f"{file}.html").read_text(encoding="utf-8"))
+    for article in document.xpath("//article[@data-language]"):
+        el = article.get("data-language") == "el"
+        status = article.xpath("./header//span[@class='status-value']")
+        status[0].text = "Προσχέδιο" if el else "Draft"
+        status[1].text = "Δεν έχει οριστεί" if el else "Not yet set"
+        article.xpath("./header/p[@class='eyebrow']")[0].text = (
+            "Προσχέδιο, όχι σε ισχύ" if el else "Draft, not in effect"
+        )
     for section_id, lang in (("pricing", 0), ("pricing-en", 1)):
         el = lang == 0
         section = document.get_element_by_id(section_id)
@@ -47,6 +55,8 @@ for file in ("service-terms", "consumer-charter"):
                         "Car/van: +40%. The tariff in other cities is unchanged."))
         add(add(section, "p"), "a", "Λήψη προσχεδίου PDF" if el else "Download draft PDF",
             href="DUTT-City-Tariff-Draft.pdf")
+        add(add(section, "p"), "a", "Ισχύων τιμοκατάλογος" if el else "Current tariff",
+            href=f"/{file}.html#{section_id}")
         for city in DATA["cities"]:
             add(section, "h3", NAMES[city][lang])
             table = add(add(section, "div", **{"class": "table-wrap"}), "table")
